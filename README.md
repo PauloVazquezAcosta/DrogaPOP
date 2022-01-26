@@ -50,6 +50,7 @@ A primeira elección ao crear este software é escoller o sistema xestor de base
 **PostgreSQL** tén unha maior compatibilidade con API, un soporte máis económico e unha escalabilidade máis robusta.  Necesitamos unha base de datos fácil de usar que poida personalizar as operacións, cun custo total de propiedade baixo. Como administradores de bases de datos, cremos que é o sistema óptimo tendo en conta as características do proxecto.
 
 ### Estrutura da base de datos
+![Modelo ER DrogaPOP](https://raw.githubusercontent.com/PauloVazquezAcosta/DrogaPOP/readme/images/Modelo%20ER%20DrogaPOP.png)
 
 
 ## Comezando
