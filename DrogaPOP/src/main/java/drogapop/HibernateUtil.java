@@ -1,5 +1,7 @@
 package drogapop;
 
+import drogapop.entity.Department;
+import drogapop.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -19,9 +21,8 @@ public class HibernateUtil {
     Configuration configuration = new Configuration();
     configuration.configure();
     // Se registran las clases que hay que mapear con cada tabla de la base de datos
-    // configuration.addAnnotatedClass(Clase1.class);
-    // configuration.addAnnotatedClass(Clase2.class);
-    // configuration.addAnnotatedClass(Clase3.class);
+    configuration.addAnnotatedClass(Department.class);
+    configuration.addAnnotatedClass(Employee.class);
     
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
       configuration.getProperties()).build();
@@ -57,4 +58,37 @@ public class HibernateUtil {
     if (sessionFactory != null)
       sessionFactory.close();
   }
+
+  // Metodos para tabla empleados:
+
+  // Introducir elemento en la tabla de empleados
+  public void añadirObjetoDePrueba(){
+    Department departamento = new Department(1, "xd", 1, "Coruña");
+    Session sesion = HibernateUtil.getCurrentSession();
+    sesion.beginTransaction();
+    sesion.save(departamento);
+    sesion.getTransaction().commit();
+    sesion.close();
+  }
+
+  //Eliminar elemento tabla empleados
+
+  // Buscar forma de eliminar un elemento pasando solo un
+  // elemento en lugar de pasar el objeto entero por ejemplo:
+  // Pasar como parametro el id y ejecutar una query que elimine
+  // el elemento de la base de datos con el id que pasamos como parametro
+  public void eliminarObjetoDePrueba(){
+    Department departamento = new Department(1, "xd", 1, "Coruña");
+    Session sesion = HibernateUtil.getCurrentSession();
+    sesion.beginTransaction();
+    sesion.delete(departamento);
+    sesion.getTransaction().commit();
+    sesion.close();
+  }
+
+  // Metodos tabla empleados y tabla departamentos
+  // Ejecutar querys: SELECT * from Departamentos
+  //                  SELECT * from Empregados
+
+
 }
