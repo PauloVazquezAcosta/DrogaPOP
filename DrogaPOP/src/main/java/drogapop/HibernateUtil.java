@@ -40,7 +40,6 @@ public class HibernateUtil {
    * @return
    */
   public static Session getCurrentSession() {
-	
     if ((session == null) || (!session.isOpen()))
       openSession();
 			
