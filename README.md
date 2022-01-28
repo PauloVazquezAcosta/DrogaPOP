@@ -31,9 +31,10 @@ _DrogaPOP é un programa que xestiona unha base de datos con información sobre 
 
 ## Construído con
 A estrutura do programa creouse utilizando as seguintes ferramentas:
+- [Microsoft Paint](https://support.microsoft.com/es-es/windows/abrir-microsoft-paint-ead1dc5c-abc4-fd2c-d81e-ebb013fbc113) Editor de imaxes utilizado para realizar o deseño do modelo UML.
 - [PGModeler 0.9.4-beta1](https://pgmodeler.io/) Modelador de bases de datos PostgreSQL.
 - [pgAdmin 4 6.4](https://www.pgadmin.org/) Xestor de bases de datos PostgreSQL.
-- [PostgreSQL 13.5](https://www.postgresql.org/) Sistema de xestión de bases de datos relacionais orientado a obxectos.
+- [PostgreSQL 14](https://www.postgresql.org/) Sistema de xestión de bases de datos relacionais orientado a obxectos.
 - [Docker](https://www.docker.com/) Despliegue de aplicaciones dentro de contenedores de software.
 - [Hibernate ORM 5.6.4.Final](http://handlebarsjs.com/) Ferramenta de mapeo obxecto-relacional para Java.
 - [Apache NetBeans IDE 12.4](https://netbeans.apache.org/download/index.html) Entorno de desenvolvemento (IDE) para Java.
@@ -108,9 +109,9 @@ A primeira elección ao crear este software é escoller o sistema xestor de base
 **PostgreSQL** tén unha maior compatibilidade con API, un soporte máis económico e unha escalabilidade máis robusta.  Necesitamos unha base de datos fácil de usar que poida personalizar as operacións, cun custo total de propiedade baixo. Como administradores de bases de datos, cremos que é o sistema óptimo tendo en conta as características do proxecto.
 
 ### Estrutura da base de datos
-A estrutura da base de datos consta nun inicio de dúas táboas: Empregados e Departamentos. Estas táboas almacenarán tanto os departamentos coa súa ubicación e o empregado xefe de cada un deles como os empregados que traballan na empresa. 
+A estrutura da base de datos constaba nun inicio de dúas táboas: Empregados e Departamentos, no camiño de análise do problema houbo diversos cambios que deron noutra estrutura dos datos.
 
-Cada táboa tén a súa chave primaria que non se poderá repetir, isto terase en conta á hora de programar en Java. Tamén terán chaves foráneas xa que cada departamento ten un xefe que tén que estar na lista de empregados e cada empregado pertence a un departamento. Isto é importante porque hai que verirficar que o xefe do departamento sexa empregado e que o departamento existe cando se introduce un empregado.
+As novas táboas representan aos empregados, departamentos e as diferentes sedes da empresa. Cada táboa tén a súa chave primaria que non se poderá repetir, isto terase en conta á hora de programar en Java. Tamén terán chaves foráneas xa que cada departamento ten un xefe que tén que estar na lista de empregados e cada empregado pertence a un departamento. Isto é importante porque hai que verirficar que o xefe do departamento sexa empregado e que o departamento existe cando se introduce un empregado. Tamén temos que ter en conta de que o departamento se cree nunha sede xa existente, ou que se engada esta sede para que esta relación sexa completa.
 
 O **modelo Entidade-Relación** é o seguinte:
 ![Modelo ER DrogaPOP](https://raw.githubusercontent.com/PauloVazquezAcosta/DrogaPOP/readme/images/Modelo%20ER%20DrogaPOP.png)
@@ -119,10 +120,10 @@ As táboas na base de datos teñen os atributos que se mostran seguidamente, na 
 #### Táboa Departamentos
 | Nome de columna  | Tipo de dato SQL | Tipo de dato Java| Características|
 | ------------- | ------------- | ------------- | ------------- |
-| id  | smallint| int| Primary Key|
+| id  | serial| int| Primary Key|
 | nome  | character varying(25)  | String| Not NULL|
 | xefe| smallint| int| Foreign Key / Not NULL|
-| ubicacion  | character varying(20)  | String| Not NULL|
+| ubicacion  | integer  | String| Foreign Key|
 
 #### Táboa Empregados
 | Nome de columna  | Tipo de dato SQL | Tipo de dato Java| Características|
@@ -168,7 +169,7 @@ Non esquezas dar unha estrela ao proxecto. Grazas de novo!
 Distribuído baixo _[GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html)_. Ver [`LICENSE.md`](https://github.com/PauloVazquezAcosta/DrogaPOP/blob/readme/LICENSE.md) para máis información.
 
 ## Código de conduta
-Este Código de Conducta é unha adaptación do [Contributor Covenant](https://www.contributor-covenant.org/es/version/2/0/code_of_conduct.html), versión 2.0. Ver [`CONTRIBUTOR_COVENANT.md`](https://github.com/PauloVazquezAcosta/DrogaPOP/blob/readme/CODIGO_CONDUTA.md) para máis información.
+Este Código de Conducta é unha adaptación do [Contributor Covenant](https://www.contributor-covenant.org/es/version/2/0/code_of_conduct.html), versión 2.0. Ver [`CODIGO_CONDUTA.md`](https://github.com/PauloVazquezAcosta/DrogaPOP/blob/readme/CODIGO_CONDUTA.md) para máis información.
 
 
 ## Versionado 📌
@@ -188,4 +189,3 @@ Usamos [SemVer](https://semver.org/lang/es/) para o versionado. Para todas as ve
 * Dá as grazas publicamente. 🤓
 * Ponnos unha notaza de fin de curso por este Readme.
 * Dálle like a este proxecto :thumbsup:
-
