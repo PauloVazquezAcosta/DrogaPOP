@@ -1,84 +1,81 @@
-# Código de Conducta convenido para Contribuyentes
+# Código de Conduta convido para Contribuíntes
 
-## Nuestro compromiso
+## O noso compromiso
 
-Nosotros, como miembros, contribuyentes y administradores nos comprometemos a hacer de la participación en nuestra comunidad una experiencia libre de acoso para todo el mundo, independientemente de la edad, dimensión corporal, minusvalía visible o invisible, etnicidad, características sexuales, identidad y expresión de género, nivel de experiencia, educación, nivel socio-económico, nacionalidad, apariencia personal, raza, religión, o identidad u orientación sexual.
+Nós, como membros, contribuíntes e administradores comprometémonos a facer da participación na nosa comunidade unha experiencia libre de acoso para todo o mundo, independentemente da idade, dimensión corporal, discapacidade visible ou invisible,  etnicidade, características sexuais, identidade e expresión de xénero, nivel de experiencia, educación, nivel socio-económico, nacionalidade, aparencia persoal, raza, relixión, ou identidade ou orientación sexual.
 
-Nos comprometemos a actuar e interactuar de maneras que contribuyan a una comunidad abierta, acogedora, diversa, inclusiva y sana.
+Comprometémonos a actuar e interactuar de maneiras que contribúan a unha comunidade aberta, acolledora, diversa, inclusiva e sa.
 
-## Nuestros estándares
+## Os nosos estándares
 
-Ejemplos de comportamiento que contribuyen a crear un ambiente positivo para nuestra comunidad:
+Exemplos de comportamento que contribúen a crear un ambiente positivo para a nosa comunidade:
 
-* Demostrar empatía y amabilidad ante otras personas
-* Respeto a diferentes opiniones, puntos de vista y experiencias
-* Dar y aceptar adecuadamente retroalimentación constructiva
-* Aceptar la responsabilidad y disculparse ante quienes se vean afectados por nuestros errores, aprendiendo de la experiencia
-* Centrarse en lo que sea mejor no sólo para nosotros como individuos, sino para la comunidad en general
+* Demostrar empatía e amabilidade ante outras persoas
+* Respecto a diferentes opinións, puntos de vista e experiencias
+* Dar e aceptar adecuadamente  retroalimentación construtiva
+* Aceptar a responsabilidade e desculparse ante quen se vexa afectados polos nosos erros, aprendendo da experiencia
+* Centrarse no que sexa mellor non só para nós como individuos, senón para a comunidade en xeral
 
-Ejemplos de comportamiento inaceptable:
+Exemplos de comportamento inaceptable:
 
-* El uso de lenguaje o imágenes sexualizadas, y aproximaciones o
-  atenciones sexuales de cualquier tipo
-* Comentarios despectivos (_trolling_), insultantes o derogatorios, y ataques personales o políticos
-* El acoso en público o privado
-* Publicar información privada de otras personas, tales como direcciones físicas o de correo
-  electrónico, sin su permiso explícito
-* Otras conductas que puedan ser razonablemente consideradas como inapropiadas en un
-  entorno profesional
+* O uso de linguaxe ou imaxes  sexualizadas, e aproximacións ou atencións sexuais de calquera tipo
+* Comentarios despectivos (_ trolling_), insultantes ou derrogatorios, e ataques persoais ou políticos
+* O acoso en público ou privado
+* Publicar información privada doutras persoas, tales como direccións físicas ou de correo electrónico, sen o seu permiso explícito
+* Outras condutas que poidan ser razoablemente consideradas como inapropiadas nunha contorna profesional
 
-## Aplicación de las responsabilidades
+## Aplicación das responsabilidades
 
-Los administradores de la comunidad son responsables de aclarar y hacer cumplir nuestros estándares de comportamiento aceptable y tomarán acciones apropiadas y correctivas de forma justa en respuesta a cualquier comportamiento que consideren inapropiado, amenazante, ofensivo o dañino.
+Os administradores da comunidade son responsables de aclarar e facer cumprir os nosos estándares de comportamento aceptable e tomarán accións apropiadas e corretivas de forma xusta en resposta a calquera comportamento que consideren inapropiado, ameazante, ofensivo ou daniño.
 
-Los administradores de la comunidad tendrán el derecho y la responsabilidad de eliminar, editar o rechazar comentarios, _commits_, código, ediciones de páginas de wiki, _issues_ y otras contribuciones que no se alineen con este Código de Conducta, y comunicarán las razones para sus decisiones de moderación cuando sea apropiado.
+Os administradores da comunidade terán o dereito e a responsabilidade de eliminar, editar ou rexeitar comentarios, _ commits_, código, edicións de páxinas de wiki, _ issues_ e outras contribucións que non se aliñen con este Código de Conduta, e comunicarán as razóns para as súas decisións de moderación cando sexa apropiado.
 
 ## Alcance
 
-Este código de conducta aplica tanto a espacios del proyecto como a espacios públicos donde un individuo esté en representación del proyecto o comunidad. Ejemplos de esto incluyen el uso de la cuenta oficial de correo electrónico, publicaciones a través de las redes sociales oficiales, o presentaciones con personas designadas en eventos en línea o no.
+Este código de conduta aplica tanto a espazos do proxecto como a espazos públicos onde un individuo estea en representación do proxecto ou comunidade. Exemplos disto inclúen o uso da conta oficial de correo electrónico, publicacións a través das redes sociais oficiais, ou presentacións con persoas designadas en eventos en liña ou non.
 
 ## Aplicación
 
-Instancias de comportamiento abusivo, acosador o inaceptable de otro modo podrán ser reportadas a los administradores de la comunidad responsables del cumplimiento a través de [INSERTAR MÉTODO DE CONTACTO]. Todas las quejas serán evaluadas e investigadas de una manera puntual y justa.
+Instancias de comportamento abusivo, acosador ou inaceptable doutro xeito poderán ser reportadas aos administradores da comunidade responsables do cumprimento a través de mensaxe por GitHub aos autores. Todas as queixas serán avaliadas e investigadas dunha maneira puntual e xusta.
 
-Todos los administradores de la comunidad están obligados a respetar la privacidad y la seguridad de quienes reporten incidentes.
+Todos os administradores da comunidade están obrigados a respectar a privacidade e a seguridade de quen reporte incidentes.
 
 ## Guías de Aplicación
 
-Los administradores de la comunidad seguirán estas Guías de Impacto en la Comunidad para determinar las consecuencias de cualquier acción que juzguen como un incumplimiento de este Código de Conducta:
+Os administradores da comunidade seguirán estas Guías de Impacto na Comunidade para determinar as consecuencias de calquera acción que xulguen como un incumprimento deste Código de Conduta:
 
 ### 1. Corrección
 
-**Impacto en la Comunidad**: El uso de lenguaje inapropiado u otro comportamiento considerado no profesional o no acogedor en la comunidad.
+### 1. Corrección
 
-**Consecuencia**: Un aviso escrito y privado por parte de los administradores de la comunidad, proporcionando claridad alrededor de la naturaleza de este incumplimiento y una explicación de por qué el comportamiento es inaceptable. Una disculpa pública podría ser solicitada.
+** Impacto na Comunidade**: O uso de linguaxe inapropiada ou outro comportamento considerado non profesional ou non acolledor na comunidade.
+
+** Consecuencia**: Un aviso escrito e privado por parte dos administradores da comunidade, proporcionando claridade ao redor da natureza deste incumprimento e unha explicación de por que o comportamento é inaceptable. Unha desculpa pública podería ser solicitada.
 
 ### 2. Aviso
 
-**Impacto en la Comunidad**: Un incumplimiento causado por un único incidente o por una cadena de acciones.
+** Impacto na Comunidade**: Un incumprimento causado por un único incidente ou por unha cadea de accións.
 
-**Consecuencia**: Un aviso con consecuencias por comportamiento prolongado. No se interactúa con las personas involucradas, incluyendo interacción no solicitada con quienes se encuentran aplicando el Código de Conducta, por un periodo especificado de tiempo. Esto incluye evitar las interacciones en espacios de la comunidad, así como a través de canales externos como las redes sociales. Incumplir estos términos puede conducir a una expulsión temporal o permanente.
+** Consecuencia**: Un aviso con consecuencias por comportamento prolongado. Non se interactúa coas persoas involucradas, incluíndo interacción non solicitada con quen se atopa aplicando o Código de Conduta, por un período especificado de tempo. Isto inclúe evitar as interaccións en espazos da comunidade, así como a través de canles externas como as redes sociais. Incumprir estes termos pode conducir a unha expulsión temporal ou permanente.
 
 ### 3. Expulsión temporal
 
-**Impacto en la Comunidad**: Una serie de incumplimientos de los estándares de la comunidad, incluyendo comportamiento inapropiado continuo.
+** Impacto na Comunidade**: Unha serie de incumprimentos dos estándares da comunidade, incluíndo comportamento inapropiado continuo.
 
-**Consecuencia**: Una expulsión temporal de cualquier forma de interacción o comunicación pública con la comunidad durante un intervalo de tiempo especificado. No se permite interactuar de manera pública o privada con las personas involucradas, incluyendo interacciones no solicitadas con quienes se encuentran aplicando el Código de Conducta, durante este periodo. Incumplir estos términos puede conducir a una expulsión permanente.
+** Consecuencia**: Unha expulsión temporal de calquera forma de interacción ou comunicación pública coa comunidade durante un intervalo de tempo especificado. Non se permite interactuar de maneira pública ou privada coas persoas involucradas, incluíndo interaccións non solicitadas con quen se atopa aplicando o Código de Conduta, durante este período. Incumprir estes termos pode conducir a unha expulsión permanente.
 
 ### 4. Expulsión permanente
 
-**Impacto en la Comunidad**: Demostrar un patrón sistemático de incumplimientos de los estándares de la comunidad, incluyendo conductas inapropiadas prolongadas en el tiempo, acoso de individuos, o agresiones o menosprecio a grupos de individuos.
+** Impacto na Comunidade**: Demostrar un patrón sistemático de incumprimentos dos estándares da comunidade, incluíndo condutas inapropiadas prolongadas no tempo, acoso de individuos, ou agresións ou menosprezo a grupos de individuos.
 
-**Consecuencia**: Una expulsión permanente de cualquier tipo de interacción pública con la comunidad del proyecto.
+** Consecuencia**: Unha expulsión permanente de calquera tipo de interacción pública coa comunidade do proxecto.
 
 ## Atribución
 
-Este Código de Conducta es una adaptación del [Contributor Covenant][homepage], versión 2.0,
-disponible en https://www.contributor-covenant.org/es/version/2/0/code_of_conduct.html
+O Código de Conducta é unha adaptación do [Contributor Covenant](https://www.contributor-covenant.org/es/version/2/0/code_of_conduct.html), versión 2.0.
 
-Las Guías de Impacto en la Comunidad están inspiradas en la [escalera de aplicación del código de conducta de Mozilla](https://github.com/mozilla/diversity).
+As Guías de Impacto na Comunidade están inspiradas na [escaleira de aplicación do código de conduta de  Mozilla]( https:// github. com/ mozilla/ diversity).
 
-[homepage]: https://www.contributor-covenant.org
+Para respostas ás preguntas frecuentes deste código de conduta, consulta as  FAQ en  https://www.contributor-covenant.org/faq.
 
-Para respuestas a las preguntas frecuentes de este código de conducta, consulta las FAQ en
-https://www.contributor-covenant.org/faq. Hay traducciones disponibles en https://www.contributor-covenant.org/translations
+Hai traducións dispoñibles en  https://www.contributor-covenant.org/translations
