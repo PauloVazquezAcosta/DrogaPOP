@@ -5,6 +5,10 @@
  */
 package drogapop;
 
+import org.hibernate.internal.build.AllowSysOut;
+
+import javax.xml.bind.SchemaOutputResolver;
+
 /**
  *
  * @author Paulo
@@ -15,7 +19,12 @@ package drogapop;
 public class Main {
     
     public static void main(String[] args) {
+
         
+    }
+
+    public static void menu(){
+        System.out.println("MENU PRINCIPAL");
     }
     
 }

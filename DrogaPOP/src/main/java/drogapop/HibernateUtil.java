@@ -62,8 +62,7 @@ public class HibernateUtil {
   // Metodos para tabla empleados:
 
   // Introducir elemento en la tabla de empleados
-  public void añadirObjetoDePrueba(){
-    Department departamento = new Department(1, "xd", 1, "Coruña");
+  public void añadirObjetoDepartament(Department departamento){
     Session sesion = HibernateUtil.getCurrentSession();
     sesion.beginTransaction();
     sesion.save(departamento);
