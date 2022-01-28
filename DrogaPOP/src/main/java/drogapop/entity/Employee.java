@@ -42,8 +42,7 @@ public class Employee implements Serializable {
     private int deptno;
 
 
-    public Employee(int empno, String dni, String nome, String apelidos, int postoTraballo, String contratoDende, float salario, int deptno) {
-        this.empno = empno;
+    public Employee(String dni, String nome, String apelidos, int postoTraballo, String contratoDende, float salario, int deptno) {
         this.dni = dni;
         this.nome = nome;
         this.apelidos = apelidos;
