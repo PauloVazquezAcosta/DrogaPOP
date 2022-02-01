@@ -49,7 +49,8 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
         int opcion;
-
+        HibernateUtil.buildSessionFactory();
+        HibernateUtil.executeQuery();
         // Se muestra el menú hasta que se introduzca una opción valida o se salga del programa.
         do {
             System.out.println("*************SISTEMA DE GESTIÓN DROGAPOP*************");

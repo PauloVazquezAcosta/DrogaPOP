@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
+import org.hibernate.mapping.Map;
 import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
@@ -16,9 +17,10 @@ public class HibernateUtil {
 
   private static SessionFactory sessionFactory;
   private static Session session;
-	
+
   /**
    * Crea la factoria de sesiones, que se utilizará para crear nuevas sesiones
+   *
    * @version 0.0.1
    */
   public static void buildSessionFactory() {
@@ -48,20 +50,22 @@ public class HibernateUtil {
 
     // Se crea la SessionFactory
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
-      configuration.getProperties()).build();
+            configuration.getProperties()).build();
     sessionFactory = configuration.buildSessionFactory(serviceRegistry);
   }
-	
+
   /**
    * Abre una nueva sesión
+   *
    * @version 0.0.1
    */
   public static void openSession() {
     session = sessionFactory.openSession();
   }
-	
+
   /**
    * Devuelve la sesión actual. Si no hay una activa, se abre
+   *
    * @return sesión actual
    * @version 0.0.1
    */
@@ -73,6 +77,7 @@ public class HibernateUtil {
 
   /**
    * Cierra Hibernate
+   *
    * @version 0.0.1
    */
   public static void closeSessionFactory() {
@@ -84,10 +89,11 @@ public class HibernateUtil {
 
   /**
    * Introducir elemento en la base de datos
+   *
    * @param object -> objeto a añadir a la base de datos
    * @version 0.0.1
    */
-  public static void addObject(Object object){
+  public static void addObject(Object object) {
     Session session = HibernateUtil.getCurrentSession();
     session.beginTransaction();
     session.save(object);
@@ -97,10 +103,11 @@ public class HibernateUtil {
 
   /**
    * Eliminar elemento de la base de datos
+   *
    * @param object -> objeto a eliminar
    * @version 0.0.1
    */
-  public static void removeObject(Object object){
+  public static void removeObject(Object object) {
     Session session = HibernateUtil.getCurrentSession();
     session.beginTransaction();
     session.delete(object);
@@ -114,5 +121,19 @@ public class HibernateUtil {
     ArrayList<Empregado> empleados = (ArrayList<Empregado>) query.list();
     for (int i = 0; i < empleados.size(); i++)
       System.out.print(empleados.get(i) + " ");
+  }
+
+  public void prueba() {
+    Query sqlQuery = HibernateUtil.getCurrentSession().
+            createSQLQuery("SELECT * FROM empregados");
+    ArrayList<Empregado> empregados = (ArrayList<Empregado>)
+            sqlQuery.list();
+    for (Empregado empregado : empregados) {
+     // Map fila = (Map) empregado;
+     // String nombre = fila.get("nome");
+      //String apellidos = fila.get("apellidos");
+      //sqlQuery.setParameter("ciudad", ciudad);
+    }
+
   }
 }
