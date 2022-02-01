@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -147,11 +148,11 @@ public class Main {
      * @return employee
      */
     public static Empregado introducirEmpleado(Scanner entrada){
-        String dni, nome, apelidos, contratoDende;
-        int postoTraballo,deptno;
+        String dni, nome, apelidos, contratoDende, dataNacemento, email;
+        int postoTraballo,deptno, numeroTelefono;
         float salario;
         // Variables auxiliares
-        boolean dniCorrecto;
+        boolean dniCorrecto, numeroCorrecto;
 
 
         do {
@@ -163,22 +164,71 @@ public class Main {
 
         nome = setDatos(entrada, "nombre");
         apelidos = setDatos(entrada, "apellidos");
-        postoTraballo = entrada.nextInt();
         contratoDende = entrarFecha(entrada).toString();
-        salario = entrada.nextFloat();
-        deptno = entrada.nextInt();
+        dataNacemento = entrarFecha(entrada).toString();
+        email = setDatos(entrada, "correo electronico");
 
-        int numeroDeDepartamento=1 ;
-        String cargo="tipo";
-        String numeroTelefono="604";
-        Date dataNacemento =new Date(1-3-2021);
-        String email="@gmail" ;
-        String numeroSeguridadeSocial ="1234";
+
+        // Introducir puesto de trabajo
+        do{
+            try{
+                System.out.println("Introduza el puesto de trabajo");
+                postoTraballo = entrada.nextInt();
+            }catch (InputMismatchException ime){
+                System.out.println(ime);
+                postoTraballo = 0;
+            }
+        }while(postoTraballo == 0);
+
+        // Introducir salario
+        do{
+            try{
+                System.out.println("Introduza el salario del trabajador");
+                salario = entrada.nextFloat();
+            }catch (InputMismatchException ime){
+                System.out.println(ime);
+                salario = 0;
+            }
+        }while(salario == 0);
+
+        // Introducir numero de departamento
+        do{
+            try{
+                System.out.println("Introduza el numero de departamento");
+                deptno = entrada.nextInt();
+            }catch (InputMismatchException ime){
+                System.out.println(ime);
+                deptno = 0;
+            }
+        }while(deptno == 0);
+
+        // Introducir numero de telefono
+        /* En caso de que a hora de introducir o numero da seguridad social solo comprobemos que teña unha
+        *  certa cantidade de numeros (como e no caso de este do-while) poderemos introducir este codigo
+        *  en un metodo aparte, e en funcion do parametro que se lle pase realizar unha comprobacion de
+        *  9  numeros en caso do numero de telefono ou unha comprobacion de 12 numeros para a seguridad
+        *  social. Algo parecido ao que facemos no metodo setDatos*/
+        do{
+            numeroCorrecto = true;
+            try{
+                System.out.println("Introduza el numero de telefono del empleado");
+                numeroTelefono = entrada.nextInt();
+            }catch (InputMismatchException ime){
+                System.out.println(ime);
+                System.out.println("ERROR : Ha introducido mal el numero de telefono");
+                numeroTelefono = 0;
+            }
+
+            numeroCorrecto = comprobarNumero(numeroTelefono, 1);
+
+        }while(!numeroCorrecto);
         
         // Aclarar si o id o vai a establecer a base de datos ou o vamos a generar con un random dentro
         // do programa comprobando que non existe dentro da base de datos previamente
 
-        Empregado employee = new Empregado(500,dni, nome, apelidos,numeroDeDepartamento, cargo,numeroTelefono , dataNacemento, email,numeroSeguridadeSocial);
+        // Añadir 'contratoDende ao contructor de empleado e a base de datos enc caso de que non este'
+
+        Empregado employee = new Empregado(500,dni, nome, apelidos,deptno, postoTraballo,numeroTelefono , dataNacemento, email,numeroSeguridadeSocial);
 
         return employee;
     }
@@ -309,6 +359,26 @@ public class Main {
         } while (!matcher.matches());
 
         return dato;
+    }
+
+    public static boolean comprobarNumero(int numeroIntroducido, int tipoNumero){
+        boolean correcto = true;
+        int longitudNumero = 0;
+        String stringNumero = Integer.toString(numeroIntroducido);
+
+        switch (tipoNumero){
+            case 1:
+                longitudNumero = 9;
+                break;
+            case 2:
+                longitudNumero = 12;
+        }
+
+        if(stringNumero.length() != longitudNumero){
+            correcto = false;
+        }
+
+        return correcto;
     }
 
 
