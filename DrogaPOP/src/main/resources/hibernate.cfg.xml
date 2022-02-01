@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!-- Connection settings -->
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://easybyte.club:2224/DrogaPOP</property>
+    <property name="hibernate.connection.username">javaconnect</property>
+    <property name="hibernate.connection.password">conndb@Servo2021*</property>
+
+    <!-- SQL dialect (13.5) -->
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
+
+    <!-- Print executed SQL to stdout -->
+    <property name="hibernate.show_sql">true</property>
+   </session-factory>
+</hibernate-configuration>

@@ -1,12 +1,17 @@
 package drogapop;
 
-import drogapop.entity.Department;
-import drogapop.entity.Employee;
+import drogapop.entity.Departamento;
+import drogapop.entity.Empregado;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.Environment;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
+
+import java.util.ArrayList;
+import java.util.Properties;
 
 public class HibernateUtil {
 
@@ -14,16 +19,32 @@ public class HibernateUtil {
   private static Session session;
 	
   /**
-   * Crea la factoria de sesiones
+   * Crea la factoria de sesiones, que se utilizará para crear nuevas sesiones
+   * @version 0.0.1
    */
   public static void buildSessionFactory() {
-
+    // Se instancia el objeto Configuration
     Configuration configuration = new Configuration();
-    configuration.configure();
+
+    // Se almacenan las propiedades de la conexión en un objeto Properties
+    Properties properties = new Properties();
+    properties.put(Environment.DRIVER, "org.postgresql.Driver");
+    properties.put(Environment.URL, "jdbc:postgresql://easybyte.club:2224/DrogaPOP");
+    properties.put(Environment.USER, "javaconnect");
+    properties.put(Environment.PASS, "conndb@Servo2021*");
+    properties.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQL95Dialect");
+    properties.put(Environment.SHOW_SQL, "true");
+    properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+    properties.put(Environment.HBM2DDL_AUTO, "create-drop");
+
+    // Asignadas al objeto Configuration
+    configuration.setProperties(properties);
+
     // Se registran las clases que hay que mapear con cada tabla de la base de datos
-    configuration.addAnnotatedClass(Department.class);
-    configuration.addAnnotatedClass(Employee.class);
-    
+    configuration.addAnnotatedClass(Departamento.class);
+    configuration.addAnnotatedClass(Empregado.class);
+
+    // Se crea la SessionFactory
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
       configuration.getProperties()).build();
     sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -31,68 +52,65 @@ public class HibernateUtil {
 	
   /**
    * Abre una nueva sesión
+   * @version 0.0.1
    */
   public static void openSession() {
     session = sessionFactory.openSession();
   }
 	
   /**
-   * Devuelve la sesión actual
-   * @return
+   * Devuelve la sesión actual. Si no hay una activa, se abre
+   * @return sesión actual
+   * @version 0.0.1
    */
   public static Session getCurrentSession() {
     if ((session == null) || (!session.isOpen()))
       openSession();
-			
     return session;
   }
-	
+
   /**
    * Cierra Hibernate
+   * @version 0.0.1
    */
   public static void closeSessionFactory() {
-	
     if (session != null)
       session.close();
-		
     if (sessionFactory != null)
       sessionFactory.close();
   }
 
-  // Metodos para tabla empleados:
-
   /**
-   * Introducir elemento en la tabla de departamentos
-   *
-   * @param departamento -> objeto departameto
+   * Introducir elemento en la base de datos
+   * @param object -> objeto a añadir a la base de datos
    * @version 0.0.1
    */
-  public void añadirObjetoDepartament(Department departamento){
-    Session sesion = HibernateUtil.getCurrentSession();
-    sesion.beginTransaction();
-    sesion.save(departamento);
-    sesion.getTransaction().commit();
-    sesion.close();
+  public static void addObject(Object object){
+    Session session = HibernateUtil.getCurrentSession();
+    session.beginTransaction();
+    session.save(object);
+    session.getTransaction().commit();
+    session.close();
   }
 
-  //Eliminar elemento tabla empleados
-
-  // Buscar forma de eliminar un elemento pasando solo un
-  // elemento en lugar de pasar el objeto entero por ejemplo:
-  // Pasar como parametro el id y ejecutar una query que elimine
-  // el elemento de la base de datos con el id que pasamos como parametro
-  public void eliminarObjetoDePrueba(){
-    Department departamento = new Department(1, "xd", 1, "Coruña");
-    Session sesion = HibernateUtil.getCurrentSession();
-    sesion.beginTransaction();
-    sesion.delete(departamento);
-    sesion.getTransaction().commit();
-    sesion.close();
+  /**
+   * Eliminar elemento de la base de datos
+   * @param object -> objeto a eliminar
+   * @version 0.0.1
+   */
+  public static void removeObject(Object object){
+    Session session = HibernateUtil.getCurrentSession();
+    session.beginTransaction();
+    session.delete(object);
+    session.getTransaction().commit();
+    session.close();
   }
 
-  // Metodos tabla empleados y tabla departamentos
-  // Ejecutar querys: SELECT * from Departamentos
-  //                  SELECT * from Empregados
-
-
+  public static void executeQuery() {
+    // TODO: finish code
+    Query query = HibernateUtil.getCurrentSession().createQuery("FROM empregados");
+    ArrayList<Empregado> empleados = (ArrayList<Empregado>) query.list();
+    for (int i = 0; i < empleados.size(); i++)
+      System.out.print(empleados.get(i) + " ");
+  }
 }

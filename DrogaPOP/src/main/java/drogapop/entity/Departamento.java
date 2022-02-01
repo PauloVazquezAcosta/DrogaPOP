@@ -1,7 +1,5 @@
 package drogapop.entity;
 
-
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -12,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="departamentos", catalog="DrogaPOP")
-public class Department implements Serializable {
+public class Departamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,17 +25,19 @@ public class Department implements Serializable {
     private int xefe;
 
     @Column(name="ubicacion")
-    private String ubicacion;
+    private int ubicacion;
 
+    @Column(name="telefono")
+    private String telefono;
 
-    public Department(int deptno, String nome, int xefe, String ubicacion) {
+    public Departamento(int deptno, String nome, int xefe, int ubicacion, String telefono) {
         this.deptno = deptno;
         this.nome = nome;
         this.xefe = xefe;
         this.ubicacion = ubicacion;
+        this.telefono = telefono;
     }
 
-    
     public int getDeptno() {
         return deptno;
     }
@@ -62,11 +62,19 @@ public class Department implements Serializable {
         this.xefe = xefe;
     }
 
-    public String getUbicacion() {
+    public int getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
+    public void setUbicacion(int ubicacion) {
         this.ubicacion = ubicacion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }
