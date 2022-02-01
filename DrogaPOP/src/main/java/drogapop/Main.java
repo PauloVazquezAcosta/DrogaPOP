@@ -114,19 +114,19 @@ public class Main {
             case 3:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nINTRODUCIR DEPARTAMENTO ...");
-                //prepararNuevoVuelo(input);
+                //HibernateUtil.introducirDepartamento();
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 4:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nELIMINAR EMPLEADO ...");
-                //Queries.verVuelosCreados(bbdd, input);
+                //HibernateUtil.eliminarEmpleado();
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 5:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("ELIMINAR DEPARTAMENTO ...");
-                //Queries.cambiarFumadores(bbdd, input);
+                //HibernateUtil.eliminarDepartamento();
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 6:
@@ -167,15 +167,16 @@ public class Main {
         contratoDende = entrarFecha(entrada).toString();
         salario = entrada.nextFloat();
         deptno = entrada.nextInt();
-        
-         int numeroDeDepartamento=1 ;
+
+        int numeroDeDepartamento=1 ;
         String cargo="tipo";
-       String numeroTelefono="604";
+        String numeroTelefono="604";
         Date dataNacemento =new Date(1-3-2021);
         String email="@gmail" ;
         String numeroSeguridadeSocial ="1234";
         
-        //Empregado employee= new Empregado("1234","yo","apellido","") ;
+        // Aclarar si o id o vai a establecer a base de datos ou o vamos a generar con un random dentro
+        // do programa comprobando que non existe dentro da base de datos previamente
 
         Empregado employee = new Empregado(500,dni, nome, apelidos,numeroDeDepartamento, cargo,numeroTelefono , dataNacemento, email,numeroSeguridadeSocial);
 
@@ -194,7 +195,7 @@ public class Main {
     public static Date entrarFecha(Scanner input) {
 
         Date thisDate = null;
-        boolean formatoCorrecto = true;
+        boolean formatoCorrecto;
         // Utilizamos la clase DateFormat para establecer un formato para la hora y fecha
         DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
 
@@ -210,8 +211,6 @@ public class Main {
                 formatoCorrecto = validarFecha(fechaHora);
             } catch (ParseException ex) {
                 formatoCorrecto = false;
-            }
-            if (!formatoCorrecto) {
                 System.out.println("ERROR: Formato de fecha incorrecto...");
             }
         } while (!formatoCorrecto);
@@ -248,15 +247,15 @@ public class Main {
         }
         try {
             // Separamos los datos del String introducido.
-            int dia = Integer.valueOf(fechaHora.substring(8, 10));
-            int mes = Integer.valueOf(fechaHora.substring(5, 7));
-            int anio = Integer.valueOf(fechaHora.substring(0, 4));
-            boolean anioBisciesto = false;
+            int dia = Integer.parseInt(fechaHora.substring(8, 10));
+            int mes = Integer.parseInt(fechaHora.substring(5, 7));
+            int anio = Integer.parseInt(fechaHora.substring(0, 4));
+            boolean anioBisiesto = false;
 
             // Validación Bisiesto.
             if ((anio % 4 == 0 && anio % 400 == 0 && anio % 100 == 0)
                     || (anio % 4 == 0 && anio % 100 != 0)) {
-                anioBisciesto = true;
+                anioBisiesto = true;
             }
 
             // Validación Día.
@@ -264,7 +263,7 @@ public class Main {
                 return false;
             }
             // Validación Mes de febrero.
-            if (mes == 2 && dia > 28 && !anioBisciesto) {
+            if (mes == 2 && dia > 28 && !anioBisiesto) {
                 return false;
             }
             // Validación Día 31.
@@ -279,7 +278,7 @@ public class Main {
             la cual dice que un año es bisiesto si es divisible por cuatro,
             excepto los principios de año (los divisibles por 100),
             que para ser bisiestos deben de ser divisibles también por 400.*/
-            if (mes == 2 && dia == 29 && !anioBisciesto) {
+            if (mes == 2 && dia == 29 && !anioBisiesto) {
                 return false;
             }
 
