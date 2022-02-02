@@ -13,7 +13,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-import java.sql.Date;
+//import java.sql.Date;
 
 
 import org.hibernate.internal.build.AllowSysOut;
@@ -193,11 +193,11 @@ public class Main {
         do{
             numeroCorrecto = true;
             try{
-                System.out.println("Introduza el numero de telefono del empleado");
+                System.out.println("Introduza el numero de la seguridad social");
                 numeroSeguridadSocial = entrada.nextLine();
             }catch (InputMismatchException ime){
                 System.out.println(ime);
-                System.out.println("ERROR : Ha introducido mal el numero de telefono");
+                System.out.println("ERROR : Ha introducido mal el numero de la seguridad social");
                 numeroSeguridadSocial = "";
             }
 
@@ -262,7 +262,7 @@ public class Main {
 
         do {
             formatoCorrecto = true;
-            System.out.println("\nEscriba la fecha y hora de salida del vuelo en formato "
+            System.out.println("\nEscriba la fecha de nacimiento del empleado en formato "
                     + "=>YYYY-MM-DD:");
             String fechaHora = input.nextLine();
 
@@ -270,9 +270,10 @@ public class Main {
                 // Intentamos parsear el string que introduce el usuario y si falla es que esta mal, asi que repetimos
                 thisDate = (Date) dateFormat.parse(fechaHora);
                 formatoCorrecto = validarFecha(fechaHora);
-            } catch (ParseException ex) {
+            }catch (InputMismatchException | ParseException | ClassCastException exception){
                 formatoCorrecto = false;
                 System.out.println("ERROR: Formato de fecha incorrecto...");
+                System.out.println(exception);
             }
         } while (!formatoCorrecto);
 
@@ -360,9 +361,24 @@ public class Main {
     public static String setDatos(@org.jetbrains.annotations.NotNull Scanner entrada, String tipoDato) {
         String dato;
         Matcher matcher;
-        String formato = "[A-Z]{2,254}";
+        String formato="";
+        switch (tipoDato){
+            case "apellidos":
+                formato = "[A-Z]{2,254}"+" "+"[A-Z]{2,254}";
+                break;
+            case "nombre":
+                formato = "[A-Z]{2,254}";
+                break;
+            case "correo electronico":
+                formato = "[A-Z]{2,254}"+"@"+"[A-Z]{2,50}"+"."+"[A-Z]{2,6}";
+                break;
+            case "puesto de trabajo":
+                formato = "[A-Z]{2,254}";
+                break;
+        }
+
         do {
-            System.out.print("Introduza el "+tipoDato+" :");
+            System.out.print("Introduza "+tipoDato+" :");
             dato = entrada.nextLine().toUpperCase();
             Pattern pattern = Pattern.compile(formato);
             matcher = pattern.matcher(dato);
@@ -376,7 +392,7 @@ public class Main {
         // Si pasamos un 1 comprobaremos la longitud de un numero de telefono
         // Si pasamos un 2 comprobaremos la longitud de un numero de la seguridad social
         boolean correcto = true;
-        int longitudNumero = 0;
+        int longitudNumero=0;
 
         switch (tipoNumero){
             case 1:
@@ -384,6 +400,7 @@ public class Main {
                 break;
             case 2:
                 longitudNumero = 12;
+                break;
         }
 
         if(numeroIntroducido.length() != longitudNumero){
