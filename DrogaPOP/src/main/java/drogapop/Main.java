@@ -23,9 +23,7 @@ import javax.xml.bind.SchemaOutputResolver;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -148,8 +146,9 @@ public class Main {
      * @return employee
      */
     public static Empregado introducirEmpleado(Scanner entrada){
-        String dni, nome, apelidos, contratoDende, dataNacemento, email;
-        int postoTraballo,deptno, numeroTelefono;
+        String dni, nome, apelidos, email, numeroTelefono, numeroSeguridadSocial,postoTraballo;/*contratoDende*/
+        int deptno;
+        Date dataNacemento;
         float salario;
         // Variables auxiliares
         boolean dniCorrecto, numeroCorrecto;
@@ -164,32 +163,48 @@ public class Main {
 
         nome = setDatos(entrada, "nombre");
         apelidos = setDatos(entrada, "apellidos");
-        contratoDende = entrarFecha(entrada).toString();
-        dataNacemento = entrarFecha(entrada).toString();
+        //contratoDende = entrarFecha(entrada).toString();
+        dataNacemento = entrarFecha(entrada);
         email = setDatos(entrada, "correo electronico");
 
-
-        // Introducir puesto de trabajo
+        // Introducir numero de telefono
+        /* En caso de que a hora de introducir o numero da seguridad social solo comprobemos que teña unha
+        *  certa cantidade de numeros (como e no caso de este do-while) poderemos introducir este codigo
+        *  en un metodo aparte, e en funcion do parametro que se lle pase realizar unha comprobacion de
+        *  9  numeros en caso do numero de telefono ou unha comprobacion de 12 numeros para a seguridad
+        *  social. Algo parecido ao que facemos no metodo setDatos*/
         do{
+            numeroCorrecto = true;
             try{
-                System.out.println("Introduza el puesto de trabajo");
-                postoTraballo = entrada.nextInt();
+                System.out.println("Introduza el numero de telefono del empleado");
+                numeroTelefono = entrada.nextLine();
             }catch (InputMismatchException ime){
                 System.out.println(ime);
-                postoTraballo = 0;
+                System.out.println("ERROR : Ha introducido mal el numero de telefono");
+                numeroTelefono = "";
             }
-        }while(postoTraballo == 0);
 
-        // Introducir salario
+            if(!Objects.equals(numeroTelefono,"")){
+                numeroCorrecto = comprobarNumero(numeroTelefono, 1);
+            }
+        }while(!numeroCorrecto || numeroTelefono.equals(""));
+
+        // Introducir numero de la seguridad social
         do{
+            numeroCorrecto = true;
             try{
-                System.out.println("Introduza el salario del trabajador");
-                salario = entrada.nextFloat();
+                System.out.println("Introduza el numero de telefono del empleado");
+                numeroSeguridadSocial = entrada.nextLine();
             }catch (InputMismatchException ime){
                 System.out.println(ime);
-                salario = 0;
+                System.out.println("ERROR : Ha introducido mal el numero de telefono");
+                numeroSeguridadSocial = "";
             }
-        }while(salario == 0);
+
+            if(!Objects.equals(numeroSeguridadSocial,"")){
+                numeroCorrecto = comprobarNumero(numeroSeguridadSocial, 2);
+            }
+        }while(!numeroCorrecto || numeroSeguridadSocial.equals(""));
 
         // Introducir numero de departamento
         do{
@@ -202,33 +217,29 @@ public class Main {
             }
         }while(deptno == 0);
 
-        // Introducir numero de telefono
-        /* En caso de que a hora de introducir o numero da seguridad social solo comprobemos que teña unha
-        *  certa cantidade de numeros (como e no caso de este do-while) poderemos introducir este codigo
-        *  en un metodo aparte, e en funcion do parametro que se lle pase realizar unha comprobacion de
-        *  9  numeros en caso do numero de telefono ou unha comprobacion de 12 numeros para a seguridad
-        *  social. Algo parecido ao que facemos no metodo setDatos*/
+        // Introducir puesto de trabajo
+        postoTraballo = setDatos(entrada, "puesto de trabajo");
+
+        // Introducir salario
+        /*
         do{
-            numeroCorrecto = true;
             try{
-                System.out.println("Introduza el numero de telefono del empleado");
-                numeroTelefono = entrada.nextInt();
+                System.out.println("Introduza el salario del trabajador");
+                salario = entrada.nextFloat();
             }catch (InputMismatchException ime){
                 System.out.println(ime);
-                System.out.println("ERROR : Ha introducido mal el numero de telefono");
-                numeroTelefono = 0;
+                salario = 0;
             }
+        }while(salario == 0);
 
-            numeroCorrecto = comprobarNumero(numeroTelefono, 1);
-
-        }while(!numeroCorrecto);
+         */
         
         // Aclarar si o id o vai a establecer a base de datos ou o vamos a generar con un random dentro
         // do programa comprobando que non existe dentro da base de datos previamente
 
-        // Añadir 'contratoDende ao contructor de empleado e a base de datos enc caso de que non este'
+        // Añadir 'contratoDende' ao contructor de empleado e a base de datos enc caso de que non este
 
-        Empregado employee = new Empregado(500,dni, nome, apelidos,deptno, postoTraballo,numeroTelefono , dataNacemento, email,numeroSeguridadeSocial);
+        Empregado employee = new Empregado(500,dni, nome, apelidos,deptno, postoTraballo,numeroTelefono , dataNacemento, email,numeroSeguridadSocial);
 
         return employee;
     }
@@ -361,10 +372,11 @@ public class Main {
         return dato;
     }
 
-    public static boolean comprobarNumero(int numeroIntroducido, int tipoNumero){
+    public static boolean comprobarNumero(String numeroIntroducido, int tipoNumero){
+        // Si pasamos un 1 comprobaremos la longitud de un numero de telefono
+        // Si pasamos un 2 comprobaremos la longitud de un numero de la seguridad social
         boolean correcto = true;
         int longitudNumero = 0;
-        String stringNumero = Integer.toString(numeroIntroducido);
 
         switch (tipoNumero){
             case 1:
@@ -374,7 +386,7 @@ public class Main {
                 longitudNumero = 12;
         }
 
-        if(stringNumero.length() != longitudNumero){
+        if(numeroIntroducido.length() != longitudNumero){
             correcto = false;
         }
 
