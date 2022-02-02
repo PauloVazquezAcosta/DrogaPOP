@@ -30,6 +30,9 @@ public class Departamento implements Serializable {
     @Column(name="telefono")
     private String telefono;
 
+    public Departamento() {
+    }
+
     public Departamento(int deptno, String nome, int xefe, int ubicacion, String telefono) {
         this.deptno = deptno;
         this.nome = nome;

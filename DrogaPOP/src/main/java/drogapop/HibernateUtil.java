@@ -126,5 +126,14 @@ public class HibernateUtil {
       System.out.println(empregado.getId() + "\t" + empregado.getNumeroDeDepartamento() + empregado);
     }
   }
+  public static void mostrarTablaDepartamentos() {
+    Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento");
+    ArrayList<Departamento> departamentos = (ArrayList<Departamento>) query.list();
+
+    System.out.println("Numero de Departamento\tUbicación\tJefe\tNombre\ttelefono");
+    for (Departamento departamento : departamentos) {
+      System.out.println(departamento.getDeptno()+ "\t" + departamento.getUbicacion() + departamento.getXefe()+ departamento.getNome()+departamento.getTelefono());
+    }
+  }
 
 }

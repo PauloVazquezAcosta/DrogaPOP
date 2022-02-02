@@ -101,7 +101,8 @@ public class Main {
             case 1:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nMOSTRANDO DEPARTAMENTOS ... ");
-                //HibernateUtil.mostrarTablaDepartamentos();
+
+            HibernateUtil.mostrarTablaDepartamentos();
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 2:
