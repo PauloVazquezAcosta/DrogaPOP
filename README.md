@@ -1,20 +1,20 @@
 <h1 align="center"> DrogaPOP </h1> 
 
 ## Contidos
-- [Introdución](#introducion)
-- [Construído con](#construido-con)
+- [Introdución](#introduci%C3%B3n)
+- [Construído con](#constru%C3%ADdo-con)
 - [Comezando](#comezando)
 	- [Pre-requisitos](#pre-requisitos)
-	- [Instalación](#instalacion)
+	- [Instalación](#instalaci%C3%B3n)
 - [Base de datos](#base-de-datos)
-- [Código](#codigo)
+- [Código](#c%C3%B3digo)
 - [Roadmap](#roadmap)
 - [Estado do proxecto](#estado-do-proxecto)
-- [Contribucións](#constribucions)
+- [Contribucións](#contribuci%C3%B3ns)
 - [Licenza](#licenza)
-- [Versionado](#versionado)
+- [Versionado](#versionado-)
 - [Autores](#autores)
-- [Expresións de Gratitude](#expresions-de-gratitude)
+- [Expresións de Gratitude](#expresi%C3%B3ns-de-gratitude-)
 
 ## Introdución
 _DrogaPOP é un programa que xestiona unha base de datos con información sobre unha empresa co mesmo nome, adicada ao sector da droguería, nela tén a información dos seus departamentos e empregados. Este software permite interactuar cunha base de datos para mostrar a información almacenada, insertar novos datos, actualizar os existentes e finalmente borralos cando non se necesiten.__
