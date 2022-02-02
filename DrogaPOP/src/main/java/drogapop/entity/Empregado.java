@@ -47,6 +47,10 @@ public class Empregado implements Serializable {
     private String numeroSeguridadeSocial;
 
 
+    public Empregado() {
+
+    }
+
     public Empregado(int id, String DNI, String nome, String apelidos, int numeroDeDepartamento, String cargo, String numeroTelefono, Date dataNacemento, String email, String numeroSeguridadeSocial) {
         this.id = id;
         this.DNI = DNI;

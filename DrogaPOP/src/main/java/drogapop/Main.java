@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,15 +43,12 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static SessionFactory sessionFactory;
-    private static ServiceRegistry serviceRegistry;
-
     public static void main(String[] args) {
 
+        HibernateUtil.buildSessionFactory();
         Scanner input = new Scanner(System.in);
         int opcion;
-        HibernateUtil.buildSessionFactory();
-        HibernateUtil.executeQuery();
+
         // Se muestra el menú hasta que se introduzca una opción valida o se salga del programa.
         do {
             System.out.println("*************SISTEMA DE GESTIÓN DROGAPOP*************");
@@ -97,7 +95,7 @@ public class Main {
             case 0:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nMOSTRANDO EMPLEADOS ... ");
-                //HibernateUtil.mostrarTablaEmpleados();
+                HibernateUtil.mostrarTablaEmpleados();
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 1:

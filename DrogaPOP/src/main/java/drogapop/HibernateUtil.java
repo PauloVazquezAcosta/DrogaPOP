@@ -1,6 +1,7 @@
 package drogapop;
 
 import drogapop.entity.*;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -11,6 +12,7 @@ import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class HibernateUtil {
@@ -44,9 +46,9 @@ public class HibernateUtil {
     // Se registran las clases que hay que mapear con cada tabla de la base de datos
     configuration.addAnnotatedClass(Departamento.class);
     configuration.addAnnotatedClass(Empregado.class);
-    configuration.addAnnotatedClass(Contrato.class);
-    configuration.addAnnotatedClass(Sede.class);
-    configuration.addAnnotatedClass(TipoContrato.class);
+    // configuration.addAnnotatedClass(Contrato.class);
+    // configuration.addAnnotatedClass(Sede.class);
+    // configuration.addAnnotatedClass(TipoContrato.class);
 
     // Se crea la SessionFactory
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
@@ -115,25 +117,14 @@ public class HibernateUtil {
     session.close();
   }
 
-  public static void executeQuery() {
-    // TODO: finish code
-    Query query = HibernateUtil.getCurrentSession().createQuery("FROM empregados");
-    ArrayList<Empregado> empleados = (ArrayList<Empregado>) query.list();
-    for (int i = 0; i < empleados.size(); i++)
-      System.out.print(empleados.get(i) + " ");
-  }
+  public static void mostrarTablaEmpleados() {
+    Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado");
+    ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
 
-  public void prueba() {
-    Query sqlQuery = HibernateUtil.getCurrentSession().
-            createSQLQuery("SELECT * FROM empregados");
-    ArrayList<Empregado> empregados = (ArrayList<Empregado>)
-            sqlQuery.list();
+    System.out.println("id\tdni\tnome\tapelidos\tdptno\tcargo\ttelefono\tdata_nacemento\temail\tnum_seg_soc");
     for (Empregado empregado : empregados) {
-     // Map fila = (Map) empregado;
-     // String nombre = fila.get("nome");
-      //String apellidos = fila.get("apellidos");
-      //sqlQuery.setParameter("ciudad", ciudad);
+      System.out.println(empregado.getId() + "\t" + empregado.getNumeroDeDepartamento() + empregado);
     }
-
   }
+
 }
