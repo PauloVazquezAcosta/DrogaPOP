@@ -2,16 +2,16 @@
 
 ## Contidos
 
-	- [Motivos de elección de PostgreSQL](#motivos-de-eleccion-dePostgreSQL)
-		- [Funcionalidade](#funcionalidade)
-		- [Escalabilidade](#escalabilidade)
-		- [Seguridade](#seguridade)
-		- [Apoio](#apoio)
-		- [Compatibilidade e replicación](#compatibilidade-e-replicacion)
-		- [Cumprimento SQL](#cumprimento-sql)
-		- [Copia de seguridade e recuperación](#copia-de-seguridade-e-recuperacion)
-	- [Conclusión](#conclusion)
-	- [Estrutura da base de datos](#estrutura-da-base-de-datos)
+- [Motivos de elección de PostgreSQL](#motivos-de-eleccion-dePostgreSQL)
+	- [Funcionalidade](#funcionalidade)
+	- [Escalabilidade](#escalabilidade)
+	- [Seguridade](#seguridade)
+	- [Apoio](#apoio)
+	- [Compatibilidade e replicación](#compatibilidade-e-replicacion)
+	- [Cumprimento SQL](#cumprimento-sql)
+	- [Copia de seguridade e recuperación](#copia-de-seguridade-e-recuperacion)
+- [Conclusión](#conclusion)
+- [Estrutura da base de datos](#estrutura-da-base-de-datos)
 
 A primeira elección ao crear este software é escoller o sistema xestor de base de datos. Tiñamos a opción inicial de utilizar **Oracle** pero a liberdade de utilizar calquera outro sistema mentres se xustificara. Neste caso a base de datos está despregada en **PostgreSQL** como se indicou no apartado anterior: [Construído con](https://github.com/PauloVazquezAcosta/DrogaPOP/blob/readme/README.md#constru%C3%ADdo-con). 
 
