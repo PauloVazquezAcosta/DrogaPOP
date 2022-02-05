@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public class DNI {
     /**
      * Valida que el DNI introducido sea correcto
+     *
      * @param dni
      * @return booelean
      */
@@ -13,7 +14,7 @@ public class DNI {
 
         final Pattern REGEXP = Pattern.compile("[0-9]{8}[A-Z]");
         final String DIGITO_CONTROL = "TRWAGMYFPDXBNJZSQVHLCKE";
-        final String[] INVALIDOS = new String[] { "00000000T", "00000001R", "99999999R" };
+        final String[] INVALIDOS = new String[]{"00000000T", "00000001R", "99999999R"};
 
         return Arrays.binarySearch(INVALIDOS, dni) < 0 // (1)
                 && REGEXP.matcher(dni).matches() // (2)

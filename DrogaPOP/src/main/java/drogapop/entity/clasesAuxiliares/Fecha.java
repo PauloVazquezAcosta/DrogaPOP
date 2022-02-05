@@ -12,8 +12,8 @@ public class Fecha {
      * formato deseado.
      *
      * @param input traspasa el Scanner asociado al teclado.
-     * @version 0.0.1
      * @return Date devuelve un objeto Date válido
+     * @version 0.0.1
      */
     public static Date entrarFecha(Scanner input) {
 
@@ -48,8 +48,8 @@ public class Fecha {
      * Verifica si una fecha con el formato deseado es correcta.
      *
      * @param fechaHora Recibe una fecha que ya tiene el formato adecuado.
-     * @version 0.0.1
      * @return boolean true/OK false/error.
+     * @version 0.0.1
      */
     public static boolean validarFecha(String fechaHora) {
         if (fechaHora == null) {

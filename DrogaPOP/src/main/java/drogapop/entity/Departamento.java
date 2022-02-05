@@ -9,25 +9,25 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="departamentos", catalog="DrogaPOP")
+@Table(name = "departamentos", catalog = "DrogaPOP")
 public class Departamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private int deptno;
 
-    @Column(name="nome")
+    @Column(name = "nome")
     private String nome;
 
-    @Column(name="xefe")
+    @Column(name = "xefe")
     private int xefe;
 
-    @Column(name="ubicacion")
+    @Column(name = "ubicacion")
     private int ubicacion;
 
-    @Column(name="telefono")
+    @Column(name = "telefono")
     private String telefono;
 
     public Departamento() {
