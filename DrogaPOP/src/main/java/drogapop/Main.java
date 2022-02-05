@@ -86,7 +86,7 @@ public class Main {
     }
 
     /**
-     *  Determina la accion que realizara el programa en funcion de la seleccion del usuario en el menu
+     *  Determina la acción que realizará el programa en función de la selección del usuario en el menú
      * @param opcion
      * @param entrada
      */
@@ -108,6 +108,7 @@ public class Main {
             case 2:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nINTRODUCIR EMPLEADO ... ");
+                
                 Empregado employee = introducirEmpleado(entrada);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;

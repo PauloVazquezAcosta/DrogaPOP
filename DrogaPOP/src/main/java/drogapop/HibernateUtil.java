@@ -1,18 +1,14 @@
 package drogapop;
 
 import drogapop.entity.*;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
-import org.hibernate.mapping.Map;
 import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 public class HibernateUtil {
@@ -116,23 +112,51 @@ public class HibernateUtil {
     session.getTransaction().commit();
     session.close();
   }
-
+/**
+ * Muestra los datos de la tabla Empregados
+ * usando una query y guardando los datos de la BD en un ArrayList
+ * que se recorre con un for each mostrando por pantalla los atributos de cada objeto Empregado
+ * */
   public static void mostrarTablaEmpleados() {
     Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado");
     ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
 
     System.out.println("id\tdni\tnome\tapelidos\tdptno\tcargo\ttelefono\tdata_nacemento\temail\tnum_seg_soc");
     for (Empregado empregado : empregados) {
-      System.out.println(empregado.getId() + "\t" + empregado.getNumeroDeDepartamento() + empregado);
+      System.out.println(empregado.getId() + "\t" +empregado.getDNI()+"\t"+empregado.getNome()+ "\t"+empregado.getApelidos()+ "\t"+
+              empregado.getNumeroDeDepartamento()+ "\t" + empregado.getCargo()+ "\t"+empregado.getNumeroTelefono()+ "\t"+
+              empregado.getDataNacemento()+ "\t"+empregado.getEmail()+ "\t"+ empregado.getNumeroSeguridadeSocial());
     }
   }
+  /**
+   * Muestra los datos de la tabla Departamento
+   * usando una query y guardando los datos de la BD en un ArrayList
+   * que se recorre con un for each mostrando por pantalla los atributos de cada objeto Departamento
+   * */
   public static void mostrarTablaDepartamentos() {
     Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento");
     ArrayList<Departamento> departamentos = (ArrayList<Departamento>) query.list();
 
     System.out.println("Numero de Departamento\tUbicación\tJefe\tNombre\ttelefono");
     for (Departamento departamento : departamentos) {
-      System.out.println(departamento.getDeptno()+ "\t" + departamento.getUbicacion() + departamento.getXefe()+ departamento.getNome()+departamento.getTelefono());
+      System.out.println(departamento.getDeptno()+ "\t" + departamento.getUbicacion() + "\t" + departamento.getXefe() + "\t"+
+              departamento.getNome() + "\t"+departamento.getTelefono());
+    }
+  }
+  /**
+   * Muestra los datos de la tabla Contrato
+   * usando una query y guardando los datos de la BD en un ArrayList
+   * que se recorre con un for each mostrando por pantalla los atributos de cada objeto Contrato
+   * */
+  public static void mostrarTablaContratos() {
+    Query query = HibernateUtil.getCurrentSession().createQuery("FROM Contrato");
+    ArrayList<Contrato> contratos = (ArrayList<Contrato>) query.list();
+
+    System.out.println("id\tEmpregado\tData inicio\tData fin\tSalario\tTipo\tDuración(meses)\tJornada (semanal)");
+    for (Contrato contrato : contratos) {
+      System.out.println(contrato.getId() + "\t" + contrato.getEmpregado()  + "\t"+ contrato.getDataInicio() + "\t"+contrato.getDataFin()
+              + "\t" +contrato.getSalario() + "\t"+contrato.getTipo() + "\t"+contrato.getMesesDuracion() + "\t"+
+              contrato.getHorasJornadaSemanal());
     }
   }
 
