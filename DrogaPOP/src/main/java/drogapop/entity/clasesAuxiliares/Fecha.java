@@ -1,9 +1,10 @@
 package drogapop.entity.clasesAuxiliares;
 
-import java.sql.Date;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Fecha {
@@ -21,15 +22,14 @@ public class Fecha {
         boolean formatoCorrecto = true;
         // Utilizamos la clase DateFormat para establecer un formato para la hora y fecha
         DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
-
         do {
             formatoCorrecto = true;
-            System.out.println("\nEscriba la fecha y hora de salida del vuelo en formato "
+            System.out.println("\nEscriba la fecha de inicio del contrato en formato "
                     + "=>YYYY-MM-DD:");
             String fechaHora = input.nextLine();
 
             try {
-                // Intentamos parsear el string que introduce el usuario y si falla es que esta mal, asi que repetimos
+                // Intentamos parsear el string que introduce el usuario y si falla es que está mal, asi que repetimos
                 thisDate = (Date) dateFormat.parse(fechaHora);
                 formatoCorrecto = validarFecha(fechaHora);
             } catch (ParseException ex) {

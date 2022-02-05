@@ -18,22 +18,22 @@ public class Letras {
         String formato = "";
         switch (tipoDato) {
             case "apellidos":
-                formato = "[A-Z]{2,254}" + " " + "[A-Z]{2,254}";
+                formato = "[a-zA-Z ]{2,254}";
                 break;
             case "nombre":
-                formato = "[A-Z]{2,254}";
+                formato = "[A-Za-z]{2,254}";
                 break;
             case "correo electronico":
-                formato = "[A-Z]{2,254}" + "@" + "[A-Z]{2,50}" + "." + "[A-Z]{2,6}";
+                formato = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$";
                 break;
             case "puesto de trabajo":
-                formato = "[A-Z]{2,254}";
+                formato = "[A-Za-z]{2,254}";
                 break;
         }
 
         do {
-            System.out.print("Introduza " + tipoDato + " :");
-            dato = entrada.nextLine().toUpperCase();
+            System.out.print("Introduzca " + tipoDato + " :");
+            dato = entrada.nextLine();
             Pattern pattern = Pattern.compile(formato);
             matcher = pattern.matcher(dato);
 

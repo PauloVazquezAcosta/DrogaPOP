@@ -3,10 +3,7 @@ package drogapop.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -16,6 +13,8 @@ public class Empregado implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="secuencia_id")
+    @SequenceGenerator(name="secuencia_id", sequenceName="empregado_id_seq", allocationSize=1)
     @Column(name="id")
     private int id;
 
@@ -51,8 +50,8 @@ public class Empregado implements Serializable {
 
     }
 
-    public Empregado(int id, String DNI, String nome, String apelidos, int numeroDeDepartamento, String cargo, String numeroTelefono, Date dataNacemento, String email, String numeroSeguridadeSocial) {
-        this.id = id;
+    public Empregado( String DNI, String nome, String apelidos, int numeroDeDepartamento, String cargo, String numeroTelefono, Date dataNacemento, String email, String numeroSeguridadeSocial) {
+
         this.DNI = DNI;
         this.nome = nome;
         this.apelidos = apelidos;

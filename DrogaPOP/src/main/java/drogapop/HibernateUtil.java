@@ -147,6 +147,34 @@ public class HibernateUtil {
         }
     }
 
+
+    /**
+     * Este método devuelve una lista con los codigod de los deparatamentos
+     * @return ArrayList<>-->idDepartamentos
+     * */
+    public static ArrayList<Integer> idDepartamentos(){
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento");
+        ArrayList<Departamento> departamentos = (ArrayList<Departamento>) query.list();
+        ArrayList<Integer> idDepartamentos=new ArrayList<>();
+        for (Departamento departamento : departamentos) {
+           idDepartamentos.add(departamento.getDeptno());
+        }
+       return idDepartamentos;
+    }
+    /**
+     * este método muestra solo el id y el nombre del departamento.
+     * es usado para que el usuario elija en que departamento va a incluir a un nuevo empleado
+     * */
+    public static void mostrarIdNombreDepartamentos() {
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento");
+        ArrayList<Departamento> departamentos = (ArrayList<Departamento>) query.list();
+
+        System.out.println("Código \tNombre");
+        for (Departamento departamento : departamentos) {
+            System.out.println(departamento.getDeptno()  + "\t\t" +  departamento.getNome());
+        }
+    }
+
     /**
      * Muestra los datos de la tabla Contrato
      * usando una query y guardando los datos de la BD en un ArrayList

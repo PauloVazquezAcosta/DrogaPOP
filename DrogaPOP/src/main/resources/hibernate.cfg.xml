@@ -6,7 +6,7 @@
     <!-- Connection settings -->
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.connection.url">jdbc:postgresql://easybyte.club:2224/DrogaPOP</property>
-    <property name="hibernate.connection.username">javaconnect</property>
+    <property name="hibernate.connection.username">yudaramos</property>
     <property name="hibernate.connection.password">conndb@Servo2021*</property>
 
     <!-- SQL dialect (13.5) -->

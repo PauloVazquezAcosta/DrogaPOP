@@ -4,7 +4,9 @@ import drogapop.HibernateUtil;
 import drogapop.entity.Departamento;
 import drogapop.entity.Empregado;
 
-import java.sql.Date;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -39,21 +41,21 @@ public class Menu {
             case 3:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nINTRODUCIR DEPARTAMENTO ...");
-                Departamento departamento=introducirDeparatamento(entrada);
+                Departamento departamento = introducirDeparatamento(entrada);
                 HibernateUtil.addObject(departamento);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 4:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nELIMINAR EMPLEADO ...");
-                Empregado empleadoDespedido=eliminarEmpleado(entrada);
+                Empregado empleadoDespedido = eliminarEmpleado(entrada);
                 HibernateUtil.removeObject(empleadoDespedido);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 5:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("ELIMINAR DEPARTAMENTO ...");
-                Departamento departamentoEliminado= eliminarDepartamento(entrada);
+                Departamento departamentoEliminado = eliminarDepartamento(entrada);
                 HibernateUtil.removeObject(departamentoEliminado);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
@@ -68,17 +70,17 @@ public class Menu {
     }
 
     private static Departamento eliminarDepartamento(Scanner entrada) {
-        Departamento deparatamentoEliminado= new Departamento();
+        Departamento deparatamentoEliminado = new Departamento();
         return deparatamentoEliminado;
     }
 
     private static Empregado eliminarEmpleado(Scanner entrada) {
-        Empregado empregadoDespedido=new Empregado();
+        Empregado empregadoDespedido = new Empregado();
         return empregadoDespedido;
     }
 
     private static Departamento introducirDeparatamento(Scanner entrada) {
-        Departamento departamento=new Departamento();
+        Departamento departamento = new Departamento();
         return departamento;
     }
 
@@ -113,14 +115,23 @@ public class Menu {
         apelidos = Letras.setDatos(entrada, "apellidos");
         // Introducir número de departamento
         do {
+            numeroCorrecto = false;
+            //recuperamos en una lista los id de los departamentos
+            ArrayList<Integer> idDepartamentos = new ArrayList<>(HibernateUtil.idDepartamentos());
             try {
-                System.out.println("Introduzca el número de departamento");
+                System.out.println("Introduzca el número de departamento dentro de los que ya existen: ");
+                //aqui debemos mostrar los departamentos  y comprobar que el número introducido por el usuario es un deparatamento que existe
+                HibernateUtil.mostrarIdNombreDepartamentos();
                 numeroDeDepartamento = entrada.nextInt();
             } catch (InputMismatchException ime) {
                 System.out.println(ime);
                 numeroDeDepartamento = 0;
             }
-        } while (numeroDeDepartamento == 0);
+            if (idDepartamentos.contains(numeroDeDepartamento)) {
+                numeroCorrecto = true;
+            }
+        } while (numeroDeDepartamento == 0 || !numeroCorrecto);
+
         // Introducir puesto de trabajo
         cargo = Letras.setDatos(entrada, "puesto de trabajo");
         // Introducir numero de telefono
@@ -132,7 +143,7 @@ public class Menu {
         do {
             numeroCorrecto = true;
             try {
-                System.out.println("Introduzca el número de teléfono del empleado");
+                System.out.print("Introduzca el número de teléfono del empleado: ");
                 numeroTelefono = entrada.nextLine();
             } catch (InputMismatchException ime) {
                 System.out.println(ime);
@@ -154,7 +165,7 @@ public class Menu {
         do {
             numeroCorrecto = true;
             try {
-                System.out.println("Introduza el número de la seguridad social");
+                System.out.print("Introduza el número de la seguridad social: ");
                 numeroSeguridadSocial = entrada.nextLine();
             } catch (InputMismatchException ime) {
                 System.out.println(ime);
@@ -168,7 +179,7 @@ public class Menu {
 
 
         //instanciamos un empleado con los datos del usuario
-        Empregado employee = new Empregado(500, dni, nome, apelidos, numeroDeDepartamento,
+        Empregado employee = new Empregado( dni, nome, apelidos, numeroDeDepartamento,
                 cargo, numeroTelefono, dataNacemento, email, numeroSeguridadSocial);
 
         return employee;
