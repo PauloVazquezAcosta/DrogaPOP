@@ -4,19 +4,8 @@
  * and open the template in the editor.
  */
 package drogapop;
-
-
-import drogapop.entity.Departamento;
-import drogapop.entity.Empregado;
-
 import drogapop.entity.clasesAuxiliares.*;
-
-import java.sql.Date;
 import java.util.Scanner;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * @author Paulo
  * @author Yuda

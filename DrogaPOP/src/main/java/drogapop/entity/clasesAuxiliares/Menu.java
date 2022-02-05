@@ -1,6 +1,7 @@
 package drogapop.entity.clasesAuxiliares;
 
 import drogapop.HibernateUtil;
+import drogapop.entity.Departamento;
 import drogapop.entity.Empregado;
 
 import java.sql.Date;
@@ -38,21 +39,22 @@ public class Menu {
             case 3:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nINTRODUCIR DEPARTAMENTO ...");
-                //Departamento departamento=introducirDeparatamento(entrada);
-                //HibernateUtil.addObject(departamento);
+                Departamento departamento=introducirDeparatamento(entrada);
+                HibernateUtil.addObject(departamento);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 4:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nELIMINAR EMPLEADO ...");
-                //HibernateUtil.eliminarEmpleado();
+                Empregado empleadoDespedido=eliminarEmpleado(entrada);
+                HibernateUtil.removeObject(empleadoDespedido);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 5:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("ELIMINAR DEPARTAMENTO ...");
-                // Empregado employee=eliminarEmpleado(entrada);
-                //HibernateUtil.removeObject(employee);
+                Departamento departamentoEliminado= eliminarDepartamento(entrada);
+                HibernateUtil.removeObject(departamentoEliminado);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 6:
@@ -63,6 +65,21 @@ public class Menu {
         }
         System.out.println("Pulsa Intro para continuar...");
         entrada.nextLine();
+    }
+
+    private static Departamento eliminarDepartamento(Scanner entrada) {
+        Departamento deparatamentoEliminado= new Departamento();
+        return deparatamentoEliminado;
+    }
+
+    private static Empregado eliminarEmpleado(Scanner entrada) {
+        Empregado empregadoDespedido=new Empregado();
+        return empregadoDespedido;
+    }
+
+    private static Departamento introducirDeparatamento(Scanner entrada) {
+        Departamento departamento=new Departamento();
+        return departamento;
     }
 
 
@@ -82,22 +99,30 @@ public class Menu {
         Date dataNacemento = new Date(1 - 3 - 2021);
         email = "@gmail";
         numeroSeguridadSocial = "1234";
-
         // Variables auxiliares
         boolean dniCorrecto, numeroCorrecto;
-        ;
+
+        //Introducir DNI
         do {
             System.out.println("Escriba un dni: ");
             dni = entrada.nextLine();
             dniCorrecto = DNI.validarDNI(dni);
         } while (!dniCorrecto);
-
+        //introducir nombre y apellidos
         nome = Letras.setDatos(entrada, "nombre");
         apelidos = Letras.setDatos(entrada, "apellidos");
-        dataNacemento = Fecha.entrarFecha(entrada);
-        email = Letras.setDatos(entrada, "correo electronico");
-
-
+        // Introducir número de departamento
+        do {
+            try {
+                System.out.println("Introduzca el número de departamento");
+                numeroDeDepartamento = entrada.nextInt();
+            } catch (InputMismatchException ime) {
+                System.out.println(ime);
+                numeroDeDepartamento = 0;
+            }
+        } while (numeroDeDepartamento == 0);
+        // Introducir puesto de trabajo
+        cargo = Letras.setDatos(entrada, "puesto de trabajo");
         // Introducir numero de telefono
         /* En caso de que a hora de introducir o numero da seguridad social solo comprobemos que teña unha
          *  certa cantidade de numeros (como e no caso de este do-while) poderemos introducir este codigo
@@ -120,6 +145,10 @@ public class Menu {
             }
         } while (!numeroCorrecto || numeroTelefono.equals(""));
 
+        //Introducir fecha de nacimiento
+        dataNacemento = Fecha.entrarFecha(entrada);
+        //Introducir email
+        email = Letras.setDatos(entrada, "correo electronico");
 
         // Introducir numero de la seguridad social
         do {
@@ -129,30 +158,16 @@ public class Menu {
                 numeroSeguridadSocial = entrada.nextLine();
             } catch (InputMismatchException ime) {
                 System.out.println(ime);
-                System.out.println("ERROR : Ha introducido mal el numero de la seguridad social");
+                System.out.println("ERROR : Ha introducido mal el número de la seguridad social");
                 numeroSeguridadSocial = "";
             }
-
             if (!nome.equals("")) {
                 numeroCorrecto = Numero.comprobarNumero(numeroSeguridadSocial, 2);
             }
         } while (!numeroCorrecto || numeroSeguridadSocial.equals(""));
 
-        // Introducir numero de departamento
-        do {
-            try {
-                System.out.println("Introduzca el número de departamento");
-                numeroDeDepartamento = entrada.nextInt();
-            } catch (InputMismatchException ime) {
-                System.out.println(ime);
-                numeroDeDepartamento = 0;
-            }
-        } while (numeroDeDepartamento == 0);
 
-        // Introducir puesto de trabajo
-        cargo = Letras.setDatos(entrada, "puesto de trabajo");
-
-
+        //instanciamos un empleado con los datos del usuario
         Empregado employee = new Empregado(500, dni, nome, apelidos, numeroDeDepartamento,
                 cargo, numeroTelefono, dataNacemento, email, numeroSeguridadSocial);
 
