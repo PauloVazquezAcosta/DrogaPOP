@@ -46,11 +46,6 @@ public class Empregado implements Serializable {
     @Column(name="numero_seg_social")
     private String numeroSeguridadeSocial;
 
-
-    public Empregado() {
-
-    }
-
     public Empregado(int id, String DNI, String nome, String apelidos, int numeroDeDepartamento, String cargo, String numeroTelefono, Date dataNacemento, String email, String numeroSeguridadeSocial) {
         this.id = id;
         this.DNI = DNI;
@@ -62,6 +57,10 @@ public class Empregado implements Serializable {
         this.dataNacemento = dataNacemento;
         this.email = email;
         this.numeroSeguridadeSocial = numeroSeguridadeSocial;
+    }
+
+    public Empregado() {
+
     }
 
     public int getId() {

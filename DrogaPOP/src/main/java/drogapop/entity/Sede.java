@@ -30,6 +30,10 @@ public class Sede implements Serializable {
         this.telefono = telefono;
     }
 
+    public Sede() {
+
+    }
+
     public int getId() {
         return id;
     }

@@ -38,6 +38,10 @@ public class Departamento implements Serializable {
         this.telefono = telefono;
     }
 
+    public Departamento() {
+
+    }
+
     public int getDeptno() {
         return deptno;
     }

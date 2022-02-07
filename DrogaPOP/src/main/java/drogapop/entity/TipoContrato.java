@@ -26,6 +26,10 @@ public class TipoContrato implements Serializable {
         this.nome = nome;
     }
 
+    public TipoContrato() {
+
+    }
+
     public int getId() {
         return id;
     }

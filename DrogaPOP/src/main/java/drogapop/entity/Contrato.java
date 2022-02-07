@@ -51,6 +51,10 @@ public class Contrato implements Serializable {
         this.horasJornadaSemanal = horasJornadaSemanal;
     }
 
+    public Contrato() {
+
+    }
+
     public int getId() {
         return id;
     }

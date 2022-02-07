@@ -118,12 +118,15 @@ public class HibernateUtil {
   }
 
   public static void mostrarTablaEmpleados() {
-    Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado");
+    Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado WHERE id < 10");
     ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
 
-    System.out.println("id\tdni\tnome\tapelidos\tdptno\tcargo\ttelefono\tdata_nacemento\temail\tnum_seg_soc");
+    System.out.println("id\tdni\t\t\tnome\t\t\tapelidos\t\t\tdptno\t\t\tcargo\t\t\ttelefono\t\t\tdata_nacemento\t\t\temail\t\t\tnum_seg_soc");
     for (Empregado empregado : empregados) {
-      System.out.println(empregado.getId() + "\t" + empregado.getNumeroDeDepartamento() + empregado);
+      System.out.println(empregado.getId() + "\t" + empregado.getDNI() + "\t\t\t"  + empregado.getNome() + "\t\t\t" + empregado.getApelidos() + "\t\t\t" + empregado.getNumeroDeDepartamento() +
+                      "\t\t\t" + empregado.getCargo() + "\t\t\t" + empregado.getNumeroTelefono() + "\t\t\t" + empregado.getDataNacemento() + "\t\t\t" + empregado.getEmail() + "\t\t\t" + empregado.getNumeroSeguridadeSocial()
+              );
+        System.out.println(empregado.toString());
     }
   }
 
