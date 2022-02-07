@@ -71,16 +71,49 @@ public class Menu {
 
     private static Departamento eliminarDepartamento(Scanner entrada) {
         Departamento deparatamentoEliminado = new Departamento();
+        //debemos comprobar que existe y que no tenga empleados asociados
         return deparatamentoEliminado;
     }
 
     private static Empregado eliminarEmpleado(Scanner entrada) {
         Empregado empregadoDespedido = new Empregado();
+
         return empregadoDespedido;
     }
 
     private static Departamento introducirDeparatamento(Scanner entrada) {
         Departamento departamento = new Departamento();
+        int numeroSede;
+        boolean numeroCorrecto;
+
+        //String nome, int xefe, int ubicacion, String telefono
+        /**El atributo ubicacion en la tabala deparatamento es un número pero debemos mostrar
+         * la tabla sedes para que el usuario introduzca un codigo de sede dentro de los que existen
+         * */
+
+        do {
+            numeroCorrecto = false;
+            //recuperamos en una lista los id de las sedes
+            ArrayList<Integer> idSedes = new ArrayList<>(HibernateUtil.idSedes());
+            try {
+                System.out.println("Introduzca el número de la sede dentro de los que ya existen: ");
+                //aqui debemos mostrar las sedes  y comprobar que el número introducido por el usuario es una que ya existe que existe
+                HibernateUtil.mostrarIdUbicacionSedes();
+                numeroSede = entrada.nextInt();
+            } catch (InputMismatchException ime) {
+                System.out.println(ime);
+                numeroSede= 0;
+            }
+            if (idSedes.contains(numeroSede)) {
+                numeroCorrecto = true;
+            }
+        } while (numeroSede == 0 || !numeroCorrecto);
+
+
+        /* aqui debemos preguntar a que empleado pondra de jefe y mostrar a los que ya son jefes de otros departamentos
+        **/
+
+
         return departamento;
     }
 

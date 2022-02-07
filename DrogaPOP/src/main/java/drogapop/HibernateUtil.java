@@ -161,6 +161,20 @@ public class HibernateUtil {
         }
        return idDepartamentos;
     }
+/**
+ * Este método devuelve una lista con los codigod de los deparatamentos
+ * @return ArrayList<>-->idSedes
+*/
+    public static ArrayList<Integer> idSedes(){
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sedes");
+        ArrayList<Sede> sedes = (ArrayList<Sede>) query.list();
+        ArrayList<Integer> idSedes=new ArrayList<>();
+        for (Sede sede : sedes) {
+            idSedes.add(sede.getId());
+        }
+        return idSedes;
+    }
+
     /**
      * este método muestra solo el id y el nombre del departamento.
      * es usado para que el usuario elija en que departamento va a incluir a un nuevo empleado
@@ -172,6 +186,19 @@ public class HibernateUtil {
         System.out.println("Código \tNombre");
         for (Departamento departamento : departamentos) {
             System.out.println(departamento.getDeptno()  + "\t\t" +  departamento.getNome());
+        }
+    }
+    /**
+     * este método muestra solo el id y la ubicación de la sede.
+     * es usado para que el usuario elija en que sede va a incluir a un nuevo departamento
+     * */
+    public static void mostrarIdUbicacionSedes() {
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sedes");
+        ArrayList<Sede> sedes = (ArrayList<Sede>) query.list();
+
+        System.out.println("Código \tUbicación");
+        for (Sede sede : sedes) {
+            System.out.println(sede.getId()  + "\t\t" +  sede.getUbicacion());
         }
     }
 
