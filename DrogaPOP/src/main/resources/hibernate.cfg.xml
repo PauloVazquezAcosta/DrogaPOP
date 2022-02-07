@@ -9,7 +9,8 @@
     <property name="hibernate.connection.username">yudaramos</property>
     <property name="hibernate.connection.password">conndb@Servo2021*</property>
 
-    <!-- SQL dialect (13.5) -->
+
+    <!-- SQL dialect (13.5) <property name="hibernate.hbm2ddl.auto">none</property>-->
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
 
     <!-- Print executed SQL to stdout -->
