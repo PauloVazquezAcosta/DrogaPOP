@@ -11,34 +11,34 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="contratos", catalog="DrogaPOP")
-public class Contrato implements Serializable {
+public class Contrato extends Entidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name="id")
-    private int id;
+    int id;
 
     @Column(name="empregado")
-    private int empregado;
+    int empregado;
 
     @Column(name="data_inicio")
-    private Date dataInicio;
+    Date dataInicio;
 
     @Column(name="data_fin")
-    private Date dataFin;
+    Date dataFin;
 
     @Column(name="salario")
-    private float salario;
+    float salario;
 
     @Column(name="tipo")
-    private int tipo;
+    int tipo;
 
     @Column(name="meses_duracion")
-    private int mesesDuracion;
+    int mesesDuracion;
 
     @Column(name="horas_jornada_semanal")
-    private int horasJornadaSemanal;
+    int horasJornadaSemanal;
 
     public Contrato(int id, int empregado, Date dataInicio, Date dataFin, float salario, int tipo, int mesesDuracion, int horasJornadaSemanal) {
         this.id = id;

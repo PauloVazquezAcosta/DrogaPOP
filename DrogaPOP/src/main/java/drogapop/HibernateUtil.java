@@ -137,18 +137,11 @@ public class HibernateUtil {
    *
    * @version 0.0.1
    */
-  public static void mostrarTablaEmpleados() {
-    Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado WHERE id < 10");
-    ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
-
-    System.out.println("id\tdni\t\t\tnome\t\t\tapelidos\t\t\tdptno\t\t\tcargo\t\t\ttelefono\t\t\tdata_nacemento\t\t\temail\t\t\tnum_seg_soc");
-    for (Empregado empregado : empregados) {
-      System.out.println(empregado.getId() + "\t" + empregado.getDNI() + "\t\t\t"  + empregado.getNome() +
-                      "\t\t\t" + empregado.getApelidos() + "\t\t\t" + empregado.getNumeroDeDepartamento() +
-                      "\t\t\t" + empregado.getCargo() + "\t\t\t" + empregado.getNumeroTelefono() + "\t\t\t"
-                      + empregado.getDataNacemento() + "\t\t\t" + empregado.getEmail() + "\t\t\t" +
-                      empregado.getNumeroSeguridadeSocial()
-              );
+  public static void mostrarTabla(String tabla) {
+    Query query = HibernateUtil.getCurrentSession().createQuery("FROM " + tabla + " WHERE id < 10");
+    ArrayList<Object> objetos = (ArrayList<Object>) query.list();
+    for (Object objecto : objetos) {
+      System.out.println(objecto.toString());
     }
   }
 }

@@ -10,19 +10,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="sedes", catalog="DrogaPOP")
-public class Sede implements Serializable {
+public class Sede extends Entidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name="id")
-    private int id;
+    int id;
 
     @Column(name="ubicacion")
-    private String ubicacion;
+    String ubicacion;
 
     @Column(name="telefono")
-    private String telefono;
+    String telefono;
 
     public Sede(int id, String ubicacion, String telefono) {
         this.id = id;

@@ -10,25 +10,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="departamentos", catalog="DrogaPOP")
-public class Departamento implements Serializable {
+public class Departamento extends Entidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name="id")
-    private int deptno;
+    int deptno;
 
     @Column(name="nome")
-    private String nome;
+    String nome;
 
     @Column(name="xefe")
-    private int xefe;
+    int xefe;
 
     @Column(name="ubicacion")
-    private int ubicacion;
+    int ubicacion;
 
     @Column(name="telefono")
-    private String telefono;
+    String telefono;
 
     public Departamento(int deptno, String nome, int xefe, int ubicacion, String telefono) {
         this.deptno = deptno;
