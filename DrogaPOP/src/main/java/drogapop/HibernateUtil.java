@@ -117,17 +117,38 @@ public class HibernateUtil {
     session.close();
   }
 
+  /**
+   * Eliminar un empleado de la base de datos por ID
+   *
+   * @param identifier -> identificador del empleado
+   * @version 0.0.1
+   */
+  public static void removeEmployee(String identifier) {
+    Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado WHERE id = " + identifier);
+    ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
+    for (Empregado empregado : empregados) {
+      removeObject(empregado);
+    }
+  }
+
+  /**
+   * Muestra los datos de la tabla empleados
+   * TODO: Revisar formato
+   *
+   * @version 0.0.1
+   */
   public static void mostrarTablaEmpleados() {
     Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado WHERE id < 10");
     ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
 
     System.out.println("id\tdni\t\t\tnome\t\t\tapelidos\t\t\tdptno\t\t\tcargo\t\t\ttelefono\t\t\tdata_nacemento\t\t\temail\t\t\tnum_seg_soc");
     for (Empregado empregado : empregados) {
-      System.out.println(empregado.getId() + "\t" + empregado.getDNI() + "\t\t\t"  + empregado.getNome() + "\t\t\t" + empregado.getApelidos() + "\t\t\t" + empregado.getNumeroDeDepartamento() +
-                      "\t\t\t" + empregado.getCargo() + "\t\t\t" + empregado.getNumeroTelefono() + "\t\t\t" + empregado.getDataNacemento() + "\t\t\t" + empregado.getEmail() + "\t\t\t" + empregado.getNumeroSeguridadeSocial()
+      System.out.println(empregado.getId() + "\t" + empregado.getDNI() + "\t\t\t"  + empregado.getNome() +
+                      "\t\t\t" + empregado.getApelidos() + "\t\t\t" + empregado.getNumeroDeDepartamento() +
+                      "\t\t\t" + empregado.getCargo() + "\t\t\t" + empregado.getNumeroTelefono() + "\t\t\t"
+                      + empregado.getDataNacemento() + "\t\t\t" + empregado.getEmail() + "\t\t\t" +
+                      empregado.getNumeroSeguridadeSocial()
               );
-        System.out.println(empregado.toString());
     }
   }
-
 }
