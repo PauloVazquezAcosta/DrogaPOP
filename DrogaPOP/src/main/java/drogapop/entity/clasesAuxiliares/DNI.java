@@ -8,7 +8,7 @@ public class DNI {
      * Valida que el DNI introducido sea correcto
      *
      * @param dni
-     * @return booelean
+     * @return boolean
      */
     public static boolean validarDNI(String dni) {
 
