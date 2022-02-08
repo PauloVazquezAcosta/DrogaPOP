@@ -9,6 +9,7 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -248,5 +249,15 @@ public class HibernateUtil {
     for (Object objecto : objetos) {
       System.out.println(objecto.toString());
     }
+  }
+
+  public static ArrayList<String> arrayDNIs(){
+      Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado");
+      ArrayList<String> dnis = null;
+      ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
+      for (int i= 0;i < empregados.size();i++) {
+          dnis.add(empregados.get(i).getDNI());
+      }
+      return dnis;
   }
 }

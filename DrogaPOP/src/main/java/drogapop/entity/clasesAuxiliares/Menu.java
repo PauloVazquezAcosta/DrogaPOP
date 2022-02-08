@@ -138,11 +138,24 @@ public class Menu {
         boolean dniCorrecto, numeroCorrecto;
 
         //Introducir DNI
-        do {
-            System.out.println("Escriba un dni: ");
-            dni = entrada.nextLine();
-            dniCorrecto = DNI.validarDNI(dni);
-        } while (!dniCorrecto);
+        do{
+            do {
+                System.out.println("Escriba un dni: ");
+                dni = entrada.nextLine();
+                dniCorrecto = DNI.validarDNI(dni);
+            } while (!dniCorrecto);
+
+            // Comprobar si el DNI introducido existe en la base de datos
+            ArrayList<String> dniList = new ArrayList<>(HibernateUtil.arrayDNIs());
+            System.out.println(dniList);
+
+            if(dniList.contains(dni)){
+                System.out.println("Este DNI ya existe en la base de datos");
+                dni = "";
+            }
+
+        }while(dni.equals(""));
+
         //introducir nombre y apellidos
         nome = Letras.setDatos(entrada, "nombre");
         apelidos = Letras.setDatos(entrada, "apellidos");
@@ -152,9 +165,9 @@ public class Menu {
             //recuperamos en una lista los id de los departamentos
             ArrayList<Integer> idDepartamentos = new ArrayList<>(HibernateUtil.idDepartamentos());
             try {
-                System.out.println("Introduzca el número de departamento dentro de los que ya existen: ");
                 //aqui debemos mostrar los departamentos  y comprobar que el número introducido por el usuario es un deparatamento que existe
                 HibernateUtil.mostrarIdNombreDepartamentos();
+                System.out.println("Introduzca el número de departamento dentro de los que ya existen: ");
                 numeroDeDepartamento = entrada.nextInt();
             } catch (InputMismatchException ime) {
                 System.out.println(ime);
@@ -166,6 +179,8 @@ public class Menu {
         } while (numeroDeDepartamento == 0 || !numeroCorrecto);
 
         // Introducir puesto de trabajo
+        // Vaciamos la cache del scanner
+        entrada.nextLine();
         cargo = Letras.setDatos(entrada, "puesto de trabajo");
         // Introducir numero de telefono
         /* En caso de que a hora de introducir o numero da seguridad social solo comprobemos que teña unha
@@ -184,7 +199,7 @@ public class Menu {
                 numeroTelefono = "";
             }
 
-            if (numeroTelefono.equals("")) {
+            if (!numeroTelefono.equals("")) {
                 numeroCorrecto = Numero.comprobarNumero(numeroTelefono, 1);
             }
         } while (!numeroCorrecto || numeroTelefono.equals(""));
@@ -205,7 +220,7 @@ public class Menu {
                 System.out.println("ERROR : Ha introducido mal el número de la seguridad social");
                 numeroSeguridadSocial = "";
             }
-            if (!nome.equals("")) {
+            if (!numeroSeguridadSocial.equals("")) {
                 numeroCorrecto = Numero.comprobarNumero(numeroSeguridadSocial, 2);
             }
         } while (!numeroCorrecto || numeroSeguridadSocial.equals(""));
