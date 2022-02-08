@@ -1,7 +1,6 @@
 package drogapop.entity;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -47,7 +46,6 @@ public class Empregado extends Entidade implements Serializable  {
     String numeroSeguridadeSocial;
 
     public Empregado( String DNI, String nome, String apelidos, int numeroDeDepartamento, String cargo, String numeroTelefono, Date dataNacemento, String email, String numeroSeguridadeSocial) {
-
         this.DNI = DNI;
         this.nome = nome;
         this.apelidos = apelidos;
@@ -142,7 +140,4 @@ public class Empregado extends Entidade implements Serializable  {
     public void setNumeroSeguridadeSocial(String numeroSeguridadeSocial) {
         this.numeroSeguridadeSocial = numeroSeguridadeSocial;
     }
-
-
-
 }

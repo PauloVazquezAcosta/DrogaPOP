@@ -12,7 +12,6 @@ public class Departamento extends Entidade implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="secuencia_id_departamento")
     @SequenceGenerator(name="secuencia_id_departamento", sequenceName="departamento_id_seq", allocationSize=1)
     @Column(name="id")
@@ -29,8 +28,6 @@ public class Departamento extends Entidade implements Serializable {
 
     @Column(name="telefono")
     String telefono;
-
-
 
     public Departamento(String nome, int xefe, int ubicacion, String telefono) {
         this.nome = nome;

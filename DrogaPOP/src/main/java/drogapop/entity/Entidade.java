@@ -3,30 +3,30 @@ package drogapop.entity;
 import java.lang.reflect.Field;
 
 public class Entidade {
+
     public String toString() {
         StringBuilder result = new StringBuilder();
         String newLine = System.getProperty("line.separator");
 
-        result.append( this.getClass().getName() );
-        result.append(newLine);
+        result.append("Datos de ");
+        result.append(this.getClass().getName());
 
-        //determine fields declared in this class only (no fields of superclass)
+        // Determine fields declared in this class only (no fields of superclass)
         Field[] fields = this.getClass().getDeclaredFields();
 
-        //print field names paired with their values
-        for ( Field field : fields  ) {
-            result.append("  ");
+        // Print field names paired with their values
+        for (Field field : fields) {
             try {
-                result.append( field.getName() );
+                // Ejecuta field.get para comprobar que se puede acceder
+                // Si no se puede acceder, el resto del código no se ejecuta
+                field.get(this);
+                result.append("  ");
+                result.append("  " + field.getName());
                 result.append(": ");
-                //requires access to private field:
-                result.append( field.get(this) );
-            } catch ( IllegalAccessException ex ) {
-                // System.out.println(ex);
-            }
+                result.append(field.get(this));
+            } catch (IllegalAccessException ex) {}
             result.append(newLine);
         }
-
         return result.toString();
     }
 }

@@ -22,13 +22,13 @@ public class Menu {
             case 0:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nMOSTRANDO EMPLEADOS ... ");
-                HibernateUtil.mostrarTablaEmpleados();
+                HibernateUtil.mostrarTabla("Empregado");
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 1:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nMOSTRANDO DEPARTAMENTOS ... ");
-                HibernateUtil.mostrarTablaDepartamentos();
+                HibernateUtil.mostrarTabla("Departamento");
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 2:
