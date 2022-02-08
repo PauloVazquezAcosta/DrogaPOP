@@ -19,6 +19,9 @@ public class Empregado extends Entidade implements Serializable  {
     @Column(name="id")
     int id;
 
+    @ManyToOne
+    Departamento departamento;
+
     @Column(name="dni")
     String DNI;
 
@@ -27,6 +30,7 @@ public class Empregado extends Entidade implements Serializable  {
 
     @Column(name="apelidos")
     String apelidos;
+
 
     @Column(name="deptno")
     int numeroDeDepartamento;

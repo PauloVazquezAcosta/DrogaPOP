@@ -21,7 +21,7 @@ public class Fecha {
         boolean formatoCorrecto = true;
         // Utilizamos la clase DateFormat para establecer un formato para la hora y
         // fecha
-        DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         do {
             formatoCorrecto = true;
@@ -33,7 +33,10 @@ public class Fecha {
                 // Intentamos parsear el string que introduce el usuario y si falla es que está
                 // mal, asi que repetimos
                 thisDate = (Date) dateFormat.parse(fechaHora);
-                formatoCorrecto = validarFecha(fechaHora);
+                //formatoCorrecto = validarFecha(thisDate);
+                dateFormat.setLenient(false);
+                dateFormat.parse(fechaHora);
+                formatoCorrecto = true;
             } catch (ParseException ex) {
                 formatoCorrecto = false;
             }
@@ -44,96 +47,4 @@ public class Fecha {
 
         return thisDate;
     }
-
-    // Toda esta parte está comentada porque se creou outro método para validar a
-    // data, hai que ver con cal quedamos
-
-    /**
-     * Verifica si una fecha con el formato deseado es correcta.
-     *
-     * @param fechaHora Recibe una fecha que ya tiene el formato adecuado.
-     * @return boolean true/OK false/error.
-     * @version 0.0.1
-     */
-    /*
-     * public static boolean validarFecha(String fechaHora) {
-     * if (fechaHora == null) {
-     * return false;
-     * }
-     * try {
-     * // Separamos los datos del String introducido.
-     * int dia = Integer.valueOf(fechaHora.substring(8, 10));
-     * int mes = Integer.valueOf(fechaHora.substring(5, 7));
-     * int anio = Integer.valueOf(fechaHora.substring(0, 4));
-     * boolean anioBisciesto = false;
-     * 
-     * // Validación Bisiesto.
-     * if ((anio % 4 == 0 && anio % 400 == 0 && anio % 100 == 0)
-     * || (anio % 4 == 0 && anio % 100 != 0)) {
-     * anioBisciesto = true;
-     * }
-     * 
-     * // Validación Día.
-     * if (dia < 1 || dia > 31) {
-     * return false;
-     * }
-     * // Validación Mes de febrero.
-     * if (mes == 2 && dia > 28 && !anioBisciesto) {
-     * return false;
-     * }
-     * // Validación Día 31.
-     * if ((mes == 2 || mes == 4 || mes == 6 || mes == 9 || mes == 11) && (dia ==
-     * 31)) {
-     * return false;
-     * }
-     * // Validación Mes.
-     * if (mes < 1 || mes > 12) {
-     * return false;
-     * }
-     * /*
-     * Para saber si un año es bisiesto se puede aplicar una simple formula,
-     * la cual dice que un año es bisiesto si es divisible por cuatro,
-     * excepto los principios de año (los divisibles por 100),
-     * que para ser bisiestos deben de ser divisibles también por 400.
-     * 
-     * if(mes==2&&dia==29&&!anioBisciesto)
-     * 
-     * {
-     * return false;
-     * }
-     * 
-     * }catch(NumberFormatException|
-     * StringIndexOutOfBoundsException e)
-     * {
-     * return false;
-     * }
-     * 
-     * // Fecha válida
-     * return true;
-     * }
-     */
-
-    /**
-     * Método que valida el formato de la fecha del vuelo y devuelve si es válido o
-     * no
-     * 
-     * @param fecha Fecha a validar
-     * @return Devolverá un boolean que indicará si el formato es válido o no
-     * @version 0.0.2
-     */
-    static boolean validarFecha(String fecha) {
-        Boolean formato = true;
-
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            dateFormat.setLenient(false);
-            dateFormat.parse(fecha);
-            formato = true;
-        } catch (ParseException e) {
-            System.out.println("El formato introducido no es correcto. Formato correcto: yyyy-MM-dd");
-            formato = false;
-        }
-        return formato;
-    }
-
 }

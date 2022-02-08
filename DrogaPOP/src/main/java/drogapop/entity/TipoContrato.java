@@ -1,11 +1,9 @@
 package drogapop.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -17,6 +15,10 @@ public class TipoContrato extends Entidade implements Serializable {
     @Id
     @Column(name="id")
     int id;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="id")
+    Set<Contrato> contratos;
 
     @Column(name="nome")
     String nome;
