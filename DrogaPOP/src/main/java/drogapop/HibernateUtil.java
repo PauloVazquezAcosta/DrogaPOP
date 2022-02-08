@@ -46,9 +46,9 @@ public class HibernateUtil {
     // Se registran las clases que hay que mapear con cada tabla de la base de datos
     configuration.addAnnotatedClass(Departamento.class);
     configuration.addAnnotatedClass(Empregado.class);
-    // configuration.addAnnotatedClass(Contrato.class);
-    // configuration.addAnnotatedClass(Sede.class);
-    // configuration.addAnnotatedClass(TipoContrato.class);
+    configuration.addAnnotatedClass(Contrato.class);
+    configuration.addAnnotatedClass(Sede.class);
+    configuration.addAnnotatedClass(TipoContrato.class);
 
     // Se crea la SessionFactory
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
@@ -138,7 +138,7 @@ public class HibernateUtil {
    * @version 0.0.1
    */
   public static void mostrarTabla(String tabla) {
-    Query query = HibernateUtil.getCurrentSession().createQuery("FROM " + tabla + " WHERE id < 10");
+    Query query = HibernateUtil.getCurrentSession().createQuery("FROM " + tabla);
     ArrayList<Object> objetos = (ArrayList<Object>) query.list();
     for (Object objecto : objetos) {
       System.out.println(objecto.toString());

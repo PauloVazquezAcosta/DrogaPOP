@@ -22,7 +22,7 @@ public class Entidade {
                 //requires access to private field:
                 result.append( field.get(this) );
             } catch ( IllegalAccessException ex ) {
-                System.out.println(ex);
+                // System.out.println(ex);
             }
             result.append(newLine);
         }
