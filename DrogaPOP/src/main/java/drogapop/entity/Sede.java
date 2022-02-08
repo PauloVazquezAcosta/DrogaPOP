@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Table(name="sedes", catalog="DrogaPOP")
 public class Sede extends Entidade implements Serializable {
 
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -23,6 +24,7 @@ public class Sede extends Entidade implements Serializable {
 
     @Column(name="telefono")
     String telefono;
+
 
     public Sede(int id, String ubicacion, String telefono) {
         this.id = id;

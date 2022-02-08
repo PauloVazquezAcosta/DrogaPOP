@@ -4,38 +4,19 @@
  * and open the template in the editor.
  */
 package drogapop;
-
-
 import drogapop.entity.Empregado;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-
-import java.sql.Date;
-
-
-import org.hibernate.internal.build.AllowSysOut;
-
-import javax.xml.bind.SchemaOutputResolver;
+import drogapop.entity.clasesAuxiliares.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-import drogapop.entity.Empregado;
-
-import java.util.Scanner;
-
 /**
- *
  * @author Paulo
  * @author Yuda
  * @author Maikel
@@ -69,7 +50,7 @@ public class Main {
                     System.out.print("Pulsa Intro para continuar...");
                     input.nextLine();
                 } else {
-                    menuOpciones(opcion, input);
+                    Menu.menuOpciones(opcion, input);
                 }
 
             } catch (NumberFormatException nfe) {
@@ -82,62 +63,7 @@ public class Main {
         } while (opcion != 6);
         // Se cierra la conexión a la BBDD y la entrada por teclado.
         input.close();
-
     }
-
-    /**
-     *  Determina la accion que realizara el programa en funcion de la seleccion del usuario en el menu
-     * @param opcion
-     * @param entrada
-     */
-    private static void menuOpciones(int opcion, Scanner entrada) {
-        switch (opcion) {
-            case 0:
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                System.out.println("\nMOSTRANDO EMPLEADOS ... ");
-                HibernateUtil.mostrarTabla("Empregado");
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                break;
-            case 1:
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                System.out.println("\nMOSTRANDO DEPARTAMENTOS ... ");
-                HibernateUtil.mostrarTabla("Departamento");
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                break;
-            case 2:
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                System.out.println("\nINTRODUCIR EMPLEADO ... ");
-                Empregado employee = introducirEmpleado(entrada);
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                break;
-            case 3:
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                System.out.println("\nINTRODUCIR DEPARTAMENTO ...");
-                //prepararNuevoVuelo(input);
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                break;
-            case 4:
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                System.out.println("\nELIMINAR EMPLEADO ...");
-                //Queries.verVuelosCreados(bbdd, input);
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                break;
-            case 5:
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                System.out.println("ELIMINAR DEPARTAMENTO ...");
-                //Queries.cambiarFumadores(bbdd, input);
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                break;
-            case 6:
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                System.out.println("GRACIAS POR UTILIZAR EL PROGRAMA, BUEN DÍA. VUELVE PRONTO!!!");
-                System.out.println("-----------------------------------------------------------------------------------------------------");
-                break;
-        }
-        System.out.println("Pulsa Intro para continuar...");
-        entrada.nextLine();
-    }
-
 
     /**
      * Metodo que pide al usuario los datos de un empleado para despues introducirlo en la base de datos
@@ -167,16 +93,16 @@ public class Main {
         salario = entrada.nextFloat();
         deptno = entrada.nextInt();
         
-         int numeroDeDepartamento=1 ;
+        int numeroDeDepartamento=1 ;
         String cargo="tipo";
-       String numeroTelefono="604";
+        String numeroTelefono="604";
         Date dataNacemento =new Date(1-3-2021);
         String email="@gmail" ;
         String numeroSeguridadeSocial ="1234";
         
         //Empregado employee= new Empregado("1234","yo","apellido","") ;
 
-        Empregado employee = new Empregado(500,dni, nome, apelidos,numeroDeDepartamento, cargo,numeroTelefono , dataNacemento, email,numeroSeguridadeSocial);
+        Empregado employee = new Empregado(dni, nome, apelidos,numeroDeDepartamento, cargo,numeroTelefono , dataNacemento, email,numeroSeguridadeSocial);
 
         return employee;
     }
@@ -310,8 +236,5 @@ public class Main {
 
         return dato;
     }
-
-
-
 
 }
