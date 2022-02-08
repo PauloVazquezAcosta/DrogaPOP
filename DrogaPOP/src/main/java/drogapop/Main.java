@@ -4,8 +4,18 @@
  * and open the template in the editor.
  */
 package drogapop;
+import drogapop.entity.Empregado;
 import drogapop.entity.clasesAuxiliares.*;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author Paulo
  * @author Yuda
@@ -53,8 +63,178 @@ public class Main {
         } while (opcion != 6);
         // Se cierra la conexión a la BBDD y la entrada por teclado.
         input.close();
-
     }
 
+    /**
+     * Metodo que pide al usuario los datos de un empleado para despues introducirlo en la base de datos
+     * @param entrada
+     * @version 0.0.1
+     * @return employee
+     */
+    public static Empregado introducirEmpleado(Scanner entrada){
+        String dni, nome, apelidos, contratoDende;
+        int postoTraballo,deptno;
+        float salario;
+        // Variables auxiliares
+        boolean dniCorrecto;
+
+
+        do {
+            System.out.println("Escriba un dni: ");
+            dni = entrada.nextLine();
+            dniCorrecto=validarDNI(dni);
+
+        } while (!dniCorrecto);
+
+        nome = setDatos(entrada, "nombre");
+        apelidos = setDatos(entrada, "apellidos");
+        postoTraballo = entrada.nextInt();
+        contratoDende = entrarFecha(entrada).toString();
+        salario = entrada.nextFloat();
+        deptno = entrada.nextInt();
+        
+        int numeroDeDepartamento=1 ;
+        String cargo="tipo";
+        String numeroTelefono="604";
+        Date dataNacemento =new Date(1-3-2021);
+        String email="@gmail" ;
+        String numeroSeguridadeSocial ="1234";
+        
+        //Empregado employee= new Empregado("1234","yo","apellido","") ;
+
+        Empregado employee = new Empregado(dni, nome, apelidos,numeroDeDepartamento, cargo,numeroTelefono , dataNacemento, email,numeroSeguridadeSocial);
+
+        return employee;
+    }
+
+
+    /**
+     * Solicita al usuario introducir una fecha y valida que esta este en el
+     * formato deseado.
+     *
+     * @param input traspasa el Scanner asociado al teclado.
+     * @version 0.0.1
+     * @return Date devuelve un objeto Date válido
+     */
+    public static Date entrarFecha(Scanner input) {
+
+        Date thisDate = null;
+        boolean formatoCorrecto = true;
+        // Utilizamos la clase DateFormat para establecer un formato para la hora y fecha
+        DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
+
+        do {
+            formatoCorrecto = true;
+            System.out.println("\nEscriba la fecha y hora de salida del vuelo en formato "
+                    + "=>YYYY-MM-DD:");
+            String fechaHora = input.nextLine();
+
+            try {
+                // Intentamos parsear el string que introduce el usuario y si falla es que esta mal, asi que repetimos
+                thisDate = (Date) dateFormat.parse(fechaHora);
+                formatoCorrecto = validarFecha(fechaHora);
+            } catch (ParseException ex) {
+                formatoCorrecto = false;
+            }
+            if (!formatoCorrecto) {
+                System.out.println("ERROR: Formato de fecha incorrecto...");
+            }
+        } while (!formatoCorrecto);
+
+        return thisDate;
+    }
+
+    /**
+     * Valida que el DNI introducido sea correcto
+     * @param dni
+     * @return booelean
+     */
+    public static boolean validarDNI(String dni) {
+
+        final Pattern REGEXP = Pattern.compile("[0-9]{8}[A-Z]");
+        final String DIGITO_CONTROL = "TRWAGMYFPDXBNJZSQVHLCKE";
+        final String[] INVALIDOS = new String[] { "00000000T", "00000001R", "99999999R" };
+
+        return Arrays.binarySearch(INVALIDOS, dni) < 0 // (1)
+                && REGEXP.matcher(dni).matches() // (2)
+                && dni.charAt(8) == DIGITO_CONTROL.charAt(Integer.parseInt(dni.substring(0, 8)) % 23); // (3)
+    }
+
+    /**
+     * Verifica si una fecha con el formato deseada es correcta.
+     *
+     * @param fechaHora Recibe una fecha que ya tiene el formato adecuado.
+     * @version 0.0.1
+     * @return boolean true/OK false/error.
+     */
+    public static boolean validarFecha(String fechaHora) {
+        if (fechaHora == null) {
+            return false;
+        }
+        try {
+            // Separamos los datos del String introducido.
+            int dia = Integer.valueOf(fechaHora.substring(8, 10));
+            int mes = Integer.valueOf(fechaHora.substring(5, 7));
+            int anio = Integer.valueOf(fechaHora.substring(0, 4));
+            boolean anioBisciesto = false;
+
+            // Validación Bisiesto.
+            if ((anio % 4 == 0 && anio % 400 == 0 && anio % 100 == 0)
+                    || (anio % 4 == 0 && anio % 100 != 0)) {
+                anioBisciesto = true;
+            }
+
+            // Validación Día.
+            if (dia < 1 || dia > 31) {
+                return false;
+            }
+            // Validación Mes de febrero.
+            if (mes == 2 && dia > 28 && !anioBisciesto) {
+                return false;
+            }
+            // Validación Día 31.
+            if ((mes == 2 || mes == 4 || mes == 6 || mes == 9 || mes == 11) && (dia == 31)) {
+                return false;
+            }
+            // Validación Mes.
+            if (mes < 1 || mes > 12) {
+                return false;
+            }
+            /*Para saber si un año es bisiesto se puede aplicar una simple formula,
+            la cual dice que un año es bisiesto si es divisible por cuatro,
+            excepto los principios de año (los divisibles por 100),
+            que para ser bisiestos deben de ser divisibles también por 400.*/
+            if (mes == 2 && dia == 29 && !anioBisciesto) {
+                return false;
+            }
+
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            return false;
+        }
+
+        // Fecha válida
+        return true;
+    }
+
+    /**
+     * Veririca que el usuario introduzca una cadena válida.
+     * @param entrada traspasa el Scanner asociado al teclado.
+     * @version 0.0.1
+     * @return String validado
+     */
+    public static String setDatos(@org.jetbrains.annotations.NotNull Scanner entrada, String tipoDato) {
+        String dato;
+        Matcher matcher;
+        String formato = "[A-Z]{2,254}";
+        do {
+            System.out.print("Introduza el "+tipoDato+" :");
+            dato = entrada.nextLine().toUpperCase();
+            Pattern pattern = Pattern.compile(formato);
+            matcher = pattern.matcher(dato);
+
+        } while (!matcher.matches());
+
+        return dato;
+    }
 
 }

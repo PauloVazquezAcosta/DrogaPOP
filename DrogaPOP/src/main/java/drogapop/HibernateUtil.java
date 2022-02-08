@@ -43,76 +43,91 @@ public class HibernateUtil {
         // Se registran las clases que hay que mapear con cada tabla de la base de datos
         configuration.addAnnotatedClass(Departamento.class);
         configuration.addAnnotatedClass(Empregado.class);
-        // configuration.addAnnotatedClass(Contrato.class);
-        // configuration.addAnnotatedClass(Sede.class);
-        // configuration.addAnnotatedClass(TipoContrato.class);
+        configuration.addAnnotatedClass(Contrato.class);
+        configuration.addAnnotatedClass(Sede.class);
+        configuration.addAnnotatedClass(TipoContrato.class);
 
         // Se crea la SessionFactory
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).build();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-    }
+  }
 
-    /**
-     * Abre una nueva sesión
-     *
-     * @version 0.0.1
-     */
-    public static void openSession() {
-        session = sessionFactory.openSession();
-    }
+  /**
+   * Abre una nueva sesión
+   *
+   * @version 0.0.1
+   */
+  public static void openSession() {
+    session = sessionFactory.openSession();
+  }
 
-    /**
-     * Devuelve la sesión actual. Si no hay una activa, se abre
-     *
-     * @return sesión actual
-     * @version 0.0.1
-     */
-    public static Session getCurrentSession() {
-        if ((session == null) || (!session.isOpen()))
-            openSession();
-        return session;
-    }
+  /**
+   * Devuelve la sesión actual. Si no hay una activa, se abre
+   *
+   * @return sesión actual
+   * @version 0.0.1
+   */
+  public static Session getCurrentSession() {
+    if ((session == null) || (!session.isOpen()))
+      openSession();
+    return session;
+  }
 
-    /**
-     * Cierra Hibernate
-     *
-     * @version 0.0.1
-     */
-    public static void closeSessionFactory() {
-        if (session != null)
-            session.close();
-        if (sessionFactory != null)
-            sessionFactory.close();
-    }
+  /**
+   * Cierra Hibernate
+   *
+   * @version 0.0.1
+   */
+  public static void closeSessionFactory() {
+    if (session != null)
+      session.close();
+    if (sessionFactory != null)
+      sessionFactory.close();
+  }
 
-    /**
-     * Introducir elemento en la base de datos
-     *
-     * @param object -> objeto a añadir a la base de datos
-     * @version 0.0.1
-     */
-    public static void addObject(Object object) {
-        Session session = HibernateUtil.getCurrentSession();
-        session.beginTransaction();
-        session.save(object);
-        session.getTransaction().commit();
-        session.close();
-    }
+  /**
+   * Introducir elemento en la base de datos
+   *
+   * @param object -> objeto a añadir a la base de datos
+   * @version 0.0.1
+   */
+  public static void addObject(Object object) {
+    Session session = HibernateUtil.getCurrentSession();
+    session.beginTransaction();
+    session.save(object);
+    session.getTransaction().commit();
+    session.close();
+  }
 
-    /**
-     * Eliminar elemento de la base de datos
-     *
-     * @param object -> objeto a eliminar
-     * @version 0.0.1
-     */
-    public static void removeObject(Object object) {
-        Session session = HibernateUtil.getCurrentSession();
-        session.beginTransaction();
-        session.delete(object);
-        session.getTransaction().commit();
-        session.close();
-    }
+  /**
+   * Eliminar elemento de la base de datos
+   *
+   * @param object -> objeto a eliminar
+   * @version 0.0.1
+   */
+  public static void removeObject(Object object) {
+    Session session = HibernateUtil.getCurrentSession();
+    session.beginTransaction();
+    session.delete(object);
+    session.getTransaction().commit();
+    session.close();
+  }
+
+  /**
+   * Eliminar un empleado de la base de datos por ID
+   *
+   * @param identifier -> identificador del empleado
+   * @version 0.0.1
+   */
+  public static void removeEmployee(String identifier) {
+      Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado WHERE id = " + identifier);
+      ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
+      for (Empregado empregado : empregados) {
+          removeObject(empregado);
+
+      }
+  }
 
     /**
      * Muestra los datos de la tabla Empregados
@@ -161,10 +176,11 @@ public class HibernateUtil {
         }
        return idDepartamentos;
     }
-/**
- * Este método devuelve una lista con los codigod de los deparatamentos
- * @return ArrayList<>-->idSedes
-*/
+
+    /**
+     * Este método devuelve una lista con los codigod de los deparatamentos
+     * @return ArrayList<>-->idSedes
+    */
     public static ArrayList<Integer> idSedes(){
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sedes");
         ArrayList<Sede> sedes = (ArrayList<Sede>) query.list();
@@ -188,6 +204,7 @@ public class HibernateUtil {
             System.out.println(departamento.getDeptno()  + "\t\t" +  departamento.getNome());
         }
     }
+
     /**
      * este método muestra solo el id y la ubicación de la sede.
      * es usado para que el usuario elija en que sede va a incluir a un nuevo departamento
@@ -219,4 +236,17 @@ public class HibernateUtil {
         }
     }
 
+  /**
+   * Muestra los datos de la tabla empleados
+   * TODO: Revisar formato
+   *
+   * @version 0.0.1
+   */
+  public static void mostrarTabla(String tabla) {
+    Query query = HibernateUtil.getCurrentSession().createQuery("FROM " + tabla);
+    ArrayList<Object> objetos = (ArrayList<Object>) query.list();
+    for (Object objecto : objetos) {
+      System.out.println(objecto.toString());
+    }
+  }
 }

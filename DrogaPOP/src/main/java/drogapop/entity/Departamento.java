@@ -6,37 +6,41 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "departamentos", catalog = "DrogaPOP")
-public class Departamento implements Serializable {
+@Table(name="departamentos", catalog="DrogaPOP")
+public class Departamento extends Entidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="secuencia_id_departamento")
     @SequenceGenerator(name="secuencia_id_departamento", sequenceName="departamento_id_seq", allocationSize=1)
-    @Column(name = "id")
-    private int deptno;
+    @Column(name="id")
+    int deptno;
 
-    @Column(name = "nome")
-    private String nome;
+    @Column(name="nome")
+    String nome;
 
-    @Column(name = "xefe")
-    private int xefe;
+    @Column(name="xefe")
+    int xefe;
 
-    @Column(name = "ubicacion")
-    private int ubicacion;
+    @Column(name="ubicacion")
+    int ubicacion;
 
-    @Column(name = "telefono")
-    private String telefono;
+    @Column(name="telefono")
+    String telefono;
 
-    public Departamento() {
-    }
+
 
     public Departamento(String nome, int xefe, int ubicacion, String telefono) {
         this.nome = nome;
         this.xefe = xefe;
         this.ubicacion = ubicacion;
         this.telefono = telefono;
+    }
+
+    public Departamento() {
+
     }
 
     public int getDeptno() {

@@ -10,35 +10,35 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "contratos", catalog = "DrogaPOP")
-public class Contrato implements Serializable {
+@Table(name="contratos", catalog="DrogaPOP")
+public class Contrato extends Entidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id")
-    private int id;
+    @Column(name="id")
+    int id;
 
-    @Column(name = "empregado")
-    private int empregado;
+    @Column(name="empregado")
+    int empregado;
 
-    @Column(name = "data_inicio")
-    private Date dataInicio;
+    @Column(name="data_inicio")
+    Date dataInicio;
 
-    @Column(name = "data_fin")
-    private Date dataFin;
+    @Column(name="data_fin")
+    Date dataFin;
 
-    @Column(name = "salario")
-    private float salario;
+    @Column(name="salario")
+    float salario;
 
-    @Column(name = "tipo")
-    private int tipo;
+    @Column(name="tipo")
+    int tipo;
 
-    @Column(name = "meses_duracion")
-    private int mesesDuracion;
+    @Column(name="meses_duracion")
+    int mesesDuracion;
 
-    @Column(name = "horas_jornada_semanal")
-    private int horasJornadaSemanal;
+    @Column(name="horas_jornada_semanal")
+    int horasJornadaSemanal;
 
     public Contrato(int id, int empregado, Date dataInicio, Date dataFin, float salario, int tipo, int mesesDuracion, int horasJornadaSemanal) {
         this.id = id;
@@ -49,6 +49,10 @@ public class Contrato implements Serializable {
         this.tipo = tipo;
         this.mesesDuracion = mesesDuracion;
         this.horasJornadaSemanal = horasJornadaSemanal;
+    }
+
+    public Contrato() {
+
     }
 
     public int getId() {

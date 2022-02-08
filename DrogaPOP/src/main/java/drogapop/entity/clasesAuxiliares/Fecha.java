@@ -125,7 +125,7 @@ public class Fecha {
         Boolean formato = true;
 
         try {
-            DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             dateFormat.setLenient(false);
             dateFormat.parse(fecha);
             formato = true;

@@ -10,20 +10,24 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="tipo_contrato", catalog="DrogaPOP")
-public class TipoContrato implements Serializable {
+public class TipoContrato extends Entidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name="id")
-    private int id;
+    int id;
 
     @Column(name="nome")
-    private String nome;
+    String nome;
 
     public TipoContrato(int id, String nome) {
         this.id = id;
         this.nome = nome;
+    }
+
+    public TipoContrato() {
+
     }
 
     public int getId() {

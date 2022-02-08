@@ -1,6 +1,7 @@
 package drogapop.entity;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="empregados", catalog="DrogaPOP")
-public class Empregado implements Serializable {
+public class Empregado extends Entidade implements Serializable  {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,39 +17,34 @@ public class Empregado implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="secuencia_id")
     @SequenceGenerator(name="secuencia_id", sequenceName="empregado_id_seq", allocationSize=1)
     @Column(name="id")
-    private int id;
+    int id;
 
     @Column(name="dni")
-    private String DNI;
+    String DNI;
 
     @Column(name="nome")
-    private String nome;
+    String nome;
 
     @Column(name="apelidos")
-    private String apelidos;
+    String apelidos;
 
     @Column(name="deptno")
-    private int numeroDeDepartamento;
+    int numeroDeDepartamento;
 
     @Column(name="cargo")
-    private String cargo;
+    String cargo;
 
     @Column(name="telefono")
-    private String numeroTelefono;
+    String numeroTelefono;
 
     @Column(name="data_nacemento")
-    private Date dataNacemento;
+    Date dataNacemento;
 
     @Column(name="email")
-    private String email;
+    String email;
 
     @Column(name="numero_seg_social")
-    private String numeroSeguridadeSocial;
-
-
-    public Empregado() {
-
-    }
+    String numeroSeguridadeSocial;
 
     public Empregado( String DNI, String nome, String apelidos, int numeroDeDepartamento, String cargo, String numeroTelefono, Date dataNacemento, String email, String numeroSeguridadeSocial) {
 
@@ -61,6 +57,10 @@ public class Empregado implements Serializable {
         this.dataNacemento = dataNacemento;
         this.email = email;
         this.numeroSeguridadeSocial = numeroSeguridadeSocial;
+    }
+
+    public Empregado() {
+
     }
 
     public int getId() {
@@ -142,4 +142,7 @@ public class Empregado implements Serializable {
     public void setNumeroSeguridadeSocial(String numeroSeguridadeSocial) {
         this.numeroSeguridadeSocial = numeroSeguridadeSocial;
     }
+
+
+
 }
