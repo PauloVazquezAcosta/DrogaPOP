@@ -19,9 +19,6 @@ public class Contrato extends Entidade implements Serializable {
     @Column(name="empregado")
     int empregado;
 
-    @ManyToOne
-    TipoContrato tipoContrato;
-
     @Column(name="data_inicio")
     Date dataInicio;
 

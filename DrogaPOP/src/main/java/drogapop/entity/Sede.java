@@ -20,10 +20,6 @@ public class Sede extends Entidade implements Serializable {
     @Column(name="ubicacion")
     String ubicacion;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="id")
-    Set<Departamento> departamento;
-
     @Column(name="telefono")
     String telefono;
 

@@ -5,6 +5,7 @@ import drogapop.entity.Departamento;
 import drogapop.entity.Empregado;
 
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -22,7 +23,7 @@ public class Menu {
             case 0:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nMOSTRANDO EMPLEADOS ... ");
-                HibernateUtil.mostrarTablaEmpleados();
+                HibernateUtil.mostrarTabla("Empregado");
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 1:
@@ -125,6 +126,7 @@ public class Menu {
      * @return employee
      * @version 0.0.1
      */
+    @Transactional
     public static Empregado introducirEmpleado(Scanner entrada) {
 
         String dni, nome, apelidos, cargo, numeroTelefono, email, numeroSeguridadSocial;
@@ -224,10 +226,10 @@ public class Menu {
                 numeroCorrecto = Numero.comprobarNumero(numeroSeguridadSocial, 2);
             }
         } while (!numeroCorrecto || numeroSeguridadSocial.equals(""));
-
+Departamento dep=HibernateUtil.buscarDepartamento(numeroDeDepartamento);
 
         //instanciamos un empleado con los datos del usuario
-        Empregado employee = new Empregado( dni, nome, apelidos, numeroDeDepartamento,
+        Empregado employee = new Empregado( dni, nome, apelidos, dep,
                 cargo, numeroTelefono, dataNacemento, email, numeroSeguridadSocial);
 
         return employee;

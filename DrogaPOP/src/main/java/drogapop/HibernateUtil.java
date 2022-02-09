@@ -36,7 +36,7 @@ public class HibernateUtil {
         properties.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQL95Dialect");
         properties.put(Environment.SHOW_SQL, "true");
         properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-        properties.put(Environment.HBM2DDL_AUTO, "create-drop");
+      //  properties.put(Environment.HBM2DDL_AUTO, "create-drop");
 
         // Asignadas al objeto Configuration
         configuration.setProperties(properties);
@@ -142,9 +142,16 @@ public class HibernateUtil {
         System.out.println("id\tdni\tnome\tapelidos\tdptno\tcargo\ttelefono\tdata_nacemento\temail\tnum_seg_soc");
         for (Empregado empregado : empregados) {
             System.out.println(empregado.getId() + "\t" + empregado.getDNI() + "\t" + empregado.getNome() + "\t" + empregado.getApelidos() + "\t" +
-                    empregado.getNumeroDeDepartamento() + "\t" + empregado.getCargo() + "\t" + empregado.getNumeroTelefono() + "\t" +
+                     empregado.getCargo() + "\t" + empregado.getNumeroTelefono() + "\t" +
                     empregado.getDataNacemento() + "\t" + empregado.getEmail() + "\t" + empregado.getNumeroSeguridadeSocial());
         }
+    }
+
+    public static Departamento buscarDepartamento(Integer id) {
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento where id="+id);
+        Departamento departamento = (Departamento) query.getSingleResult();
+
+        return departamento;
     }
 
     /**
@@ -158,7 +165,7 @@ public class HibernateUtil {
 
         System.out.println("Numero de Departamento\tUbicación\tJefe\tNombre\ttelefono");
         for (Departamento departamento : departamentos) {
-            System.out.println(departamento.getDeptno() + "\t" + departamento.getUbicacion() + "\t" + departamento.getXefe() + "\t" +
+            System.out.println(departamento.getDeptno() + "\t" + departamento.getSede().getUbicacion() + "\t" + departamento.getXefe().getNome() + "\t" +
                     departamento.getNome() + "\t" + departamento.getTelefono());
         }
     }
@@ -253,7 +260,7 @@ public class HibernateUtil {
 
   public static ArrayList<String> arrayDNIs(){
       Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado");
-      ArrayList<String> dnis = null;
+      ArrayList<String> dnis = new ArrayList<>();
       ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
       for (int i= 0;i < empregados.size();i++) {
           dnis.add(empregados.get(i).getDNI());

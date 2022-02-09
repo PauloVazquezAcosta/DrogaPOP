@@ -102,7 +102,7 @@ public class Main {
         
         //Empregado employee= new Empregado("1234","yo","apellido","") ;
 
-        Empregado employee = new Empregado(dni, nome, apelidos,numeroDeDepartamento, cargo,numeroTelefono , dataNacemento, email,numeroSeguridadeSocial);
+        Empregado employee = new Empregado(dni, nome, apelidos,null, cargo,numeroTelefono , dataNacemento, email,numeroSeguridadeSocial);
 
         return employee;
     }

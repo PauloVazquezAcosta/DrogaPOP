@@ -19,8 +19,18 @@ public class Empregado extends Entidade implements Serializable  {
     @Column(name="id")
     int id;
 
-    @ManyToOne
+    //Un empledo pertenece a un departamento
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "deptno")
     Departamento departamento;
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
 
     @Column(name="dni")
     String DNI;
@@ -31,9 +41,6 @@ public class Empregado extends Entidade implements Serializable  {
     @Column(name="apelidos")
     String apelidos;
 
-
-    @Column(name="deptno")
-    int numeroDeDepartamento;
 
     @Column(name="cargo")
     String cargo;
@@ -50,12 +57,12 @@ public class Empregado extends Entidade implements Serializable  {
     @Column(name="numero_seg_social")
     String numeroSeguridadeSocial;
 
-    public Empregado( String DNI, String nome, String apelidos, int numeroDeDepartamento, String cargo, String numeroTelefono, Date dataNacemento, String email, String numeroSeguridadeSocial) {
+    public Empregado( String DNI, String nome, String apelidos, Departamento numeroDeDepartamento, String cargo, String numeroTelefono, Date dataNacemento, String email, String numeroSeguridadeSocial) {
 
         this.DNI = DNI;
         this.nome = nome;
         this.apelidos = apelidos;
-        this.numeroDeDepartamento = numeroDeDepartamento;
+        this.departamento= numeroDeDepartamento;
         this.cargo = cargo;
         this.numeroTelefono = numeroTelefono;
         this.dataNacemento = dataNacemento;
@@ -99,13 +106,6 @@ public class Empregado extends Entidade implements Serializable  {
         this.apelidos = apelidos;
     }
 
-    public int getNumeroDeDepartamento() {
-        return numeroDeDepartamento;
-    }
-
-    public void setNumeroDeDepartamento(int numeroDeDepartamento) {
-        this.numeroDeDepartamento = numeroDeDepartamento;
-    }
 
     public String getCargo() {
         return cargo;
@@ -147,6 +147,19 @@ public class Empregado extends Entidade implements Serializable  {
         this.numeroSeguridadeSocial = numeroSeguridadeSocial;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "[" +
+                "id=" + id +
+                ", departamento=" + departamento.getNome() +
+                ", DNI='" + DNI + '\'' +
+                ", nome='" + nome + '\'' +
+                ", apelidos='" + apelidos + '\'' +
+                ", cargo='" + cargo + '\'' +
+                ", numeroTelefono='" + numeroTelefono + '\'' +
+                ", dataNacemento=" + dataNacemento +
+                ", email='" + email + '\'' +
+                ", numeroSeguridadeSocial='" + numeroSeguridadeSocial + '\'' +
+                ']';
+    }
 }
