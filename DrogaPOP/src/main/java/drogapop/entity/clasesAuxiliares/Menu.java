@@ -84,6 +84,7 @@ public class Menu {
         HibernateUtil.mostrarTablaEmpleados();
 
         do{
+            dniNoExiste = false;
             System.out.println("Introduza el DNI de un empleado que desee eliminar (0 para cancelar) :");
             dniIntroducido = entrada.nextLine();
 
