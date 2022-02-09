@@ -77,6 +77,28 @@ public class Menu {
 
     private static Empregado eliminarEmpleado(Scanner entrada) {
         Empregado empregadoDespedido = new Empregado();
+        ArrayList<String> dniList = new ArrayList<>(HibernateUtil.arrayDNIs());
+        String dniIntroducido;
+        boolean dniNoExiste = false;
+        // Mostramos los empleados existentes y preguntamos al usuario  que  empleado desea eliminar
+        HibernateUtil.mostrarTablaEmpleados();
+
+        do{
+            System.out.println("Introduza el DNI de un empleado que desee eliminar (0 para cancelar) :");
+            dniIntroducido = entrada.nextLine();
+
+            if(dniIntroducido.equals("0")){
+                System.out.println("Eliminación cancelada, regresando al menu principal\n");
+            }else{
+                // Comprobar si el DNI introducido existe en la base de datos
+                if(!dniList.contains(dniIntroducido)){
+                    dniNoExiste = true;
+                    System.out.println("El DNI que ha introducido no existe en la base de datos");
+                }
+            }
+
+        }while(!dniIntroducido.equals("0") || dniNoExiste);
+
 
         return empregadoDespedido;
     }
