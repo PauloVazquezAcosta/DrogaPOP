@@ -105,8 +105,9 @@ public class Menu {
     }
 
     private static Departamento introducirDeparatamento(Scanner entrada) {
-        Departamento departamento = new Departamento();
         int numeroSede;
+        String nome, telefono;
+        int xefe, ubicacion;
         boolean numeroCorrecto;
 
         //String nome, int xefe, int ubicacion, String telefono
@@ -135,6 +136,8 @@ public class Menu {
 
         /* aqui debemos preguntar a que empleado pondra de jefe y mostrar a los que ya son jefes de otros departamentos
         **/
+
+        Departamento departamento = new Departamento();
 
 
         return departamento;
