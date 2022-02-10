@@ -49,8 +49,9 @@ public class Menu {
             case 4:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nELIMINAR EMPLEADO ...");
-                Empregado empleadoDespedido = eliminarEmpleado(entrada);
-                HibernateUtil.removeObject(empleadoDespedido);
+                String empleadoDespedido = eliminarEmpleado(entrada);
+                System.out.println(empleadoDespedido);
+                if(!empleadoDespedido.equals("")) HibernateUtil.removeEmployee(empleadoDespedido);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 5:
@@ -76,10 +77,33 @@ public class Menu {
         return deparatamentoEliminado;
     }
 
-    private static Empregado eliminarEmpleado(Scanner entrada) {
-        Empregado empregadoDespedido = new Empregado();
+    @Transactional
+    private static String eliminarEmpleado(Scanner entrada) {
+        ArrayList<String> dniList = new ArrayList<>(HibernateUtil.arrayDNIs());
+        String dniIntroducido;
+        boolean dniNoExiste = false;
+        // Mostramos los empleados existentes y preguntamos al usuario  que  empleado desea eliminar
+        HibernateUtil.mostrarTabla("Empregado");
 
-        return empregadoDespedido;
+        do{
+            dniNoExiste = false;
+            System.out.println("Introduza el DNI de un empleado que desee eliminar (intro para cancelar) :");
+            dniIntroducido = entrada.nextLine();
+
+            if(dniIntroducido.equals("")){
+                System.out.println("Eliminacion cancelada, regresando al menu principal\n");
+            }else{
+                // Comprobar si el DNI introducido existe en la base de datos
+                if(!dniList.contains(dniIntroducido)){
+                    dniNoExiste = true;
+                    System.out.println("El DNI que ha introducido no existe en la base de datos");
+                }
+            }
+
+        }while(!dniIntroducido.equals("") && dniNoExiste);
+
+
+        return dniIntroducido;
     }
 
     private static Departamento introducirDeparatamento(Scanner entrada) {

@@ -122,12 +122,13 @@ public class HibernateUtil {
    * @version 0.0.1
    */
   public static void removeEmployee(String identifier) {
-      Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado WHERE id = " + identifier);
-      ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
-      for (Empregado empregado : empregados) {
+      Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado WHERE DNI = '" + identifier+"'");
+      Empregado empregado = (Empregado) query.getSingleResult();
+      removeObject(empregado);
+      /*for (Empregado empregado : empregados) {
           removeObject(empregado);
-
       }
+       */
   }
 
     /**
