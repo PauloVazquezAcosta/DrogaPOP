@@ -109,7 +109,7 @@ public class Menu {
     @Transactional
     private static Departamento introducirDeparatamento(Scanner entrada) {
 
-        int numeroSede;
+        int numeroSede, jefe;
         boolean numeroCorrecto;
         String nombre,numeroTelefono;
 
@@ -120,6 +120,32 @@ public class Menu {
         //introducir nombre
         nombre = Letras.setDatos(entrada, "nombre");
 
+        // Introducir jefe
+        do{
+            numeroCorrecto = true;
+            // Mostramos a el usuario una lista de empleados (no jefes)
+            HibernateUtil.mostrarTabla("Empleados");
+
+            try {
+
+                System.out.println("Seleccione un empleado para que sea el jefe del departamento : ");
+                jefe = entrada.nextInt();
+
+            }catch (InputMismatchException ime){
+                System.out.println(ime);
+                numeroCorrecto=false;
+            }
+            // Si el numero introducido es correcto comprobamos si existe en la lista de empleados no jefes
+            
+            /*
+            if(numeroCorrecto == true && listaEmpleadosNoJefes.contains(jefe)){
+                numeroCorrecto = true;
+            }
+             */
+
+        }while(!numeroCorrecto);
+
+        // Introducir sede
         do {
             numeroCorrecto = false;
             //recuperamos en una lista los id de las sedes
@@ -137,6 +163,7 @@ public class Menu {
                 numeroCorrecto = true;
             }
         } while (numeroSede == 0 || !numeroCorrecto);
+
        //introducir número de teléfono
         do {
             numeroCorrecto = true;
