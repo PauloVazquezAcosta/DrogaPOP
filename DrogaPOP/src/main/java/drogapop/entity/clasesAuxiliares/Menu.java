@@ -3,6 +3,7 @@ package drogapop.entity.clasesAuxiliares;
 import drogapop.HibernateUtil;
 import drogapop.entity.Departamento;
 import drogapop.entity.Empregado;
+import drogapop.entity.Sede;
 
 
 import javax.transaction.Transactional;
@@ -105,16 +106,19 @@ public class Menu {
 
         return dniIntroducido;
     }
-
+    @Transactional
     private static Departamento introducirDeparatamento(Scanner entrada) {
-        Departamento departamento = new Departamento();
+
         int numeroSede;
         boolean numeroCorrecto;
+        String nombre,numeroTelefono;
 
         //String nome, int xefe, int ubicacion, String telefono
         /**El atributo ubicacion en la tabala deparatamento es un número pero debemos mostrar
          * la tabla sedes para que el usuario introduzca un codigo de sede dentro de los que existen
          * */
+        //introducir nombre
+        nombre = Letras.setDatos(entrada, "nombre");
 
         do {
             numeroCorrecto = false;
@@ -133,12 +137,30 @@ public class Menu {
                 numeroCorrecto = true;
             }
         } while (numeroSede == 0 || !numeroCorrecto);
+       //introducir número de teléfono
+        do {
+            numeroCorrecto = true;
+            try {
+                System.out.print("Introduzca el número de teléfono del departamento: ");
+                entrada.nextLine();
+                numeroTelefono = entrada.nextLine();
+
+            } catch (InputMismatchException ime) {
+                System.out.println(ime);
+                System.out.println("ERROR : Ha introducido mal el número de teléfono");
+                numeroTelefono = "";
+            }
+
+            if (!numeroTelefono.equals("")) {
+                numeroCorrecto = Numero.comprobarNumero(numeroTelefono, 1);
+            }
+        } while (!numeroCorrecto || numeroTelefono.equals(""));
 
 
         /* aqui debemos preguntar a que empleado pondra de jefe y mostrar a los que ya son jefes de otros departamentos
         **/
-
-
+        Sede sede= HibernateUtil.buscarSede(numeroSede);
+        Departamento departamento = new Departamento(nombre,null,sede,numeroTelefono);
         return departamento;
     }
 

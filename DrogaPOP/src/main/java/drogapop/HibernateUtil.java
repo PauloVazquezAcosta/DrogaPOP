@@ -154,7 +154,12 @@ public class HibernateUtil {
 
         return departamento;
     }
+    public static Sede buscarSede(Integer id) {
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sede where id="+id);
+        Sede sede = (Sede) query.getSingleResult();
 
+        return sede;
+    }
     /**
      * Muestra los datos de la tabla Departamento
      * usando una query y guardando los datos de la BD en un ArrayList
@@ -191,13 +196,16 @@ public class HibernateUtil {
      * @return ArrayList<>-->idSedes
     */
     public static ArrayList<Integer> idSedes(){
-        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sedes");
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sede");
         ArrayList<Sede> sedes = (ArrayList<Sede>) query.list();
         ArrayList<Integer> idSedes=new ArrayList<>();
-        for (Sede sede : sedes) {
-            idSedes.add(sede.getId());
+         for (int i= 0;i < sedes.size();i++) {
+            idSedes.add(sedes.get(i).getId());
         }
+
         return idSedes;
+
+
     }
 
     /**
@@ -219,7 +227,7 @@ public class HibernateUtil {
      * es usado para que el usuario elija en que sede va a incluir a un nuevo departamento
      * */
     public static void mostrarIdUbicacionSedes() {
-        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sedes");
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sede");
         ArrayList<Sede> sedes = (ArrayList<Sede>) query.list();
 
         System.out.println("Código \tUbicación");
