@@ -171,7 +171,7 @@ public class HibernateUtil {
 
         System.out.println("Numero de Departamento\tUbicación\tJefe\tNombre\ttelefono");
         for (Departamento departamento : departamentos) {
-            System.out.println(departamento.getDeptno() + "\t" + departamento.getSede().getUbicacion() + "\t" + departamento.getXefe().getNome() + "\t" +
+            System.out.println(departamento.getDeptno() + "\t" + departamento.getSede().getUbicacion() + "\t" + departamento.getXefe()!=null?departamento.getXefe().getNome():"" + "\t" +
                     departamento.getNome() + "\t" + departamento.getTelefono());
         }
     }
