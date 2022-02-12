@@ -1,6 +1,7 @@
 package drogapop;
 
 import drogapop.entity.*;
+import drogapop.entity.clasesAuxiliares.Menu;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -307,5 +308,21 @@ public class HibernateUtil {
             removeObject(departamentoAeliminar);
         }
 
+    }
+
+    public static Empregado buscarEmpleado(String dniEmpleadoAmodificar) {
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado WHERE DNI = '" + dniEmpleadoAmodificar + "'");
+        Empregado empregado = (Empregado) query.getSingleResult();
+        empregado.toString();
+
+        return empregado;
+    }
+
+    public static void updateEmpleado(Empregado empregadoModificado) {
+        Session session = HibernateUtil.getCurrentSession();
+        session.beginTransaction();
+        session.update(empregadoModificado);
+        session.getTransaction().commit();
+        session.close();
     }
 }

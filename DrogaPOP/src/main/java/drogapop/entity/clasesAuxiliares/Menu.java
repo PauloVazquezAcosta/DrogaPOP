@@ -50,7 +50,7 @@ public class Menu {
             case 4:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nELIMINAR EMPLEADO ...");
-                String empleadoDespedido = eliminarEmpleado(entrada);
+                String empleadoDespedido = encontrarDNI(entrada);
                 System.out.println(empleadoDespedido);
                 if (!empleadoDespedido.equals("")) HibernateUtil.removeEmployee(empleadoDespedido);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
@@ -59,10 +59,21 @@ public class Menu {
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("ELIMINAR DEPARTAMENTO ...");
                 Departamento departamentoAeliminar = eliminarDepartamento(entrada);
-                HibernateUtil.eleiminarDepartamento(departamentoAeliminar,entrada);
+                HibernateUtil.eleiminarDepartamento(departamentoAeliminar, entrada);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 6:
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                System.out.println("MODIFICAR EMPLEADO");
+                String dniEmpleadoAmodificar = encontrarDNI(entrada);
+                if (!dniEmpleadoAmodificar.equals("")) {
+                    Empregado empregado = HibernateUtil.buscarEmpleado(dniEmpleadoAmodificar);
+                    Empregado empregadoModificado=modificarEmpleado(entrada,empregado);
+                    HibernateUtil.updateEmpleado(empregadoModificado);
+                }
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                break;
+            case 7:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("GRACIAS POR UTILIZAR EL PROGRAMA, BUEN DÍA. VUELVE PRONTO!!!");
                 System.out.println("-----------------------------------------------------------------------------------------------------");
@@ -92,14 +103,16 @@ public class Menu {
             }
             if (idDepartamentos.contains(numeroDeDepartamento)) {
                 numeroCorrecto = true;
-            }else{System.out.println("El departamento que ha introducido no existe en la base de datos");}
+            } else {
+                System.out.println("El departamento que ha introducido no existe en la base de datos");
+            }
         } while (numeroDeDepartamento == 0 || !numeroCorrecto);
-           departamentoAeliminar= HibernateUtil.buscarDepartamento(numeroDeDepartamento);
+        departamentoAeliminar = HibernateUtil.buscarDepartamento(numeroDeDepartamento);
         return departamentoAeliminar;
     }
 
     @Transactional
-    private static String eliminarEmpleado(Scanner entrada) {
+    private static String encontrarDNI(Scanner entrada) {
         ArrayList<String> dniList = new ArrayList<>(HibernateUtil.arrayDNIs());
         String dniIntroducido;
         boolean dniNoExiste = false;
@@ -108,11 +121,11 @@ public class Menu {
 
         do {
             dniNoExiste = false;
-            System.out.println("Introduza el DNI de un empleado que desee eliminar (intro para cancelar) :");
+            System.out.println("Introduzca el DNI de un empleado que desee eliminar/modificar (intro para cancelar) :");
             dniIntroducido = entrada.nextLine();
 
             if (dniIntroducido.equals("")) {
-                System.out.println("Eliminacion cancelada, regresando al menu principal\n");
+                System.out.println("Operación cancelada, regresando al menú principal\n");
             } else {
                 // Comprobar si el DNI introducido existe en la base de datos
                 if (!dniList.contains(dniIntroducido)) {
@@ -276,11 +289,6 @@ public class Menu {
         entrada.nextLine();
         cargo = Letras.setDatos(entrada, "puesto de trabajo");
         // Introducir numero de telefono
-        /* En caso de que a hora de introducir o numero da seguridad social solo comprobemos que teña unha
-         *  certa cantidade de numeros (como e no caso de este do-while) poderemos introducir este codigo
-         *  en un metodo aparte, e en funcion do parametro que se lle pase realizar unha comprobacion de
-         *  9  numeros en caso do numero de telefono ou unha comprobacion de 12 numeros para a seguridad
-         *  social. Algo parecido ao que facemos no metodo setDatos*/
         do {
             numeroCorrecto = true;
             try {
@@ -327,4 +335,61 @@ public class Menu {
     }
 
 
+    public static Empregado modificarEmpleado(Scanner entrada,Empregado e) {
+        int opcion;
+        boolean numeroCorrecto;
+        String numeroTelefono, email;
+        do {
+            System.out.println("Qué datos desea modificar: ");
+            System.out.println("1. Modificar email");
+            System.out.println("2. Modificar número de teléfono");
+            System.out.println("3. Volver al menú principal");
+
+            try {
+                System.out.println("Elija una opción: ");
+                opcion = Integer.parseInt(entrada.nextLine());
+
+                if (opcion < 1 || opcion > 3) {
+                    System.out.println("ERROR: Opción Inválida...");
+                    System.out.print("Pulsa Intro para continuar...");
+                    entrada.nextLine();
+                }
+            } catch (NumberFormatException nfe) {
+                System.out.println("ERROR: Debe introducir solo números...");
+                System.out.println("Pulsa Intro para continuar ...");
+                entrada.nextLine();
+                opcion = Integer.MIN_VALUE;
+            }
+        } while (opcion != 3 && opcion!=1 && opcion!=2);
+
+        switch (opcion) {
+            case 1:
+                //Introducir email
+                email = Letras.setDatos(entrada, "correo electronico");
+                e.setEmail(email);
+                break;
+            case 2:
+                // Introducir número de teléfono
+                do {
+                    numeroCorrecto = true;
+                    try {
+                        System.out.print("Introduzca el número de teléfono del empleado: ");
+                        numeroTelefono = entrada.nextLine();
+                    } catch (InputMismatchException ime) {
+                        System.out.println(ime);
+                        System.out.println("ERROR : Ha introducido mal el número de teléfono");
+                        numeroTelefono = "";
+                    }
+
+                    if (!numeroTelefono.equals("")) {
+                        numeroCorrecto = Numero.comprobarNumero(numeroTelefono, 1);
+                    }
+                } while (!numeroCorrecto || numeroTelefono.equals(""));
+                e.setNumeroTelefono(numeroTelefono);
+                break;
+
+
+        }
+        return e;
+    }
 }
