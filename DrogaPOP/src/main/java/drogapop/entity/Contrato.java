@@ -1,6 +1,7 @@
 package drogapop.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -26,18 +27,18 @@ public class Contrato extends Entidade implements Serializable {
     Date dataFin;
 
     @Column(name="salario")
-    float salario;
+    double salario;
 
     @Column(name="tipo")
     int tipo;
 
     @Column(name="meses_duracion")
-    int mesesDuracion;
+    Integer mesesDuracion;
 
     @Column(name="horas_xornada_semanal")
     int horasJornadaSemanal;
 
-    public Contrato(int id, int empregado, Date dataInicio, Date dataFin, float salario, int tipo, int mesesDuracion, int horasJornadaSemanal) {
+    public Contrato(int id, int empregado, Date dataInicio, Date dataFin, double salario, int tipo, Integer mesesDuracion, int horasJornadaSemanal) {
         this.id = id;
         this.empregado = empregado;
         this.dataInicio = dataInicio;
@@ -84,11 +85,11 @@ public class Contrato extends Entidade implements Serializable {
         this.dataFin = dataFin;
     }
 
-    public float getSalario() {
+    public double getSalario() {
         return salario;
     }
 
-    public void setSalario(float salario) {
+    public void setSalario(double salario) {
         this.salario = salario;
     }
 
@@ -100,11 +101,11 @@ public class Contrato extends Entidade implements Serializable {
         this.tipo = tipo;
     }
 
-    public int getMesesDuracion() {
+    public Integer getMesesDuracion() {
         return mesesDuracion;
     }
 
-    public void setMesesDuracion(int mesesDuracion) {
+    public void setMesesDuracion(Integer mesesDuracion) {
         this.mesesDuracion = mesesDuracion;
     }
 
@@ -125,7 +126,7 @@ public class Contrato extends Entidade implements Serializable {
                 ", dataFin=" + dataFin +"/t"+
                 ", salario=" + salario +"/t"+
                 ", tipo=" + tipo +"/t"+
-                ", mesesDuracion=" + mesesDuracion +"/t"+
+                ", mesesDuracion="+ (mesesDuracion!=null?mesesDuracion :"(indefinido)") +"/t"+
                 ", horasJornadaSemanal=" + horasJornadaSemanal +
                 '}';
     }

@@ -273,7 +273,7 @@ public class HibernateUtil {
     }
 /**Recibe un empleado que ha sido modificado y lo acttualiza en la base de datos
  *
- * @param empregadoModificado 
+ * @param empregadoModificado
  * */
     public static void updateEmpleado(Empregado empregadoModificado) {
         Session session = HibernateUtil.getCurrentSession();
