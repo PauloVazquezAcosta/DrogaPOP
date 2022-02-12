@@ -30,7 +30,7 @@ public class Menu {
             case 1:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nMOSTRANDO DEPARTAMENTOS ... ");
-                HibernateUtil.mostrarTablaDepartamentos();
+                HibernateUtil.mostrarTabla("Departamento");
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 2:
@@ -52,14 +52,14 @@ public class Menu {
                 System.out.println("\nELIMINAR EMPLEADO ...");
                 String empleadoDespedido = eliminarEmpleado(entrada);
                 System.out.println(empleadoDespedido);
-                if(!empleadoDespedido.equals("")) HibernateUtil.removeEmployee(empleadoDespedido);
+                if (!empleadoDespedido.equals("")) HibernateUtil.removeEmployee(empleadoDespedido);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 5:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("ELIMINAR DEPARTAMENTO ...");
-                Departamento departamentoEliminado = eliminarDepartamento(entrada);
-                HibernateUtil.removeObject(departamentoEliminado);
+                Departamento departamentoAeliminar = eliminarDepartamento(entrada);
+                HibernateUtil.eleiminarDepartamento(departamentoAeliminar,entrada);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 6:
@@ -73,9 +73,29 @@ public class Menu {
     }
 
     private static Departamento eliminarDepartamento(Scanner entrada) {
-        Departamento deparatamentoEliminado = new Departamento();
+        Departamento departamentoAeliminar = new Departamento();
+        int numeroDeDepartamento;
+        boolean numeroCorrecto = false;
         //debemos comprobar que existe y que no tenga empleados asociados
-        return deparatamentoEliminado;
+
+        //recuperamos en una lista los id de los departamentos
+        ArrayList<Integer> idDepartamentos = new ArrayList<>(HibernateUtil.idDepartamentos());
+        do {
+            try {
+                //aqui debemos mostrar los departamentos  y comprobar que el número introducido por el usuario es un deparatamento que existe
+                HibernateUtil.mostrarIdNombreDepartamentos();
+                System.out.println("Introduzca el número de departamento dentro de los que ya existen: ");
+                numeroDeDepartamento = entrada.nextInt();
+            } catch (InputMismatchException ime) {
+                System.out.println(ime);
+                numeroDeDepartamento = 0;
+            }
+            if (idDepartamentos.contains(numeroDeDepartamento)) {
+                numeroCorrecto = true;
+            }else{System.out.println("El departamento que ha introducido no existe en la base de datos");}
+        } while (numeroDeDepartamento == 0 || !numeroCorrecto);
+           departamentoAeliminar= HibernateUtil.buscarDepartamento(numeroDeDepartamento);
+        return departamentoAeliminar;
     }
 
     @Transactional
@@ -86,32 +106,33 @@ public class Menu {
         // Mostramos los empleados existentes y preguntamos al usuario  que  empleado desea eliminar
         HibernateUtil.mostrarTabla("Empregado");
 
-        do{
+        do {
             dniNoExiste = false;
             System.out.println("Introduza el DNI de un empleado que desee eliminar (intro para cancelar) :");
             dniIntroducido = entrada.nextLine();
 
-            if(dniIntroducido.equals("")){
+            if (dniIntroducido.equals("")) {
                 System.out.println("Eliminacion cancelada, regresando al menu principal\n");
-            }else{
+            } else {
                 // Comprobar si el DNI introducido existe en la base de datos
-                if(!dniList.contains(dniIntroducido)){
+                if (!dniList.contains(dniIntroducido)) {
                     dniNoExiste = true;
                     System.out.println("El DNI que ha introducido no existe en la base de datos");
                 }
             }
 
-        }while(!dniIntroducido.equals("") && dniNoExiste);
+        } while (!dniIntroducido.equals("") && dniNoExiste);
 
 
         return dniIntroducido;
     }
+
     @Transactional
     private static Departamento introducirDeparatamento(Scanner entrada) {
 
         int numeroSede, jefe;
         boolean numeroCorrecto;
-        String nombre,numeroTelefono;
+        String nombre, numeroTelefono;
 
         //String nome, int xefe, int ubicacion, String telefono
         /**El atributo ubicacion en la tabala deparatamento es un número pero debemos mostrar
@@ -121,19 +142,18 @@ public class Menu {
         nombre = Letras.setDatos(entrada, "nombre");
 
         // Introducir jefe
-        do{
+        do {
             numeroCorrecto = true;
             // Mostramos a el usuario una lista de empleados (no jefes)
-            HibernateUtil.mostrarTabla("Empleados");
-
+            HibernateUtil.mostrarEmpleadosNoJefes();
             try {
 
                 System.out.println("Seleccione un empleado para que sea el jefe del departamento : ");
                 jefe = entrada.nextInt();
 
-            }catch (InputMismatchException ime){
+            } catch (InputMismatchException ime) {
                 System.out.println(ime);
-                numeroCorrecto=false;
+                numeroCorrecto = false;
             }
             // Si el numero introducido es correcto comprobamos si existe en la lista de empleados no jefes
             
@@ -143,7 +163,7 @@ public class Menu {
             }
              */
 
-        }while(!numeroCorrecto);
+        } while (!numeroCorrecto);
 
         // Introducir sede
         do {
@@ -157,21 +177,20 @@ public class Menu {
                 numeroSede = entrada.nextInt();
             } catch (InputMismatchException ime) {
                 System.out.println(ime);
-                numeroSede= 0;
+                numeroSede = 0;
             }
             if (idSedes.contains(numeroSede)) {
                 numeroCorrecto = true;
             }
         } while (numeroSede == 0 || !numeroCorrecto);
 
-       //introducir número de teléfono
+        //introducir número de teléfono
         do {
             numeroCorrecto = true;
             try {
                 System.out.print("Introduzca el número de teléfono del departamento: ");
-                entrada.nextLine();
                 numeroTelefono = entrada.nextLine();
-
+                entrada.nextLine();
             } catch (InputMismatchException ime) {
                 System.out.println(ime);
                 System.out.println("ERROR : Ha introducido mal el número de teléfono");
@@ -183,11 +202,10 @@ public class Menu {
             }
         } while (!numeroCorrecto || numeroTelefono.equals(""));
 
-
         /* aqui debemos preguntar a que empleado pondra de jefe y mostrar a los que ya son jefes de otros departamentos
-        **/
-        Sede sede= HibernateUtil.buscarSede(numeroSede);
-        Departamento departamento = new Departamento(nombre,null,sede,numeroTelefono);
+         **/
+        Sede sede = HibernateUtil.buscarSede(numeroSede);
+        Departamento departamento = new Departamento(nombre, null, sede, numeroTelefono);
         return departamento;
     }
 
@@ -213,7 +231,7 @@ public class Menu {
         boolean dniCorrecto, numeroCorrecto;
 
         //Introducir DNI
-        do{
+        do {
             do {
                 System.out.println("Escriba un dni: ");
                 dni = entrada.nextLine();
@@ -224,12 +242,12 @@ public class Menu {
             ArrayList<String> dniList = new ArrayList<>(HibernateUtil.arrayDNIs());
             System.out.println(dniList);
 
-            if(dniList.contains(dni)){
+            if (dniList.contains(dni)) {
                 System.out.println("Este DNI ya existe en la base de datos");
                 dni = "";
             }
 
-        }while(dni.equals(""));
+        } while (dni.equals(""));
 
         //introducir nombre y apellidos
         nome = Letras.setDatos(entrada, "nombre");
@@ -299,10 +317,10 @@ public class Menu {
                 numeroCorrecto = Numero.comprobarNumero(numeroSeguridadSocial, 2);
             }
         } while (!numeroCorrecto || numeroSeguridadSocial.equals(""));
-Departamento dep=HibernateUtil.buscarDepartamento(numeroDeDepartamento);
+        Departamento dep = HibernateUtil.buscarDepartamento(numeroDeDepartamento);
 
         //instanciamos un empleado con los datos del usuario
-        Empregado employee = new Empregado( dni, nome, apelidos, dep,
+        Empregado employee = new Empregado(dni, nome, apelidos, dep,
                 cargo, numeroTelefono, dataNacemento, email, numeroSeguridadSocial);
 
         return employee;

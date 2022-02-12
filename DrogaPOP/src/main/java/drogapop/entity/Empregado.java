@@ -20,7 +20,7 @@ public class Empregado extends Entidade implements Serializable  {
     int id;
 
     //Un empledo pertenece a un departamento
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "deptno")
     Departamento departamento;
 

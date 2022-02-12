@@ -1,6 +1,7 @@
 package drogapop.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -18,22 +19,23 @@ public class Departamento extends Entidade implements Serializable {
     @Column(name="id")
     int deptno;
 
-    /**
-     * Un deparatmento puede tenr uno o varios empregados
-    @OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    Set<Empregado> empregados;
 
-    public Set<Empregado> getEmpregados() {
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id")
+    private List<Empregado> empregados;
+
+    public List<Empregado> getEmpregados() {
         return empregados;
     }
 
-    public void setEmpregados(Set<Empregado> empregados) {
+    public void setEmpregados(List<Empregado> empregados) {
         this.empregados = empregados;
-    }*/
+    }
+
     @Column(name="nome")
     String nome;
 
-    //un deparatamento solo tiene un jefe y un empregado es jefe de solo un departamento
+    //un departamento solo tiene un jefe y un empregado es jefe de solo un departamento
     //que columna en la tabla Empregado tiene la FK
     @JoinColumn(name = "xefe")
     @OneToOne(fetch = FetchType.EAGER)
@@ -97,13 +99,13 @@ public class Departamento extends Entidade implements Serializable {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
+//en caso de que el departamento no tenga asignado un jefe aun, al mostrarlo le damos un valor vacio para evitar el NullPointerExeption
     @Override
     public String toString() {
         return "[" +
                 "deptno=" + deptno +
                 ", nome='" + nome + '\'' +
-                ", xefe=" + xefe.getNome() +
+                ", xefe=" + (xefe!=null?xefe.getNome():"(sin jefe asignado) ") +
                 ", sede=" + sede.getUbicacion() +
                 ", telefono='" + telefono + '\'' +
                 ']';

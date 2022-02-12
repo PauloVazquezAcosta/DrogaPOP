@@ -9,9 +9,10 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
+import javax.persistence.Id;
+import javax.transaction.Transactional;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Properties;
+import java.util.*;
 
 public class HibernateUtil {
 
@@ -36,10 +37,11 @@ public class HibernateUtil {
         properties.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQL95Dialect");
         properties.put(Environment.SHOW_SQL, "true");
         properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-      //  properties.put(Environment.HBM2DDL_AUTO, "create-drop");
+        //  properties.put(Environment.HBM2DDL_AUTO, "create-drop");
 
         // Asignadas al objeto Configuration
         configuration.setProperties(properties);
+
 
         // Se registran las clases que hay que mapear con cada tabla de la base de datos
         configuration.addAnnotatedClass(Departamento.class);
@@ -52,228 +54,258 @@ public class HibernateUtil {
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
                 configuration.getProperties()).build();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-  }
-
-  /**
-   * Abre una nueva sesión
-   *
-   * @version 0.0.1
-   */
-  public static void openSession() {
-    session = sessionFactory.openSession();
-  }
-
-  /**
-   * Devuelve la sesión actual. Si no hay una activa, se abre
-   *
-   * @return sesión actual
-   * @version 0.0.1
-   */
-  public static Session getCurrentSession() {
-    if ((session == null) || (!session.isOpen()))
-      openSession();
-    return session;
-  }
-
-  /**
-   * Cierra Hibernate
-   *
-   * @version 0.0.1
-   */
-  public static void closeSessionFactory() {
-    if (session != null)
-      session.close();
-    if (sessionFactory != null)
-      sessionFactory.close();
-  }
-
-  /**
-   * Introducir elemento en la base de datos
-   *
-   * @param object -> objeto a añadir a la base de datos
-   * @version 0.0.1
-   */
-  public static void addObject(Object object) {
-    Session session = HibernateUtil.getCurrentSession();
-    session.beginTransaction();
-    session.save(object);
-    session.getTransaction().commit();
-    session.close();
-  }
-
-  /**
-   * Eliminar elemento de la base de datos
-   *
-   * @param object -> objeto a eliminar
-   * @version 0.0.1
-   */
-  public static void removeObject(Object object) {
-    Session session = HibernateUtil.getCurrentSession();
-    session.beginTransaction();
-    session.delete(object);
-    session.getTransaction().commit();
-    session.close();
-  }
-
-  /**
-   * Eliminar un empleado de la base de datos por ID
-   *
-   * @param identifier -> identificador del empleado
-   * @version 0.0.1
-   */
-  public static void removeEmployee(String identifier) {
-      Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado WHERE DNI = '" + identifier+"'");
-      Empregado empregado = (Empregado) query.getSingleResult();
-      removeObject(empregado);
-      /*for (Empregado empregado : empregados) {
-          removeObject(empregado);
-      }
-       */
-  }
-
-    /**
-     * Muestra los datos de la tabla Empregados
-     * usando una query y guardando los datos de la BD en un ArrayList
-     * que se recorre con un for each mostrando por pantalla los atributos de cada objeto Empregado
-     */
-    public static void mostrarTablaEmpleados() {
-        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado");
-        ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
-
-        System.out.println("id\tdni\tnome\tapelidos\tdptno\tcargo\ttelefono\tdata_nacemento\temail\tnum_seg_soc");
-        for (Empregado empregado : empregados) {
-            System.out.println(empregado.getId() + "\t" + empregado.getDNI() + "\t" + empregado.getNome() + "\t" + empregado.getApelidos() + "\t" +
-                     empregado.getCargo() + "\t" + empregado.getNumeroTelefono() + "\t" +
-                    empregado.getDataNacemento() + "\t" + empregado.getEmail() + "\t" + empregado.getNumeroSeguridadeSocial());
-        }
     }
 
+    /**
+     * Abre una nueva sesión
+     *
+     * @version 0.0.1
+     */
+    public static void openSession() {
+        session = sessionFactory.openSession();
+    }
+
+    /**
+     * Devuelve la sesión actual. Si no hay una activa, se abre
+     *
+     * @return sesión actual
+     * @version 0.0.1
+     */
+    public static Session getCurrentSession() {
+        if ((session == null) || (!session.isOpen()))
+            openSession();
+        return session;
+    }
+
+    /**
+     * Cierra Hibernate
+     *
+     * @version 0.0.1
+     */
+    public static void closeSessionFactory() {
+        if (session != null)
+            session.close();
+        if (sessionFactory != null)
+            sessionFactory.close();
+    }
+
+    /**
+     * Introducir elemento en la base de datos
+     *
+     * @param object -> objeto a añadir a la base de datos
+     * @version 0.0.1
+     */
+    public static void addObject(Object object) {
+        Session session = HibernateUtil.getCurrentSession();
+        session.beginTransaction();
+        session.save(object);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    /**
+     * Eliminar elemento de la base de datos
+     *
+     * @param object -> objeto a eliminar
+     * @version 0.0.1
+     */
+
+    public static void removeObject(Object object) {
+        Session session = HibernateUtil.getCurrentSession();
+        session.beginTransaction();
+        session.delete(object);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    /**
+     * Eliminar un empleado de la base de datos por ID
+     *
+     * @param identifier -> identificador del empleado
+     * @version 0.0.1
+     */
+    @Transactional
+    public static void removeEmployee(String identifier) {
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado WHERE DNI = '" + identifier + "'");
+        Empregado empregado = (Empregado) query.getSingleResult();
+        removeObject(empregado);
+    }
+
+
+    /**
+     * devuelve un objeto tipo departamento según el id que pasemos por parámetro
+     *
+     * @return Departamento
+     */
+    @Transactional
     public static Departamento buscarDepartamento(Integer id) {
-        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento where id="+id);
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento where id=" + id);
         Departamento departamento = (Departamento) query.getSingleResult();
 
         return departamento;
     }
+
+    /**
+     * devuelve un objeto tipo sede según el id que pasemos por parametro
+     *
+     * @return Sede
+     */
     public static Sede buscarSede(Integer id) {
-        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sede where id="+id);
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sede where id=" + id);
         Sede sede = (Sede) query.getSingleResult();
 
         return sede;
     }
-    /**
-     * Muestra los datos de la tabla Departamento
-     * usando una query y guardando los datos de la BD en un ArrayList
-     * que se recorre con un for each mostrando por pantalla los atributos de cada objeto Departamento
-     */
-    public static void mostrarTablaDepartamentos() {
-        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento");
-        ArrayList<Departamento> departamentos = (ArrayList<Departamento>) query.list();
-
-        System.out.println("Numero de Departamento\tUbicación\tJefe\tNombre\ttelefono");
-        for (Departamento departamento : departamentos) {
-            System.out.println(departamento.getDeptno() + "\t" + departamento.getSede().getUbicacion() + "\t" + departamento.getXefe()!=null?departamento.getXefe().getNome():"" + "\t" +
-                    departamento.getNome() + "\t" + departamento.getTelefono());
-        }
-    }
-
 
     /**
-     * Este método devuelve una lista con los codigod de los deparatamentos
+     * Este método devuelve una lista con los codigods de los deparatamentos
+     *
      * @return ArrayList<>-->idDepartamentos
-     * */
-    public static ArrayList<Integer> idDepartamentos(){
+     */
+    public static ArrayList<Integer> idDepartamentos() {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento");
         ArrayList<Departamento> departamentos = (ArrayList<Departamento>) query.list();
-        ArrayList<Integer> idDepartamentos=new ArrayList<>();
+        ArrayList<Integer> idDepartamentos = new ArrayList<>();
         for (Departamento departamento : departamentos) {
-           idDepartamentos.add(departamento.getDeptno());
+            idDepartamentos.add(departamento.getDeptno());
         }
-       return idDepartamentos;
+        return idDepartamentos;
     }
 
     /**
-     * Este método devuelve una lista con los codigod de los deparatamentos
+     * Este método devuelve una lista con los códigos de las sedes
+     * se usa para comprobar que al introducir un deparatamento pertenezca a una sede que ya exista
+     *
      * @return ArrayList<>-->idSedes
-    */
-    public static ArrayList<Integer> idSedes(){
+     */
+    public static ArrayList<Integer> idSedes() {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sede");
         ArrayList<Sede> sedes = (ArrayList<Sede>) query.list();
-        ArrayList<Integer> idSedes=new ArrayList<>();
-         for (int i= 0;i < sedes.size();i++) {
+        ArrayList<Integer> idSedes = new ArrayList<>();
+        for (int i = 0; i < sedes.size(); i++) {
             idSedes.add(sedes.get(i).getId());
         }
-
         return idSedes;
-
-
     }
 
     /**
      * este método muestra solo el id y el nombre del departamento.
      * es usado para que el usuario elija en que departamento va a incluir a un nuevo empleado
-     * */
+     */
     public static void mostrarIdNombreDepartamentos() {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento");
         ArrayList<Departamento> departamentos = (ArrayList<Departamento>) query.list();
 
         System.out.println("Código \tNombre");
         for (Departamento departamento : departamentos) {
-            System.out.println(departamento.getDeptno()  + "\t\t" +  departamento.getNome());
+            System.out.println(departamento.getDeptno() + "\t\t" + departamento.getNome());
         }
     }
 
     /**
      * este método muestra solo el id y la ubicación de la sede.
      * es usado para que el usuario elija en que sede va a incluir a un nuevo departamento
-     * */
+     */
     public static void mostrarIdUbicacionSedes() {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sede");
         ArrayList<Sede> sedes = (ArrayList<Sede>) query.list();
-
         System.out.println("Código \tUbicación");
         for (Sede sede : sedes) {
-            System.out.println(sede.getId()  + "\t\t" +  sede.getUbicacion());
+            System.out.println(sede.getId() + "\t\t" + sede.getUbicacion());
         }
     }
 
     /**
-     * Muestra los datos de la tabla Contrato
-     * usando una query y guardando los datos de la BD en un ArrayList
-     * que se recorre con un for each mostrando por pantalla los atributos de cada objeto Contrato
+     * Muestra los datos de la tabla que pasemos por parámetro
+     * que debe ser un String con el nombre de la clase que modela a la tabla correspondiente en la BBDD
+     * y emple el .toString de cada clase
+     * TODO: Revisar formato
+     *
+     * @version 0.0.1
      */
-    public static void mostrarTablaContratos() {
-        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Contrato");
-        ArrayList<Contrato> contratos = (ArrayList<Contrato>) query.list();
-
-        System.out.println("id\tEmpregado\tData inicio\tData fin\tSalario\tTipo\tDuración(meses)\tJornada (semanal)");
-        for (Contrato contrato : contratos) {
-            System.out.println(contrato.getId() + "\t" + contrato.getEmpregado() + "\t" + contrato.getDataInicio() + "\t" + contrato.getDataFin()
-                    + "\t" + contrato.getSalario() + "\t" + contrato.getTipo() + "\t" + contrato.getMesesDuracion() + "\t" +
-                    contrato.getHorasJornadaSemanal());
+    public static void mostrarTabla(String tabla) {
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM " + tabla);
+        ArrayList<Object> objetos = (ArrayList<Object>) query.list();
+        for (Object objecto : objetos) {
+            System.out.println(objecto.toString());
         }
     }
 
-  /**
-   * Muestra los datos de la tabla empleados
-   * TODO: Revisar formato
-   *
-   * @version 0.0.1
-   */
-  public static void mostrarTabla(String tabla) {
-    Query query = HibernateUtil.getCurrentSession().createQuery("FROM " + tabla);
-    ArrayList<Object> objetos = (ArrayList<Object>) query.list();
-    for (Object objecto : objetos) {
-      System.out.println(objecto.toString());
+    public static void mostrarVistas(String tabla) {
+        Query query = HibernateUtil.getCurrentSession().createQuery("v FROM " + tabla);
+        ArrayList<Object> objetos = (ArrayList<Object>) query.list();
+        for (Object objecto : objetos) {
+            System.out.println(objecto.toString());
+        }
     }
-  }
 
-  public static ArrayList<String> arrayDNIs(){
-      Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado");
-      ArrayList<String> dnis = new ArrayList<>();
-      ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
-      for (int i= 0;i < empregados.size();i++) {
-          dnis.add(empregados.get(i).getDNI());
-      }
-      return dnis;
-  }
+    /**
+     * Este método devuelve un array con los DNI de cada uno de los empleado de la tabla empleados
+     * se usa para comprobar que al insertar empleado no introduzcan un dni que ya exite en la BBDD
+     *
+     * @return ArrayList<String>
+     */
+    public static ArrayList<String> arrayDNIs() {
+        Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado");
+        ArrayList<String> dnis = new ArrayList<>();
+        ArrayList<Empregado> empregados = (ArrayList<Empregado>) query.list();
+        for (int i = 0; i < empregados.size(); i++) {
+            dnis.add(empregados.get(i).getDNI());
+        }
+        return dnis;
+    }
+
+    public static void mostrarEmpleadosNoJefes() {
+        String queryHQL = "SELECT new Map(e.DNI ,e.nome ) FROM Empregado as e " +
+                "where not ( e.id) in (" +
+                "   select d.xefe from Departamento d" +
+                "  )";
+
+        Query query = HibernateUtil.getCurrentSession().createQuery(queryHQL);
+        List<Map> listaResultados = query.list();
+
+        for (int i = 0; i < listaResultados.size(); i++) {
+            Map mapa = listaResultados.get(i);
+
+            System.out.println("Datos del empleado " + i);
+
+            Set llaves = mapa.keySet();
+
+            for (Iterator<String> it = llaves.iterator(); it.hasNext(); ) {
+                String llaveActual = it.next();
+
+                System.out.println("\t" + mapa.get(llaveActual));
+            }
+        }
+
+    }
+
+
+    public static void eleiminarDepartamento(Departamento departamentoAeliminar, Scanner entrada) {
+        int opcion = 2;
+        boolean opcionCorrecta = false;
+
+        if (departamentoAeliminar.getEmpregados() != null) {
+            /** System.out.println("Al eliminar el departamento "+departamentoAeliminar.getNome()+
+             " se eliminarán también los empleados que pertenecen a él");
+             do{ try{
+             System.out.println("Escriba 0 si desea continuar o 1 si desea cancelar la operación: ");
+             opcion=entrada.nextInt();
+             }catch (NumberFormatException e){
+             entrada.nextLine();
+             System.out.println(" Debe escribir 0 para eliminar el departamento y 1 para cancelar la operación");
+             }
+             opcionCorrecta=true;
+             }while (!opcionCorrecta);
+             if(opcion==0){
+             removeObject(departamentoAeliminar);
+
+             }*/
+            System.out.println("No se puede eliminar el departamento " + departamentoAeliminar.getNome()
+                    + " porque tiene empleados asociados");
+        } else {
+            removeObject(departamentoAeliminar);
+        }
+
+    }
 }
