@@ -1,12 +1,8 @@
 package drogapop.entity;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.Date;
-
 import javax.persistence.*;
-
-
 @Entity
 @Table(name="empregados", catalog="DrogaPOP")
 public class Empregado extends Entidade implements Serializable  {
@@ -41,7 +37,6 @@ public class Empregado extends Entidade implements Serializable  {
     @Column(name="apelidos")
     String apelidos;
 
-
     @Column(name="cargo")
     String cargo;
 
@@ -73,7 +68,6 @@ public class Empregado extends Entidade implements Serializable  {
     public Empregado() {
 
     }
-
     public int getId() {
         return id;
     }
@@ -105,7 +99,6 @@ public class Empregado extends Entidade implements Serializable  {
     public void setApelidos(String apelidos) {
         this.apelidos = apelidos;
     }
-
 
     public String getCargo() {
         return cargo;

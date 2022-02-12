@@ -34,7 +34,7 @@ public class Contrato extends Entidade implements Serializable {
     @Column(name="meses_duracion")
     int mesesDuracion;
 
-    @Column(name="horas_jornada_semanal")
+    @Column(name="horas_xornada_semanal")
     int horasJornadaSemanal;
 
     public Contrato(int id, int empregado, Date dataInicio, Date dataFin, float salario, int tipo, int mesesDuracion, int horasJornadaSemanal) {
@@ -114,5 +114,19 @@ public class Contrato extends Entidade implements Serializable {
 
     public void setHorasJornadaSemanal(int horasJornadaSemanal) {
         this.horasJornadaSemanal = horasJornadaSemanal;
+    }
+
+    @Override
+    public String toString() {
+        return "Contrato{" +"/t"+
+                "id=" + id +"/t"+
+                ", empregado=" + empregado +"/t"+
+                ", dataInicio=" + dataInicio +"/t"+
+                ", dataFin=" + dataFin +"/t"+
+                ", salario=" + salario +"/t"+
+                ", tipo=" + tipo +"/t"+
+                ", mesesDuracion=" + mesesDuracion +"/t"+
+                ", horasJornadaSemanal=" + horasJornadaSemanal +
+                '}';
     }
 }

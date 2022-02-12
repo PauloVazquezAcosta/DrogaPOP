@@ -40,13 +40,16 @@ public class Main {
             System.out.println("4. Eliminar empleado.");
             System.out.println("5. Eliminar departamento.");
             System.out.println("6. Modificar empleado");
-            System.out.println("7. Salir.");
+            System.out.println("7. Mostrar la tabla contrato");
+            System.out.println("8. Mostrar la tabla sedes");
+            System.out.println("9. Mostrar tipo de contratos");
+            System.out.println("10. Salir.");
 
             try {
-                System.out.println("Elija una opcion: ");
+                System.out.println("Elija una opción: ");
                 opcion = Integer.parseInt(input.nextLine());
 
-                if (opcion < 0 || opcion > 7) {
+                if (opcion < 0 || opcion > 10) {
                     System.out.println("ERROR: Opción Inválida...");
                     System.out.print("Pulsa Intro para continuar...");
                     input.nextLine();
@@ -61,8 +64,8 @@ public class Main {
                 opcion = Integer.MIN_VALUE;
             }
 
-        } while (opcion != 7);
-        // Se cierra la conexión a la BBDD y la entrada por teclado.
+        } while (opcion != 10);
+        // Se cierra la entrada por teclado.
         input.close();
     }
 

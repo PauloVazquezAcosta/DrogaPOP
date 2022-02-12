@@ -43,7 +43,7 @@ public class Menu {
             case 3:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("\nINTRODUCIR DEPARTAMENTO ...");
-                Departamento departamento = introducirDeparatamento(entrada);
+                Departamento departamento = deparatamentoAintroducir(entrada);
                 HibernateUtil.addObject(departamento);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
@@ -58,8 +58,8 @@ public class Menu {
             case 5:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("ELIMINAR DEPARTAMENTO ...");
-                Departamento departamentoAeliminar = eliminarDepartamento(entrada);
-                HibernateUtil.eleiminarDepartamento(departamentoAeliminar, entrada);
+                Departamento departamentoAeliminar = departamentoAeliminar(entrada);
+                HibernateUtil.eliminarDepartamento(departamentoAeliminar);
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 6:
@@ -68,12 +68,30 @@ public class Menu {
                 String dniEmpleadoAmodificar = encontrarDNI(entrada);
                 if (!dniEmpleadoAmodificar.equals("")) {
                     Empregado empregado = HibernateUtil.buscarEmpleado(dniEmpleadoAmodificar);
-                    Empregado empregadoModificado=modificarEmpleado(entrada,empregado);
+                    Empregado empregadoModificado = empleadoAmodificar(entrada, empregado);
                     HibernateUtil.updateEmpleado(empregadoModificado);
                 }
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 break;
             case 7:
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                System.out.println("MOSTRANDO CONTRATOS");
+                HibernateUtil.mostrarTabla("Contrato");
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                break;
+            case 8:
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                System.out.println("MOSTRANDO SEDES");
+                HibernateUtil.mostrarTabla("Sede");
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                break;
+            case 9:
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                System.out.println("MOSTRANDO TIPOS DE CONTRATO");
+                HibernateUtil.mostrarTabla("TipoContrato");
+                System.out.println("-----------------------------------------------------------------------------------------------------");
+                break;
+            case 10:
                 System.out.println("-----------------------------------------------------------------------------------------------------");
                 System.out.println("GRACIAS POR UTILIZAR EL PROGRAMA, BUEN DÍA. VUELVE PRONTO!!!");
                 System.out.println("-----------------------------------------------------------------------------------------------------");
@@ -83,21 +101,23 @@ public class Menu {
         entrada.nextLine();
     }
 
-    private static Departamento eliminarDepartamento(Scanner entrada) {
+    /**
+     * Se comprueba que existe
+     *
+     * @return devuelve un Departamento
+     */
+    private static Departamento departamentoAeliminar(Scanner entrada) {
         Departamento departamentoAeliminar = new Departamento();
         int numeroDeDepartamento;
         boolean numeroCorrecto = false;
-        //debemos comprobar que existe y que no tenga empleados asociados
-
-        //recuperamos en una lista los id de los departamentos
         ArrayList<Integer> idDepartamentos = new ArrayList<>(HibernateUtil.idDepartamentos());
         do {
             try {
-                //aqui debemos mostrar los departamentos  y comprobar que el número introducido por el usuario es un deparatamento que existe
                 HibernateUtil.mostrarIdNombreDepartamentos();
                 System.out.println("Introduzca el número de departamento dentro de los que ya existen: ");
                 numeroDeDepartamento = entrada.nextInt();
             } catch (InputMismatchException ime) {
+                entrada.nextLine();
                 System.out.println(ime);
                 numeroDeDepartamento = 0;
             }
@@ -111,73 +131,47 @@ public class Menu {
         return departamentoAeliminar;
     }
 
+    /**
+     * Se muestran los empleados existentes y se pregunta al usuario  que  empleado desea eliminar
+     * Se  comprueba que el dni exista en la base de datos y di existe se devuelve
+     *
+     * @return String dni
+     */
     @Transactional
     private static String encontrarDNI(Scanner entrada) {
         ArrayList<String> dniList = new ArrayList<>(HibernateUtil.arrayDNIs());
         String dniIntroducido;
         boolean dniNoExiste = false;
-        // Mostramos los empleados existentes y preguntamos al usuario  que  empleado desea eliminar
         HibernateUtil.mostrarTabla("Empregado");
-
         do {
             dniNoExiste = false;
             System.out.println("Introduzca el DNI de un empleado que desee eliminar/modificar (intro para cancelar) :");
             dniIntroducido = entrada.nextLine();
-
             if (dniIntroducido.equals("")) {
                 System.out.println("Operación cancelada, regresando al menú principal\n");
             } else {
-                // Comprobar si el DNI introducido existe en la base de datos
                 if (!dniList.contains(dniIntroducido)) {
                     dniNoExiste = true;
                     System.out.println("El DNI que ha introducido no existe en la base de datos");
                 }
             }
-
         } while (!dniIntroducido.equals("") && dniNoExiste);
-
-
         return dniIntroducido;
     }
 
+    /**
+     * Se piden al usuario cada uno de los valores del departamento a introducir
+     * validando en cada caso
+     *
+     * @return Deparatamento
+     */
     @Transactional
-    private static Departamento introducirDeparatamento(Scanner entrada) {
-
+    private static Departamento deparatamentoAintroducir(Scanner entrada) {
         int numeroSede, jefe;
         boolean numeroCorrecto;
         String nombre, numeroTelefono;
-
-        //String nome, int xefe, int ubicacion, String telefono
-        /**El atributo ubicacion en la tabala deparatamento es un número pero debemos mostrar
-         * la tabla sedes para que el usuario introduzca un codigo de sede dentro de los que existen
-         * */
         //introducir nombre
         nombre = Letras.setDatos(entrada, "nombre");
-
-        // Introducir jefe
-        do {
-            numeroCorrecto = true;
-            // Mostramos a el usuario una lista de empleados (no jefes)
-            HibernateUtil.mostrarEmpleadosNoJefes();
-            try {
-
-                System.out.println("Seleccione un empleado para que sea el jefe del departamento : ");
-                jefe = entrada.nextInt();
-
-            } catch (InputMismatchException ime) {
-                System.out.println(ime);
-                numeroCorrecto = false;
-            }
-            // Si el numero introducido es correcto comprobamos si existe en la lista de empleados no jefes
-            
-            /*
-            if(numeroCorrecto == true && listaEmpleadosNoJefes.contains(jefe)){
-                numeroCorrecto = true;
-            }
-             */
-
-        } while (!numeroCorrecto);
-
         // Introducir sede
         do {
             numeroCorrecto = false;
@@ -185,10 +179,10 @@ public class Menu {
             ArrayList<Integer> idSedes = new ArrayList<>(HibernateUtil.idSedes());
             try {
                 System.out.println("Introduzca el número de la sede dentro de los que ya existen: ");
-                //aqui debemos mostrar las sedes  y comprobar que el número introducido por el usuario es una que ya existe que existe
                 HibernateUtil.mostrarIdUbicacionSedes();
                 numeroSede = entrada.nextInt();
             } catch (InputMismatchException ime) {
+                entrada.nextLine();
                 System.out.println(ime);
                 numeroSede = 0;
             }
@@ -196,7 +190,6 @@ public class Menu {
                 numeroCorrecto = true;
             }
         } while (numeroSede == 0 || !numeroCorrecto);
-
         //introducir número de teléfono
         do {
             numeroCorrecto = true;
@@ -209,14 +202,10 @@ public class Menu {
                 System.out.println("ERROR : Ha introducido mal el número de teléfono");
                 numeroTelefono = "";
             }
-
             if (!numeroTelefono.equals("")) {
                 numeroCorrecto = Numero.comprobarNumero(numeroTelefono, 1);
             }
         } while (!numeroCorrecto || numeroTelefono.equals(""));
-
-        /* aqui debemos preguntar a que empleado pondra de jefe y mostrar a los que ya son jefes de otros departamentos
-         **/
         Sede sede = HibernateUtil.buscarSede(numeroSede);
         Departamento departamento = new Departamento(nombre, null, sede, numeroTelefono);
         return departamento;
@@ -224,7 +213,7 @@ public class Menu {
 
 
     /**
-     * Metodo que pide al usuario los datos de un empleado para después introducirlo en la base de datos
+     * Método que pide al usuario los datos de un empleado para después introducirlo en la base de datos
      *
      * @param entrada
      * @return employee
@@ -250,18 +239,14 @@ public class Menu {
                 dni = entrada.nextLine();
                 dniCorrecto = DNI.validarDNI(dni);
             } while (!dniCorrecto);
-
             // Comprobar si el DNI introducido existe en la base de datos
             ArrayList<String> dniList = new ArrayList<>(HibernateUtil.arrayDNIs());
             System.out.println(dniList);
-
             if (dniList.contains(dni)) {
                 System.out.println("Este DNI ya existe en la base de datos");
                 dni = "";
             }
-
         } while (dni.equals(""));
-
         //introducir nombre y apellidos
         nome = Letras.setDatos(entrada, "nombre");
         apelidos = Letras.setDatos(entrada, "apellidos");
@@ -277,15 +262,14 @@ public class Menu {
                 numeroDeDepartamento = entrada.nextInt();
             } catch (InputMismatchException ime) {
                 System.out.println(ime);
+                entrada.nextLine();
                 numeroDeDepartamento = 0;
             }
             if (idDepartamentos.contains(numeroDeDepartamento)) {
                 numeroCorrecto = true;
             }
         } while (numeroDeDepartamento == 0 || !numeroCorrecto);
-
         // Introducir puesto de trabajo
-        // Vaciamos la cache del scanner
         entrada.nextLine();
         cargo = Letras.setDatos(entrada, "puesto de trabajo");
         // Introducir numero de telefono
@@ -299,17 +283,14 @@ public class Menu {
                 System.out.println("ERROR : Ha introducido mal el número de teléfono");
                 numeroTelefono = "";
             }
-
             if (!numeroTelefono.equals("")) {
                 numeroCorrecto = Numero.comprobarNumero(numeroTelefono, 1);
             }
         } while (!numeroCorrecto || numeroTelefono.equals(""));
-
         //Introducir fecha de nacimiento
         dataNacemento = Fecha.entrarFecha(entrada);
         //Introducir email
         email = Letras.setDatos(entrada, "correo electronico");
-
         // Introducir numero de la seguridad social
         do {
             numeroCorrecto = true;
@@ -326,7 +307,6 @@ public class Menu {
             }
         } while (!numeroCorrecto || numeroSeguridadSocial.equals(""));
         Departamento dep = HibernateUtil.buscarDepartamento(numeroDeDepartamento);
-
         //instanciamos un empleado con los datos del usuario
         Empregado employee = new Empregado(dni, nome, apelidos, dep,
                 cargo, numeroTelefono, dataNacemento, email, numeroSeguridadSocial);
@@ -334,8 +314,14 @@ public class Menu {
         return employee;
     }
 
-
-    public static Empregado modificarEmpleado(Scanner entrada,Empregado e) {
+/**Se le ofrece un menú de opciones para modificar email o número de telefono
+ * del empleado que recibe por parámetros y se le setea el nuevo valor
+ * devuelve un empleado modificado
+ *
+ * @param entrada
+ * @param  empregado
+ * */
+    public static Empregado empleadoAmodificar(Scanner entrada, Empregado empregado) {
         int opcion;
         boolean numeroCorrecto;
         String numeroTelefono, email;
@@ -360,13 +346,13 @@ public class Menu {
                 entrada.nextLine();
                 opcion = Integer.MIN_VALUE;
             }
-        } while (opcion != 3 && opcion!=1 && opcion!=2);
+        } while (opcion != 3 && opcion != 1 && opcion != 2);
 
         switch (opcion) {
             case 1:
                 //Introducir email
                 email = Letras.setDatos(entrada, "correo electronico");
-                e.setEmail(email);
+                empregado.setEmail(email);
                 break;
             case 2:
                 // Introducir número de teléfono
@@ -385,11 +371,11 @@ public class Menu {
                         numeroCorrecto = Numero.comprobarNumero(numeroTelefono, 1);
                     }
                 } while (!numeroCorrecto || numeroTelefono.equals(""));
-                e.setNumeroTelefono(numeroTelefono);
+                empregado.setNumeroTelefono(numeroTelefono);
                 break;
 
 
         }
-        return e;
+        return empregado;
     }
 }

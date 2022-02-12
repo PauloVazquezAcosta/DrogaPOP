@@ -15,7 +15,6 @@ public class Numero {
                 longitudNumero = 12;
                 break;
         }
-
         if (numeroIntroducido.length() != longitudNumero) {
             correcto = false;
         }

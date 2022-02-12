@@ -21,7 +21,7 @@ public class Departamento extends Entidade implements Serializable {
 
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "deptno")
     private List<Empregado> empregados;
 
     public List<Empregado> getEmpregados() {

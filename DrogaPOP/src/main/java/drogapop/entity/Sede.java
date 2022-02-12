@@ -9,10 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="sedes", catalog="DrogaPOP")
 public class Sede extends Entidade implements Serializable {
-
-
     private static final long serialVersionUID = 1L;
-
     @Id
     @Column(name="id")
     int id;
@@ -22,7 +19,6 @@ public class Sede extends Entidade implements Serializable {
 
     @Column(name="telefono")
     String telefono;
-
 
     public Sede(int id, String ubicacion, String telefono) {
         this.id = id;
@@ -56,5 +52,14 @@ public class Sede extends Entidade implements Serializable {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    @Override
+    public String toString() {
+        return "Sede{" +
+                "id=" + id +
+                ", ubicacion='" + ubicacion + '\'' +
+                ", telefono='" + telefono + '\'' +
+                '}';
     }
 }

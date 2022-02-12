@@ -47,4 +47,13 @@ public class TipoContrato extends Entidade implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    @Override
+    public String toString() {
+        return "TipoContrato{" +
+                "id=" + id +
+                ", contratos=" + contratos +
+                ", nome='" + nome + '\'' +
+                '}';
+    }
 }

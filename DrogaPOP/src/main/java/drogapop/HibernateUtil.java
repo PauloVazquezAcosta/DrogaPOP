@@ -16,10 +16,8 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 public class HibernateUtil {
-
     private static SessionFactory sessionFactory;
     private static Session session;
-
     /**
      * Crea la factoria de sesiones, que se utilizará para crear nuevas sesiones
      *
@@ -142,7 +140,6 @@ public class HibernateUtil {
     public static Departamento buscarDepartamento(Integer id) {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento where id=" + id);
         Departamento departamento = (Departamento) query.getSingleResult();
-
         return departamento;
     }
 
@@ -196,7 +193,6 @@ public class HibernateUtil {
     public static void mostrarIdNombreDepartamentos() {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento");
         ArrayList<Departamento> departamentos = (ArrayList<Departamento>) query.list();
-
         System.out.println("Código \tNombre");
         for (Departamento departamento : departamentos) {
             System.out.println(departamento.getDeptno() + "\t\t" + departamento.getNome());
@@ -220,20 +216,11 @@ public class HibernateUtil {
      * Muestra los datos de la tabla que pasemos por parámetro
      * que debe ser un String con el nombre de la clase que modela a la tabla correspondiente en la BBDD
      * y emple el .toString de cada clase
-     * TODO: Revisar formato
      *
      * @version 0.0.1
      */
     public static void mostrarTabla(String tabla) {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM " + tabla);
-        ArrayList<Object> objetos = (ArrayList<Object>) query.list();
-        for (Object objecto : objetos) {
-            System.out.println(objecto.toString());
-        }
-    }
-
-    public static void mostrarVistas(String tabla) {
-        Query query = HibernateUtil.getCurrentSession().createQuery("v FROM " + tabla);
         ArrayList<Object> objetos = (ArrayList<Object>) query.list();
         for (Object objecto : objetos) {
             System.out.println(objecto.toString());
@@ -256,52 +243,16 @@ public class HibernateUtil {
         return dnis;
     }
 
-    public static void mostrarEmpleadosNoJefes() {
-        String queryHQL = "SELECT new Map(e.DNI ,e.nome ) FROM Empregado as e " +
-                "where not ( e.id) in (" +
-                "   select d.xefe from Departamento d" +
-                "  )";
-
-        Query query = HibernateUtil.getCurrentSession().createQuery(queryHQL);
-        List<Map> listaResultados = query.list();
-
-        for (int i = 0; i < listaResultados.size(); i++) {
-            Map mapa = listaResultados.get(i);
-
-            System.out.println("Datos del empleado " + i);
-
-            Set llaves = mapa.keySet();
-
-            for (Iterator<String> it = llaves.iterator(); it.hasNext(); ) {
-                String llaveActual = it.next();
-
-                System.out.println("\t" + mapa.get(llaveActual));
-            }
-        }
-
-    }
-
-
-    public static void eleiminarDepartamento(Departamento departamentoAeliminar, Scanner entrada) {
+/**Se elimina un departamento recibido si no tiene empleados
+ *
+ * @param departamentoAeliminar
+ * */
+    public static void eliminarDepartamento(Departamento departamentoAeliminar) {
         int opcion = 2;
         boolean opcionCorrecta = false;
-
-        if (departamentoAeliminar.getEmpregados() != null) {
-            /** System.out.println("Al eliminar el departamento "+departamentoAeliminar.getNome()+
-             " se eliminarán también los empleados que pertenecen a él");
-             do{ try{
-             System.out.println("Escriba 0 si desea continuar o 1 si desea cancelar la operación: ");
-             opcion=entrada.nextInt();
-             }catch (NumberFormatException e){
-             entrada.nextLine();
-             System.out.println(" Debe escribir 0 para eliminar el departamento y 1 para cancelar la operación");
-             }
-             opcionCorrecta=true;
-             }while (!opcionCorrecta);
-             if(opcion==0){
-             removeObject(departamentoAeliminar);
-
-             }*/
+        List<Empregado> empregados = departamentoAeliminar.getEmpregados();
+        System.out.println(empregados.toString());
+        if (!departamentoAeliminar.getEmpregados().isEmpty()) {
             System.out.println("No se puede eliminar el departamento " + departamentoAeliminar.getNome()
                     + " porque tiene empleados asociados");
         } else {
@@ -309,15 +260,21 @@ public class HibernateUtil {
         }
 
     }
-
+/**Se busca a un empleado usando su dni
+ *
+ * @param dniEmpleadoAmodificar
+ * @return empregado
+ * */
     public static Empregado buscarEmpleado(String dniEmpleadoAmodificar) {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado WHERE DNI = '" + dniEmpleadoAmodificar + "'");
         Empregado empregado = (Empregado) query.getSingleResult();
         empregado.toString();
-
         return empregado;
     }
-
+/**Recibe un empleado que ha sido modificado y lo acttualiza en la base de datos
+ *
+ * @param empregadoModificado 
+ * */
     public static void updateEmpleado(Empregado empregadoModificado) {
         Session session = HibernateUtil.getCurrentSession();
         session.beginTransaction();
