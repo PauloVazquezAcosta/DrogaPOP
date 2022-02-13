@@ -59,7 +59,7 @@ A estrutura da base de datos constaba nun inicio de dúas táboas: Empregados e 
 As novas táboas representan aos empregados, departamentos e as diferentes sedes da empresa. Cada táboa tén a súa chave primaria que non se poderá repetir, isto terase en conta á hora de programar en Java. Tamén terán chaves foráneas xa que cada departamento ten un xefe que tén que estar na lista de empregados e cada empregado pertence a un departamento. Isto é importante porque hai que verirficar que o xefe do departamento sexa empregado e que o departamento existe cando se introduce un empregado. Tamén temos que ter en conta de que o departamento se cree nunha sede xa existente, ou que se engada esta sede para que esta relación sexa completa.
 
 O **modelo Entidade-Relación** é o seguinte:
-![Modelo ER DrogaPOP](https://raw.githubusercontent.com/PauloVazquezAcosta/DrogaPOP/readme/images/Modelo%20ER%20DrogaPOP.png)
+![Modelo ER DrogaPOP](https://raw.githubusercontent.com/PauloVazquezAcosta/DrogaPOP/develop/images/Modelo%20ER%20DrogaPOP.jpeg)
 As táboas na base de datos teñen os atributos que se mostran seguidamente, na seguinte relación podemos ver o tipo de dato de cada táboa nas dúas linguaxes que usaremos: SQL e Java. Tamén o tipo de restrición que tén cada atributo de cara a poder programar tendo en conta a estrutura da base de datos.
 
 #### Táboa Departamentos
