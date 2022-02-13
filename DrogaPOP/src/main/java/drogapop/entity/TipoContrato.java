@@ -7,20 +7,20 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="tipo_contrato", catalog="DrogaPOP")
+@Table(name = "tipo_contrato", catalog = "DrogaPOP")
 public class TipoContrato extends Entidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     int id;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="id")
+    @JoinColumn(name = "id")
     Set<Contrato> contratos;
 
-    @Column(name="nome")
+    @Column(name = "nome")
     String nome;
 
     public TipoContrato(int id, String nome) {
@@ -49,6 +49,10 @@ public class TipoContrato extends Entidade implements Serializable {
     }
 
     @Override
+    /** Pasa a una cadena de texto los valores relacionados con TipoContrato
+     *
+     * @version 1.0.0
+     */
     public String toString() {
         return "TipoContrato{" +
                 "id=" + id +

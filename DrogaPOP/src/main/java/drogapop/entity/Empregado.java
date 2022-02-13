@@ -141,6 +141,10 @@ public class Empregado extends Entidade implements Serializable  {
     }
 
     @Override
+    /** Pasa a una cadena de texto los valores relacionados con Empregado
+     *
+     * @version 1.0.0
+     */
     public String toString() {
         return "[" +
                 "id=" + id +

@@ -8,15 +8,15 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="departamentos", catalog="DrogaPOP")
+@Table(name = "departamentos", catalog = "DrogaPOP")
 public class Departamento extends Entidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="secuencia_id_departamento")
-    @SequenceGenerator(name="secuencia_id_departamento", sequenceName="departamento_id_seq", allocationSize=1)
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "secuencia_id_departamento")
+    @SequenceGenerator(name = "secuencia_id_departamento", sequenceName = "departamento_id_seq", allocationSize = 1)
+    @Column(name = "id")
     int deptno;
 
 
@@ -32,7 +32,7 @@ public class Departamento extends Entidade implements Serializable {
         this.empregados = empregados;
     }
 
-    @Column(name="nome")
+    @Column(name = "nome")
     String nome;
 
     //un departamento solo tiene un jefe y un empregado es jefe de solo un departamento
@@ -44,9 +44,11 @@ public class Departamento extends Entidade implements Serializable {
     public Empregado getXefe() {
         return xefe;
     }
+
     public void setXefe(Empregado xefe) {
         this.xefe = xefe;
     }
+
     //un departamento esta solo en una ubicación y una sede puede tener muchos departamentos
     @ManyToOne()
     @JoinColumn(name = "ubicacion")
@@ -60,9 +62,8 @@ public class Departamento extends Entidade implements Serializable {
         this.sede = sede;
     }
 
-    @Column(name="telefono")
+    @Column(name = "telefono")
     String telefono;
-
 
 
     public Departamento(String nome, Empregado xefe, Sede ubicacion, String telefono) {
@@ -99,13 +100,19 @@ public class Departamento extends Entidade implements Serializable {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-//en caso de que el departamento no tenga asignado un jefe aun, al mostrarlo le damos un valor vacio para evitar el NullPointerExeption
+
+    //en caso de que el departamento no tenga asignado un jefe aun, al mostrarlo le damos un valor vacio para evitar el NullPointerException
+
     @Override
+    /** Pasa a una cadena de texto los valores relacionados con Departamento
+     *
+     * @version 1.0.0
+     */
     public String toString() {
         return "[" +
                 "deptno=" + deptno +
                 ", nome='" + nome + '\'' +
-                ", xefe=" + (xefe!=null?xefe.getNome():"(sin jefe asignado) ") +
+                ", xefe=" + (xefe != null ? xefe.getNome() : "(sin jefe asignado) ") +
                 ", sede=" + sede.getUbicacion() +
                 ", telefono='" + telefono + '\'' +
                 ']';

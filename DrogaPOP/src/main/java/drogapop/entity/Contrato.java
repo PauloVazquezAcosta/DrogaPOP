@@ -118,6 +118,10 @@ public class Contrato extends Entidade implements Serializable {
     }
 
     @Override
+    /** Pasa a una cadena de texto los valores relacionados con Contrato
+     *
+     * @version 1.0.0
+     */
     public String toString() {
         return "Contrato{" +"/t"+
                 "id=" + id +"/t"+

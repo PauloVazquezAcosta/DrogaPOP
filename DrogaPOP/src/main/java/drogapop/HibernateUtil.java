@@ -21,7 +21,7 @@ public class HibernateUtil {
     /**
      * Crea la factoria de sesiones, que se utilizará para crear nuevas sesiones
      *
-     * @version 0.0.1
+     * @version 1.0.0
      */
     public static void buildSessionFactory() {
         // Se instancia el objeto Configuration
@@ -58,7 +58,7 @@ public class HibernateUtil {
     /**
      * Abre una nueva sesión
      *
-     * @version 0.0.1
+     * @version 1.0.0
      */
     public static void openSession() {
         session = sessionFactory.openSession();
@@ -68,7 +68,7 @@ public class HibernateUtil {
      * Devuelve la sesión actual. Si no hay una activa, se abre
      *
      * @return sesión actual
-     * @version 0.0.1
+     * @version 1.0.0
      */
     public static Session getCurrentSession() {
         if ((session == null) || (!session.isOpen()))
@@ -79,7 +79,7 @@ public class HibernateUtil {
     /**
      * Cierra Hibernate
      *
-     * @version 0.0.1
+     * @version 1.0.0
      */
     public static void closeSessionFactory() {
         if (session != null)
@@ -92,7 +92,7 @@ public class HibernateUtil {
      * Introducir elemento en la base de datos
      *
      * @param object -> objeto a añadir a la base de datos
-     * @version 0.0.1
+     * @version 1.0.0
      */
     public static void addObject(Object object) {
         Session session = HibernateUtil.getCurrentSession();
@@ -106,7 +106,7 @@ public class HibernateUtil {
      * Eliminar elemento de la base de datos
      *
      * @param object -> objeto a eliminar
-     * @version 0.0.1
+     * @version 1.0.0
      */
 
     public static void removeObject(Object object) {
@@ -121,7 +121,7 @@ public class HibernateUtil {
      * Eliminar un empleado de la base de datos por ID
      *
      * @param identifier -> identificador del empleado
-     * @version 0.0.1
+     * @version 1.0.0
      */
     @Transactional
     public static void removeEmployee(String identifier) {
@@ -135,6 +135,7 @@ public class HibernateUtil {
      * devuelve un objeto tipo departamento según el id que pasemos por parámetro
      *
      * @return Departamento
+     * @version 1.0.0
      */
     @Transactional
     public static Departamento buscarDepartamento(Integer id) {
@@ -147,6 +148,7 @@ public class HibernateUtil {
      * devuelve un objeto tipo sede según el id que pasemos por parametro
      *
      * @return Sede
+     * @version 1.0.0
      */
     public static Sede buscarSede(Integer id) {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sede where id=" + id);
@@ -159,6 +161,7 @@ public class HibernateUtil {
      * Este método devuelve una lista con los codigods de los deparatamentos
      *
      * @return ArrayList<>-->idDepartamentos
+     * @version 1.0.0
      */
     public static ArrayList<Integer> idDepartamentos() {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento");
@@ -175,6 +178,7 @@ public class HibernateUtil {
      * se usa para comprobar que al introducir un deparatamento pertenezca a una sede que ya exista
      *
      * @return ArrayList<>-->idSedes
+     * @version 1.0.0
      */
     public static ArrayList<Integer> idSedes() {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sede");
@@ -189,6 +193,8 @@ public class HibernateUtil {
     /**
      * este método muestra solo el id y el nombre del departamento.
      * es usado para que el usuario elija en que departamento va a incluir a un nuevo empleado
+     *
+     * @version 1.0.0
      */
     public static void mostrarIdNombreDepartamentos() {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Departamento");
@@ -202,6 +208,8 @@ public class HibernateUtil {
     /**
      * este método muestra solo el id y la ubicación de la sede.
      * es usado para que el usuario elija en que sede va a incluir a un nuevo departamento
+     *
+     * @version 1.0.0
      */
     public static void mostrarIdUbicacionSedes() {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Sede");
@@ -217,7 +225,7 @@ public class HibernateUtil {
      * que debe ser un String con el nombre de la clase que modela a la tabla correspondiente en la BBDD
      * y emple el .toString de cada clase
      *
-     * @version 0.0.1
+     * @version 1.0.0
      */
     public static void mostrarTabla(String tabla) {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM " + tabla);
@@ -232,6 +240,8 @@ public class HibernateUtil {
      * se usa para comprobar que al insertar empleado no introduzcan un dni que ya exite en la BBDD
      *
      * @return ArrayList<String>
+     *
+     * @version 1.0.0
      */
     public static ArrayList<String> arrayDNIs() {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado");
@@ -246,6 +256,8 @@ public class HibernateUtil {
 /**Se elimina un departamento recibido si no tiene empleados
  *
  * @param departamentoAeliminar
+ *
+ * @version 1.0.0
  * */
     public static void eliminarDepartamento(Departamento departamentoAeliminar) {
         int opcion = 2;
@@ -264,6 +276,8 @@ public class HibernateUtil {
  *
  * @param dniEmpleadoAmodificar
  * @return empregado
+ *
+ * @version 1.0.0
  * */
     public static Empregado buscarEmpleado(String dniEmpleadoAmodificar) {
         Query query = HibernateUtil.getCurrentSession().createQuery("FROM Empregado WHERE DNI = '" + dniEmpleadoAmodificar + "'");
@@ -274,6 +288,8 @@ public class HibernateUtil {
 /**Recibe un empleado que ha sido modificado y lo acttualiza en la base de datos
  *
  * @param empregadoModificado
+ *
+ * @version 1.0.0
  * */
     public static void updateEmpleado(Empregado empregadoModificado) {
         Session session = HibernateUtil.getCurrentSession();

@@ -16,8 +16,9 @@ public class Menu {
     /**
      * Determina la acción que realizará el programa en función de la selección del usuario en el menú
      *
-     * @param opcion
-     * @param entrada
+     * @param opcion  Es la opción del menú que elige el usuario
+     * @param entrada El Scanner que permitirá introducir opciones dentro del menú
+     * @version 1.0.0
      */
     public static void menuOpciones(int opcion, Scanner entrada) {
         switch (opcion) {
@@ -102,9 +103,10 @@ public class Menu {
     }
 
     /**
-     * Se comprueba que existe
+     * Comprueba que existe un departamento a eliminar y lo devuelve
      *
-     * @return devuelve un Departamento
+     * @return departamentoAeliminar
+     * @version 1.0.0
      */
     private static Departamento departamentoAeliminar(Scanner entrada) {
         Departamento departamentoAeliminar = new Departamento();
@@ -132,10 +134,11 @@ public class Menu {
     }
 
     /**
-     * Se muestran los empleados existentes y se pregunta al usuario  que  empleado desea eliminar
-     * Se  comprueba que el dni exista en la base de datos y di existe se devuelve
+     * Se muestran los empleados existentes y se pregunta al usuario  qué  empleado desea eliminar
+     * Se  comprueba que el DNI exista en la base de datos y si existe se devuelve
      *
-     * @return String dni
+     * @return dniIntroducido
+     * @version 1.0.0
      */
     @Transactional
     private static String encontrarDNI(Scanner entrada) {
@@ -163,7 +166,8 @@ public class Menu {
      * Se piden al usuario cada uno de los valores del departamento a introducir
      * validando en cada caso
      *
-     * @return Deparatamento
+     * @return departamento
+     * @version 1.0.0
      */
     @Transactional
     private static Departamento deparatamentoAintroducir(Scanner entrada) {
@@ -215,9 +219,9 @@ public class Menu {
     /**
      * Método que pide al usuario los datos de un empleado para después introducirlo en la base de datos
      *
-     * @param entrada
+     * @param entrada El Scanner que permitirá introducir los datos del empleado
      * @return employee
-     * @version 0.0.1
+     * @version 1.0.0
      */
     @Transactional
     public static Empregado introducirEmpleado(Scanner entrada) {
@@ -314,13 +318,16 @@ public class Menu {
         return employee;
     }
 
-/**Se le ofrece un menú de opciones para modificar email o número de telefono
- * del empleado que recibe por parámetros y se le setea el nuevo valor
- * devuelve un empleado modificado
- *
- * @param entrada
- * @param  empregado
- * */
+    /**
+     * Se le ofrece un menú de opciones para modificar email o número de teléfono
+     * del empleado que recibe por parámetros y se le setea el nuevo valor
+     * devuelve un empleado modificado
+     *
+     * @param entrada   El Scanner que permitirá introducir los nuevos datos
+     * @param empregado Empleado que se quiere modificar
+     * @return empregado
+     * @version 1.0.0
+     */
     public static Empregado empleadoAmodificar(Scanner entrada, Empregado empregado) {
         int opcion;
         boolean numeroCorrecto;

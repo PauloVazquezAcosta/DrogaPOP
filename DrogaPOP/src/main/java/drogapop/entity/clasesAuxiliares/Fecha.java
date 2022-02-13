@@ -12,8 +12,8 @@ public class Fecha {
      * formato deseado.
      *
      * @param input traspasa el Scanner asociado al teclado.
-     * @return Date devuelve un objeto Date válido
-     * @version 0.0.1
+     * @return thisDate
+     * @version 1.0.0
      */
     public static Date entrarFecha(Scanner input) {
 
