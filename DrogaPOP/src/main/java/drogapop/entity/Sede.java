@@ -55,6 +55,10 @@ public class Sede extends Entidade implements Serializable {
     }
 
     @Override
+    /** Pasa a una cadena de texto los valores relacionados con Sede
+     *
+     * @version 1.0.0
+     */
     public String toString() {
         return "Sede{" +
                 "id=" + id +

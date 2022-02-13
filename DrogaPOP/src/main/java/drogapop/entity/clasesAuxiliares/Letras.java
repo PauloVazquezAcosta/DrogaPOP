@@ -1,15 +1,16 @@
 package drogapop.entity.clasesAuxiliares;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Letras {
     /**
-     * Veririca que el usuario introduzca una cadena válida.
+     * Veririca que el usuario introduzca una cadena válida en función de si es apellido, nombre, correo o cargo.
      *
      * @param entrada traspasa el Scanner asociado al teclado.
-     * @return String validado
-     * @version 0.0.1
+     * @return dato
+     * @version 1.0.0
      */
     public static String setDatos(@org.jetbrains.annotations.NotNull Scanner entrada, String tipoDato) {
         String dato;

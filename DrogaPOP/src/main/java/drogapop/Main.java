@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
  * @author Yuda
  * @author Maikel
  * @author Nicolás
+ * @version 1.0.0
  */
 public class Main {
 
