@@ -16,9 +16,10 @@ public class Contrato extends Entidade implements Serializable {
     @Id
     @Column(name="id")
     int id;
-
-    @Column(name="empregado")
-    int empregado;
+    //un contrato pertenece solo a un empleado
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "empregado")
+    Empregado empregado;
 
     @Column(name="data_inicio")
     Date dataInicio;
@@ -38,7 +39,7 @@ public class Contrato extends Entidade implements Serializable {
     @Column(name="horas_xornada_semanal")
     int horasJornadaSemanal;
 
-    public Contrato(int id, int empregado, Date dataInicio, Date dataFin, double salario, int tipo, Integer mesesDuracion, int horasJornadaSemanal) {
+    public Contrato(int id, Empregado empregado, Date dataInicio, Date dataFin, double salario, int tipo, Integer mesesDuracion, int horasJornadaSemanal) {
         this.id = id;
         this.empregado = empregado;
         this.dataInicio = dataInicio;
@@ -61,11 +62,11 @@ public class Contrato extends Entidade implements Serializable {
         this.id = id;
     }
 
-    public int getEmpregado() {
+    public Empregado getEmpregado() {
         return empregado;
     }
 
-    public void setEmpregado(int empregado) {
+    public void setEmpregado(Empregado empregado) {
         this.empregado = empregado;
     }
 
@@ -119,15 +120,15 @@ public class Contrato extends Entidade implements Serializable {
 
     @Override
     public String toString() {
-        return "Contrato{" +"/t"+
-                "id=" + id +"/t"+
-                ", empregado=" + empregado +"/t"+
-                ", dataInicio=" + dataInicio +"/t"+
-                ", dataFin=" + dataFin +"/t"+
-                ", salario=" + salario +"/t"+
-                ", tipo=" + tipo +"/t"+
-                ", mesesDuracion="+ (mesesDuracion!=null?mesesDuracion :"(indefinido)") +"/t"+
-                ", horasJornadaSemanal=" + horasJornadaSemanal +
+        return "Contrato{" +"\n"+
+                " id=" + id +"\n"+
+                " empregado=" + empregado.getNome() +"\n"+
+                " dataInicio=" + dataInicio +"\n"+
+                " dataFin=" + dataFin +"\n"+
+                " salario=" + salario +"\n"+
+                " tipo=" + tipo +"\n"+
+                " mesesDuracion="+ (mesesDuracion!=null?mesesDuracion :"(indefinido)") +"\n"+
+                " horasJornadaSemanal=" + horasJornadaSemanal +"\n"+
                 '}';
     }
 }

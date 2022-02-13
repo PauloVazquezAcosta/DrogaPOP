@@ -1,6 +1,7 @@
 package drogapop.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -15,10 +16,10 @@ public class TipoContrato extends Entidade implements Serializable {
     @Id
     @Column(name="id")
     int id;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="id")
-    Set<Contrato> contratos;
+    //un contrato solo es de un tipo_de_contrato
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="tipo")
+    private List<Contrato> contratos;
 
     @Column(name="nome")
     String nome;
@@ -30,6 +31,14 @@ public class TipoContrato extends Entidade implements Serializable {
 
     public TipoContrato() {
 
+    }
+
+    public List<Contrato> getContratos() {
+        return contratos;
+    }
+
+    public void setContratos(List<Contrato> contratos) {
+        this.contratos = contratos;
     }
 
     public int getId() {
@@ -51,9 +60,8 @@ public class TipoContrato extends Entidade implements Serializable {
     @Override
     public String toString() {
         return "TipoContrato{" +
-                "id=" + id +
-                ", contratos=" + contratos +
-                ", nome='" + nome + '\'' +
+                "id=" + id + "\t" +
+                ", nome='" + nome + "\t" +
                 '}';
     }
 }
