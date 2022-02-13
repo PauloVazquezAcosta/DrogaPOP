@@ -7,7 +7,6 @@
 	- [Pre-requisitos](#pre-requisitos)
 	- [Instalación](#instalaci%C3%B3n)
 - [Base de datos](#base-de-datos)
-- [Código](#c%C3%B3digo)
 - [Roadmap](#roadmap)
 - [Estado do proxecto](#estado-do-proxecto)
 - [Contribucións](#contribuci%C3%B3ns)
@@ -59,9 +58,6 @@ Instalar un IDE para abrir o proxecto, aquí temos os que se utilizaron para des
 
 ## Base de datos
 A base de datos está detallada no documento [DATABASE.md](https://github.com/PauloVazquezAcosta/DrogaPOP/blob/readme/docs/DATABASE.md)
-
-## Código
-A explicación do código está detallada no documento [CODE.md](https://github.com/PauloVazquezAcosta/DrogaPOP/blob/readme/docs/CODE.md)
 
 ## Roadmap
 - [x] Análise do problema
