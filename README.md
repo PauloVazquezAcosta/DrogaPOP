@@ -66,10 +66,10 @@ A base de datos está detallada no documento [DATABASE.md](https://github.com/Pa
 - [x] Introducidos os datos na base de datos
 - [x] Importada a librería ORM Hibernate
 - [x] Creadas en Java as clases que representan a cada fila da base de datos
-- [ ] Programación dos métodos que se comunicarán co usuario no Main
-- [ ] Programación dos métodos que se comunicarán coa base de datos en Connect
-- [ ] Probas de funcionamento do programa
-- [ ] Documentación
+- [x] Programación dos métodos que se comunicarán co usuario no Main
+- [x] Programación dos métodos que se comunicarán coa base de datos en Connect
+- [x] Probas de funcionamento do programa
+- [x] Documentación
 
 ## Estado do proxecto
 O proxecto está en progreso.
