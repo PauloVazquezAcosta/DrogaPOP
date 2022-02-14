@@ -57,7 +57,7 @@ Instalar un IDE para abrir o proxecto, aquí temos os que se utilizaron para des
   3. Abre o proxecto no IDE e compila o código.
 
 ## Base de datos
-A base de datos está detallada no documento [DATABASE.md](https://raw.githubusercontent.com/PauloVazquezAcosta/DrogaPOP/main/docs/DATABASE.md)
+A base de datos está detallada no documento [DATABASE.md](https://github.com/PauloVazquezAcosta/DrogaPOP/blob/main/docs/DATABASE.md)
 
 ## Roadmap
 - [x] Análise do problema
@@ -88,10 +88,10 @@ Non esquezas dar unha estrela ao proxecto. Grazas de novo!
 5. Abre unha Pull Request
 
 ## Licenza
-Distribuído baixo _[GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html)_. Ver [`LICENSE.md`](https://raw.githubusercontent.com/PauloVazquezAcosta/DrogaPOP/main/docs/LICENSE.md) para máis información.
+Distribuído baixo _[GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html)_. Ver [`LICENSE.md`](https://github.com/PauloVazquezAcosta/DrogaPOP/blob/main/docs/LICENSE.md) para máis información.
 
 ## Código de conduta
-Este Código de Conducta é unha adaptación do [Contributor Covenant](https://www.contributor-covenant.org/es/version/2/0/code_of_conduct.html), versión 2.0. Ver [`CODIGO_CONDUTA.md`](https://raw.githubusercontent.com/PauloVazquezAcosta/DrogaPOP/main/docs/CONTRIBUTOR_COVENANT.md) para máis información.
+Este Código de Conducta é unha adaptación do [Contributor Covenant](https://www.contributor-covenant.org/es/version/2/0/code_of_conduct.html), versión 2.0. Ver [`CODIGO_CONDUTA.md`](https://github.com/PauloVazquezAcosta/DrogaPOP/blob/main/docs/CONTRIBUTOR_COVENANT.md) para máis información.
 
 ## Versionado 📌
 
