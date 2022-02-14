@@ -108,7 +108,7 @@ Representa os contratos de cada empregado da empresa. Nesta táboa podemos atopa
 | meses_duracion| integer  | int| |
 | horas_xornada_semanal| smallint  | int | Not NULL|
 
-#### Táboa Contratos
+#### Táboa Tipo de Contratos
 Representa os tipos de contratos cos que a empresa pode contratar a empregados, son os 4 permitidos pola lexislación laboral española. Nesta táboa podemos atopar o id do contrato e o nome do tipo de contrato.
 | Nome de columna  | Tipo de dato SQL | Tipo de dato Java| Características|
 | ------------- | ------------- | ------------- | ------------- |
