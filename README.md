@@ -72,7 +72,7 @@ A base de datos está detallada no documento [DATABASE.md](https://github.com/Pa
 - [x] Documentación
 
 ## Estado do proxecto
-O proxecto está en progreso.
+O proxecto está coa versión 1.0.0 funcional.
 
 ## Contribucións
 As contribucións son o que fai que a comunidade de código aberto sexa un lugar incrible para aprender, inspirar e crear. Calquera contribución que fagas é **moi apreciada**.
@@ -100,8 +100,8 @@ Usamos [SemVer](https://semver.org/lang/es/) para o versionado. Para todas as ve
 ## Autores
 -   **Yudaisy Ramos**  -  _Programación_  -  [YudaRamos](https://github.com/YudaRamos)
 -   **Nicolás Gómez**  -  _Programación_  -  [45NGC](https://github.com/45NGC)
--   **Miguel Díaz**  -  _Programación_  -  [mayco1](https://github.com/mayco1)
--  **Paulo Vázquez**  -  _Documentación e Backend_  -  [PauloVazquezAcosta](https://github.com/PauloVazquezAcosta)
+-   **Miguel Díaz**  -  _Hibernate_  -  [mayco1](https://github.com/mayco1)
+-  **Paulo Vázquez**  -  _Backend e Documentación_  -  [PauloVazquezAcosta](https://github.com/PauloVazquezAcosta)
 
 ## Expresións de Gratitude 🎁
 
