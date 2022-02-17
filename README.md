@@ -62,11 +62,10 @@ A base de datos está detallada no documento [DATABASE.md](https://github.com/Pa
 
 ## Código
 O código pode ser visto directamente no [repositorio](https://github.com/PauloVazquezAcosta/DrogaPOP/tree/main/DrogaPOP/src/main/java/drogapop).
-![Diagrama UML DrogaPOP](https://raw.githubusercontent.com/PauloVazquezAcosta/DrogaPOP/main/images/diagrama_UML.png)
 
 ### Diagrama UML
-O diagrama UML que serviu de base para iniciar este proxecto é o seguinte:
-
+O diagrama UML, feito en **Paint** polo noso [equipo especializado en arte](https://github.com/45NGC), que serviu de base para iniciar este proxecto é o seguinte:
+![Diagrama UML DrogaPOP](https://raw.githubusercontent.com/PauloVazquezAcosta/DrogaPOP/main/images/diagrama_UML.png)
 
 ## Roadmap
 - [x] Análise do problema
