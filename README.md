@@ -7,6 +7,7 @@
 	- [Pre-requisitos](#pre-requisitos)
 	- [Instalación](#instalaci%C3%B3n)
 - [Base de datos](#base-de-datos)
+- [Código](#Código)
 - [Roadmap](#roadmap)
 - [Estado do proxecto](#estado-do-proxecto)
 - [Contribucións](#contribuci%C3%B3ns)
@@ -58,6 +59,14 @@ Instalar un IDE para abrir o proxecto, aquí temos os que se utilizaron para des
 
 ## Base de datos
 A base de datos está detallada no documento [DATABASE.md](https://github.com/PauloVazquezAcosta/DrogaPOP/blob/main/docs/DATABASE.md)
+
+## Código
+O código pode ser visto directamente no [repositorio](https://github.com/PauloVazquezAcosta/DrogaPOP/tree/main/DrogaPOP/src/main/java/drogapop).
+![Diagrama UML DrogaPOP](https://raw.githubusercontent.com/PauloVazquezAcosta/DrogaPOP/main/images/diagrama_UML.png)
+
+### Diagrama UML
+O diagrama UML que serviu de base para iniciar este proxecto é o seguinte:
+
 
 ## Roadmap
 - [x] Análise do problema
