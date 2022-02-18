@@ -106,10 +106,10 @@ Este Código de Conducta é unha adaptación do [Contributor Covenant](https://w
 Usamos [SemVer](https://semver.org/lang/es/) para o versionado. Para todas as versións dispoñibles, mira os [tags no repositorio](https://github.com/PauloVazquezAcosta/DrogaPOP/tags).
 
 ## Autores
--   **Yudaisy Ramos**  -  _Programación_  -  [YudaRamos](https://github.com/YudaRamos)
--   **Nicolás Gómez**  -  _Programación_  -  [45NGC](https://github.com/45NGC)
--   **Miguel Díaz**  -  _Hibernate_  -  [mayco1](https://github.com/mayco1)
--  **Paulo Vázquez**  -  _Backend e Documentación_  -  [PauloVazquezAcosta](https://github.com/PauloVazquezAcosta)
+-   **Yudaisy Ramos** - [YudaRamos](https://github.com/YudaRamos)
+-   **Nicolás Gómez** - [45NGC](https://github.com/45NGC)
+-   **Miguel Díaz** - [mayco1](https://github.com/mayco1)
+-  **Paulo Vázquez** - [PauloVazquezAcosta](https://github.com/PauloVazquezAcosta)
 
 ## Expresións de Gratitude 🎁
 
